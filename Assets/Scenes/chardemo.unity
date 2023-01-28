@@ -441,6 +441,50 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8ddd8788-3335-4c72-90b5-4cf6ab9e509f
     m_ActionName: Player/Activate Trigger[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1660336461}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnElements
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1602296e-600c-4e21-9f69-27a16364f561
+    m_ActionName: Player/Elements[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/Keyboard/5,/Keyboard/6,/Keyboard/7,/Keyboard/8]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2bff4a86-1cfd-49d8-8b97-81f957ac843b
+    m_ActionName: Player/Element2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1a92051d-323d-4980-9f8a-3132c0f7384a
+    m_ActionName: Player/Element3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7d0c18f6-58c3-4bbd-8690-d28ed590bf11
+    m_ActionName: Player/Element4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aab5a69f-e7a9-4234-9f41-c4dfb993c39b
+    m_ActionName: Player/Element5[/Keyboard/5]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b3beca6-aabe-4f27-b2d6-2066d0584dff
+    m_ActionName: Player/Element6[/Keyboard/6]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db5d2af2-0845-4c47-8e69-a72d8740f32e
+    m_ActionName: Player/Element7[/Keyboard/7]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aa7e52bd-ef87-49d9-aac3-11450ad465e3
+    m_ActionName: Player/Element8[/Keyboard/8]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -473,6 +517,7 @@ GameObject:
   - component: {fileID: 1660336459}
   - component: {fileID: 1660336458}
   - component: {fileID: 1660336457}
+  - component: {fileID: 1660336461}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -556,10 +601,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660336456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6059728, y: -9.500097, z: 10.019977}
+  m_LocalPosition: {x: 15.18, y: 1.31, z: 9.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1660336461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660336456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7f35e2b8431b740aa3a90c3e183c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 1660336457}
+  _playerCamera: {fileID: 0}
+  _mouseSensitivity: 100
+  _minMaxAngle: {x: 0, y: 0}
+  _mouse: {x: 0, y: 0}
+  _xRotation: 0
+  _interactableDistance: 2
