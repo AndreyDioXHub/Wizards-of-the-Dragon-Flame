@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform _point;
 
-   [SerializeField]
-    private Transform _playerCamera;
+    [SerializeField]
+    private Camera _playerCamera;
     [SerializeField]
     private float _mouseSensitivity = 100f;
     [SerializeField]
@@ -36,12 +36,29 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("GetMouseButtonDown");
+            RaycastHit hit;
+            Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                _point.position = hit.point;
+                RotateToPoint();
+                MoveToPoint();
+
+
+                //Debug.Log(hit.point);
+            }
+        }
+
     }
 
     [ContextMenu("Rotate")]
     public void RotateToPoint()
     {
+        StopCoroutine(RotateToPointCoroutine());
         StartCoroutine(RotateToPointCoroutine());
     }
 
@@ -86,6 +103,7 @@ public class Player : MonoBehaviour
     [ContextMenu("Move")]
     public void MoveToPoint()
     {
+        StopCoroutine(MoveToPointCoroutine());
         StartCoroutine(MoveToPointCoroutine());
     }
 
