@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private CharacterController _character;
+    [SerializeField]
+    private SphereInventory _sphereInventory;
 
     [SerializeField]
     private Transform _point;
@@ -27,6 +29,23 @@ public class Player : MonoBehaviour
     private float _interactableDistance = 2;
     private bool _foundInteractable = false;
 
+    private bool _move;
+    private bool _rotate;
+    [SerializeField]
+    private bool _isGrounded;
+
+    private Quaternion _targetRotation;
+    private Vector3 _pointposition;
+    private Vector3 _transformposition;
+    private Vector3 _targetDirection;
+    private Vector3 _targetDirectionNormalize;
+    private Vector3 _pointA;
+    private Vector3 _pointB;
+    private float _dist;
+    private float _deltaAngle;
+    private float _rotationKeel;
+    private float _gravity = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,103 +55,133 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _isGrounded = _character.isGrounded;
+
+        if (_isGrounded)
+        {
+            _gravity = 0;
+        }
+        else
+        {
+            _gravity = -9.8f;
+            _character.Move(transform.up * _gravity * Time.deltaTime);
+
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("GetMouseButtonDown");
+            //Debug.Log("GetMouseButtonDown");
             RaycastHit hit;
             Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
                 _point.position = hit.point;
-                RotateToPoint();
-                MoveToPoint();
+                _move = true;
+                _rotate = true;
 
-
-                //Debug.Log(hit.point);
+                _pointposition = _point.position;
+                _pointposition.y = 0;
+                _transformposition = transform.position;
+                _transformposition.y = 0;
+                _targetDirection = _point.position - transform.position;
+                _targetDirection.y = 0.00F;
+                _targetDirectionNormalize = _targetDirection.normalized;
+                _dist = Vector3.Distance(_pointposition, _transformposition);
+                _targetRotation = Quaternion.LookRotation(_targetDirection);
+                _deltaAngle = Quaternion.Angle(transform.rotation, _targetRotation);
+                _pointA = _transformposition - transform.forward * 2 * _dist;
+                _pointB = _transformposition + transform.forward * 2 * _dist;
+                _rotationKeel = (_pointB.x - _pointA.x) * (_pointposition.z - _pointA.z) - (_pointB.z - _pointA.z) * (_pointposition.x - _pointA.x);
             }
         }
 
-    }
-
-    [ContextMenu("Rotate")]
-    public void RotateToPoint()
-    {
-        StopCoroutine(RotateToPointCoroutine());
-        StartCoroutine(RotateToPointCoroutine());
-    }
-
-    public IEnumerator RotateToPointCoroutine()
-    {
-        _xRotation = 0;
-
-        var targetDirection = _point.position - transform.position;
-
-        targetDirection.y = 0.00F;
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        float deltaAngle = Quaternion.Angle(transform.rotation, targetRotation);
-
-        var pointposition = _point.position;
-        pointposition.y = 0;
-        var transformposition = transform.position;
-        transformposition.y = 0;
-        var dist = Vector3.Distance(pointposition, transformposition);
-        var pointA = transformposition - transform.forward * 2 * dist;
-        var pointB = transformposition + transform.forward * 2 * dist;
-        var rotationKeel = (pointB.x - pointA.x) * (pointposition.z - pointA.z) - (pointB.z - pointA.z) * (pointposition.x - pointA.x);
-
-        while (deltaAngle > _angleTrashHold * _mouseSensitivity)
+        if (Input.GetMouseButtonDown(0))
         {
-            yield return new WaitForEndOfFrame();
+            _sphereInventory.Cast();
+        }
 
-            if (rotationKeel > 0)
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //Debug.Log("q");
+            _sphereInventory.SetUpSphereByKey("water");
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            //Debug.Log("w");
+            _sphereInventory.SetUpSphereByKey("life");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //Debug.Log("e");
+            _sphereInventory.SetUpSphereByKey("shield");
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //Debug.Log("r");
+            _sphereInventory.SetUpSphereByKey("freze");
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            //Debug.Log("a");
+            _sphereInventory.SetUpSphereByKey("razor");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            //Debug.Log("s");
+            _sphereInventory.SetUpSphereByKey("magic");
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            //Debug.Log("d");
+            _sphereInventory.SetUpSphereByKey("earth");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //Debug.Log("f");
+            _sphereInventory.SetUpSphereByKey("fire");
+        }
+
+        if (_rotate)
+        {
+            if(_deltaAngle > _angleTrashHold * _mouseSensitivity)
             {
-                _xRotation -= _mouseSensitivity * Time.deltaTime;
+                if (_rotationKeel > 0)
+                {
+                    _xRotation -= _mouseSensitivity * Time.deltaTime;
+                }
+                else
+                {
+                    _xRotation += _mouseSensitivity * Time.deltaTime;
+                }
+
+                transform.Rotate(Vector3.up * _xRotation);
+                _deltaAngle = Quaternion.Angle(transform.rotation, _targetRotation);
             }
             else
             {
-                _xRotation += _mouseSensitivity * Time.deltaTime;
+                _rotate = false;
             }
-
-            transform.Rotate(Vector3.up * _xRotation);
-            deltaAngle = Quaternion.Angle(transform.rotation, targetRotation);
-
         }
-    }
 
-    [ContextMenu("Move")]
-    public void MoveToPoint()
-    {
-        StopCoroutine(MoveToPointCoroutine());
-        StartCoroutine(MoveToPointCoroutine());
-    }
-
-    public IEnumerator MoveToPointCoroutine()
-    {
-        var pointposition = _point.position;
-        pointposition.y = 0;
-        var transformposition = transform.position;
-        transformposition.y = 0;
-        var targetDirection = _point.position - transform.position;
-        targetDirection.y = 0.00F;
-        var targetDirectionNormalize = targetDirection.normalized;
-        var dist = Vector3.Distance(pointposition, transformposition);
-
-        _character.Move(_speed * targetDirectionNormalize * Time.deltaTime);
-
-        while (dist > _positionTrashHold)
+        if(_move)
         {
-            yield return new WaitForEndOfFrame();
-            
-            _character.Move(_speed * targetDirectionNormalize * Time.deltaTime);
+            _character.Move(_speed * _targetDirectionNormalize * Time.deltaTime);
 
-            transformposition = transform.position;
-            transformposition.y = 0;
-            dist = Vector3.Distance(pointposition, transformposition);
+            if(_dist > _positionTrashHold)
+            {
+                _transformposition = transform.position;
+                _transformposition.y = 0;
+                _dist = Vector3.Distance(_pointposition, _transformposition);
+            }
+            else
+            {
+                _move = false;
+            }
         }
 
-        yield return null;
     }
+
     public void OnMouseRight(InputAction.CallbackContext value)
     {
        //_mouse.x = value.ReadValue<float>();
