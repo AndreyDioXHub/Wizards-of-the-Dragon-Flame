@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private CharacterController _character;
     [SerializeField]
-    private SphereInventory _sphereInventory;
+    private CastModel _castModel;
 
     [SerializeField]
     private Transform _point;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     private float _xRotation = 0f;
     private float _angleTrashHold = 1f;
-    private float _positionTrashHold = 0.1f;
+    private float _positionTrashHold = 0.5f;
 
     [SerializeField]
     private float _interactableDistance = 2;
@@ -68,78 +68,85 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (true)
         {
-            //Debug.Log("GetMouseButtonDown");
             RaycastHit hit;
             Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
-
             if (Physics.Raycast(ray, out hit))
             {
                 _point.position = hit.point;
                 _move = true;
-                _rotate = true;
-
+                    // _rotate = true;
                 _pointposition = _point.position;
                 _pointposition.y = 0;
                 _transformposition = transform.position;
                 _transformposition.y = 0;
                 _targetDirection = _point.position - transform.position;
                 _targetDirection.y = 0.00F;
+
+                transform.rotation = Quaternion.LookRotation(_targetDirection);
+
+                if (_targetDirection.x * _targetDirection.x < _positionTrashHold)
+                {
+                    _targetDirection.x = 0;
+                }
+                if (_targetDirection.z* _targetDirection.z < _positionTrashHold)
+                {
+                    _targetDirection.z = 0;
+                }
+
                 _targetDirectionNormalize = _targetDirection.normalized;
-                _dist = Vector3.Distance(_pointposition, _transformposition);
+
+                /*_dist = Vector3.Distance(_pointposition, _transformposition);
                 _targetRotation = Quaternion.LookRotation(_targetDirection);
                 _deltaAngle = Quaternion.Angle(transform.rotation, _targetRotation);
                 _pointA = _transformposition - transform.forward * 2 * _dist;
                 _pointB = _transformposition + transform.forward * 2 * _dist;
-                _rotationKeel = (_pointB.x - _pointA.x) * (_pointposition.z - _pointA.z) - (_pointB.z - _pointA.z) * (_pointposition.x - _pointA.x);
+                _rotationKeel = (_pointB.x - _pointA.x) * (_pointposition.z - _pointA.z) - (_pointB.z - _pointA.z) * (_pointposition.x - _pointA.x);*/
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            _sphereInventory.Cast();
+            _castModel.CastUpdate();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            _castModel.CastStop();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //Debug.Log("q");
-            _sphereInventory.SetUpSphereByKey("water");
+            _castModel.AddSpheretoActive("water");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            //Debug.Log("w");
-            _sphereInventory.SetUpSphereByKey("life");
+            _castModel.AddSpheretoActive("life");
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //Debug.Log("e");
-            _sphereInventory.SetUpSphereByKey("shield");
+            _castModel.AddSpheretoActive("shield");
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //Debug.Log("r");
-            _sphereInventory.SetUpSphereByKey("freze");
+            _castModel.AddSpheretoActive("freze");
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            //Debug.Log("a");
-            _sphereInventory.SetUpSphereByKey("razor");
+            _castModel.AddSpheretoActive("razor");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            //Debug.Log("s");
-            _sphereInventory.SetUpSphereByKey("magic");
+            _castModel.AddSpheretoActive("magic");
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            //Debug.Log("d");
-            _sphereInventory.SetUpSphereByKey("earth");
+            _castModel.AddSpheretoActive("earth");
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            //Debug.Log("f");
-            _sphereInventory.SetUpSphereByKey("fire");
+            _castModel.AddSpheretoActive("fire");
         }
 
         if (_rotate)

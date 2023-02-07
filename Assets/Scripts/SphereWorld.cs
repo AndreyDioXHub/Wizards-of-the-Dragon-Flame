@@ -13,7 +13,8 @@ public class SphereWorld : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            var inventory = other.GetComponent<SphereInventory>();
+            var inventory = other.GetComponent<CastModel>();
+
             inventory.AddSphere(_element, _count);
             Debug.Log($"SphereWorld: Added {_element}: {_count}");
             Destroy(gameObject);
