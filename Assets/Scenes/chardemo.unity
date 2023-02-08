@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: shield
+  _element: shi
   _count: 5
 --- !u!135 &253569371
 SphereCollider:
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: fire
+  _element: fir
   _count: 5
 --- !u!135 &528455476
 SphereCollider:
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: freze
+  _element: fre
   _count: 5
 --- !u!135 &890384530
 SphereCollider:
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: water
+  _element: wat
   _count: 5
 --- !u!135 &1496737936
 SphereCollider:
@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 1576228256}
   - component: {fileID: 1576228255}
   m_Layer: 0
-  m_Name: magic
+  m_Name: dark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: magic
+  _element: dar
   _count: 5
 --- !u!135 &1576228256
 SphereCollider:
@@ -1345,6 +1345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99eacc48f6df0964c87212ec55504f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  element1: 1
+  element2: 32
+  e: 0b_00000000110
   _castTime: 1
   _castTimeCur: 0
   _activeSpheres: []
@@ -1411,7 +1414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: razor
+  _element: raz
   _count: 5
 --- !u!135 &1824056829
 SphereCollider:
@@ -1523,7 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: life
+  _element: lif
   _count: 5
 --- !u!135 &1913314315
 SphereCollider:
@@ -1635,7 +1638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fc92f56c77f7438373444cae821bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _element: earth
+  _element: ear
   _count: 5
 --- !u!135 &1981388169
 SphereCollider:
