@@ -19,7 +19,7 @@ public class CastModel : MonoBehaviour
     private int _consumptionCount = 1;
     private int _activeSpheresCount = 5;
     private Dictionary<string, int> _spheres = new Dictionary<string, int>();
-    private Dictionary<int, string> _metaSpheres = new Dictionary<int, string>();
+    private Dictionary<int, MetaSphere> _metaSpheres = new Dictionary<int, MetaSphere>();
     private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();
     [SerializeField]
     private List<string> _activeSpheres = new List<string>();
@@ -92,19 +92,20 @@ public class CastModel : MonoBehaviour
     public void FillDictonaryes()
     {
         _metaSpheres.Clear();
-        _metaSpheres = new Dictionary<int, string>();
+        _metaSpheres = new Dictionary<int, MetaSphere>();
 
-        _metaSpheres.Add(0b_00001000001, "costLifeDark");
-        _metaSpheres.Add(0b_00100000001, "water");
-        _metaSpheres.Add(0b_00000000110, "steam");
-        _metaSpheres.Add(0b_00000010010, "costFireFreze");
-        _metaSpheres.Add(0b_00100000010, "dark");
-        _metaSpheres.Add(0b_01000000010, "water");
-        _metaSpheres.Add(0b_00000010100, "ice");
-        _metaSpheres.Add(0b_00000100100, "damageElectro");
-        _metaSpheres.Add(0b_00001000100, "poison");
-        _metaSpheres.Add(0b_00000101000, "costEarthRazor");
-        _metaSpheres.Add(0b_00010010000, "water");
+        _metaSpheres.Add(0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost));
+        _metaSpheres.Add(0b_00100000001, new MetaSphere("water", MetaSphereType.element));
+        _metaSpheres.Add(0b_00000000110, new MetaSphere("steam", MetaSphereType.element));
+        _metaSpheres.Add(0b_00000010010, new MetaSphere("FireFreze", MetaSphereType.cost));
+        _metaSpheres.Add(0b_00001000010, new MetaSphere("explosion", MetaSphereType.damage));
+        _metaSpheres.Add(0b_00100000010, new MetaSphere("dark", MetaSphereType.element));
+        _metaSpheres.Add(0b_01000000010, new MetaSphere("water", MetaSphereType.element));
+        _metaSpheres.Add(0b_00000010100, new MetaSphere("ice", MetaSphereType.element));
+        _metaSpheres.Add(0b_00000100100, new MetaSphere("Electro", MetaSphereType.damage));
+        _metaSpheres.Add(0b_00001000100, new MetaSphere("poison", MetaSphereType.element));
+        _metaSpheres.Add(0b_00000101000, new MetaSphere("EarthRazor", MetaSphereType.cost));
+        _metaSpheres.Add(0b_00010010000, new MetaSphere("water", MetaSphereType.element));
 
         _castSequences.Clear();
         _castSequences = new Dictionary<string, List<string>>();
@@ -114,12 +115,15 @@ public class CastModel : MonoBehaviour
         _castSequences.Add(SpheresElements.poison.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.dark.ToString()});
     }
 
-    public string CalculateElement(string element)
+    public string CalculateElement(string element, out bool result)
     {
         ShowSphere();
+        result = false;
         string product = element;
 
         int icount = _activeSpheres.Count;
+
+        bool iscross = false;
 
         if (Enum.TryParse(element, out SpheresElements elementEnum))
         {
@@ -129,18 +133,48 @@ public class CastModel : MonoBehaviour
                 {
                     var resultKey = (elementActiveEnum | elementEnum);
 
-                    if (_metaSpheres.TryGetValue((int)resultKey, out string meta))
+                    if (_metaSpheres.TryGetValue((int)resultKey, out MetaSphere meta))
                     {
-                        product = meta;
+                        switch (meta.type)
+                        {
+                            case MetaSphereType.element:
+                                product = meta.name;
+                                result = true;
+                                break;
+                            case MetaSphereType.cost:
+                                //do cost here
+                                break;
+                            case MetaSphereType.damage:
+                                //do damage here
+                                break;
+                            default:
+                                break;
+                        }
+
+                        iscross = true;
                         _activeSpheres.Remove(_activeSpheres[i]);
                         i = icount;
                     }
                 }
             }
-        } 
+        }
+
+        if (!iscross)
+        {
+            result = true;
+            product = element;
+        }
 
         return product;
     }
+
+    public bool CalculateDisable(string key)
+    {
+        ShowSphere();
+        bool result = false;
+
+        return result;
+    } 
 
     public void ReturnSphereToInventory(string element)
     {
@@ -166,16 +200,22 @@ public class CastModel : MonoBehaviour
             {
                 _spheres[key] -= _consumptionCount;
 
-                if (_activeSpheres.Count < _activeSpheresCount)
+                bool result = false;
+                string resultElement = CalculateElement(key, out result);
+
+                if (result)
                 {
-                    _activeSpheres.Add(CalculateElement(key));
-                }
-                else
-                {
-                    ReturnSphereToInventory(_activeSpheres[0]);
-                    _activeSpheres.RemoveAt(0);
-                    _activeSpheres.Add(CalculateElement(key));
-                }
+                    if (_activeSpheres.Count < _activeSpheresCount)
+                    {
+                        _activeSpheres.Add(resultElement);
+                    }
+                    else
+                    {
+                        ReturnSphereToInventory(_activeSpheres[0]);
+                        _activeSpheres.RemoveAt(0);
+                        _activeSpheres.Add(resultElement);
+                    }
+                }                
             }
             else
             {
@@ -185,6 +225,18 @@ public class CastModel : MonoBehaviour
         else
         {
             Debug.Log($"GetSphereByKey: {key}: empty");
+        }
+    }
+    public void AddSphere(string key, int value)
+    {
+        ShowSphere();
+        if (_spheres.TryGetValue(key, out int valuecur))
+        {
+            _spheres[key] += value;
+        }
+        else
+        {
+            _spheres.Add(key, value);
         }
     }
 
@@ -330,18 +382,6 @@ public class CastModel : MonoBehaviour
         }*/
     }
 
-    public void AddSphere(string key, int value)
-    {
-        ShowSphere();
-        if (_spheres.TryGetValue(key, out int valuecur))
-        {
-            _spheres[key] += value;
-        }
-        else
-        {
-            _spheres.Add(key, value);
-        }
-    }
 
 }
 
@@ -359,6 +399,26 @@ public enum SpheresElements
     ice = 0b_01000000000,//ice
     shield = 0b_10000000000//shield
 }
+
+[Serializable]
+public class MetaSphere
+{
+    public string name;
+    public MetaSphereType type;
+    public MetaSphere(string name, MetaSphereType type)
+    {
+        this.name = name;
+        this.type = type;
+    }
+}
+
+public enum MetaSphereType
+{
+    element,
+    cost,
+    damage
+}
+
 /*
 public enum MetaSpheres
 {
