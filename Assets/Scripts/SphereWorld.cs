@@ -5,7 +5,7 @@ using UnityEngine;
 public class SphereWorld : MonoBehaviour
 {
     [SerializeField]
-    private string _element;
+    private SpheresElements _element;
     [SerializeField]
     private int _count;
 
@@ -15,8 +15,8 @@ public class SphereWorld : MonoBehaviour
         {
             var inventory = other.GetComponent<CastModel>();
 
-            inventory.AddSphere(_element, _count);
-            Debug.Log($"SphereWorld: Added {_element}: {_count}");
+            inventory.AddSphere(_element.ToString(), _count);
+            //Debug.Log($"SphereWorld: Added {_element}: {_count}");
             Destroy(gameObject);
         }
     }

@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 public class CastModel : MonoBehaviour
 {
-    public SpheresElements element1;
-    public SpheresElements element2;
-    public string e;
-
+    [SerializeField]
+    private TextMeshProUGUI _countTextWater, _countTextLife, _countTextShield, _countTextFreze,
+        _countTextRazor, _countTextDark, _countTextEarth, _countTextFire; 
     //public string element = "water";
     [SerializeField]
     private float _castTime = 1;
@@ -19,14 +19,19 @@ public class CastModel : MonoBehaviour
     private int _consumptionCount = 1;
     private int _activeSpheresCount = 5;
     private Dictionary<string, int> _spheres = new Dictionary<string, int>();
+    private Dictionary<int, string> _metaSpheres = new Dictionary<int, string>();
+    private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();
     [SerializeField]
     private List<string> _activeSpheres = new List<string>();
+
     //base: water, life, shield, freze, razor, dark, earth, fire
     //meta: steam, poison, ice 
 
     // Start is called before the first frame update
     void Start()
     {
+        FillDictonaryes();
+        ShowSphere();
         _castTimeCur = _castTime;
     }
 
@@ -65,6 +70,7 @@ public class CastModel : MonoBehaviour
 
     public void ReloadActiveSpheres()
     {
+        ShowSphere();
         Debug.Log("Cast");
 
         List<string> activeSpheres = new List<string>();
@@ -82,18 +88,78 @@ public class CastModel : MonoBehaviour
         }
     }
 
+    [ContextMenu("Fill Dictonaryes")]
+    public void FillDictonaryes()
+    {
+        _metaSpheres.Clear();
+        _metaSpheres = new Dictionary<int, string>();
+
+        _metaSpheres.Add(0b_00001000001, "costLifeDark");
+        _metaSpheres.Add(0b_00100000001, "water");
+        _metaSpheres.Add(0b_00000000110, "steam");
+        _metaSpheres.Add(0b_00000010010, "costFireFreze");
+        _metaSpheres.Add(0b_00100000010, "dark");
+        _metaSpheres.Add(0b_01000000010, "water");
+        _metaSpheres.Add(0b_00000010100, "ice");
+        _metaSpheres.Add(0b_00000100100, "damageElectro");
+        _metaSpheres.Add(0b_00001000100, "poison");
+        _metaSpheres.Add(0b_00000101000, "costEarthRazor");
+        _metaSpheres.Add(0b_00010010000, "water");
+
+        _castSequences.Clear();
+        _castSequences = new Dictionary<string, List<string>>();
+
+        _castSequences.Add(SpheresElements.steam.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.fire.ToString()});
+        _castSequences.Add(SpheresElements.ice.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.freze.ToString()});
+        _castSequences.Add(SpheresElements.poison.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.dark.ToString()});
+    }
+
     public string CalculateElement(string element)
     {
+        ShowSphere();
         string product = element;
 
         int icount = _activeSpheres.Count;
 
+        if (Enum.TryParse(element, out SpheresElements elementEnum))
+        {
+            for (int i = 0; i < icount; i++)
+            {
+                if (Enum.TryParse(_activeSpheres[i], out SpheresElements elementActiveEnum))
+                {
+                    var resultKey = (elementActiveEnum | elementEnum);
+
+                    if (_metaSpheres.TryGetValue((int)resultKey, out string meta))
+                    {
+                        product = meta;
+                        _activeSpheres.Remove(_activeSpheres[i]);
+                        i = icount;
+                    }
+                }
+            }
+        } 
+
         return product;
     }
 
+    public void ReturnSphereToInventory(string element)
+    {
+        if (_castSequences.TryGetValue(element, out List<string> sequence))
+        {
+            foreach(string sub in sequence)
+            {
+                AddSphere(sub, 1);
+            }
+        }
+        else
+        {
+            AddSphere(element, 1);
+        }
+    }
 
     public void AddSpheretoActive(string key)
     {
+        ShowSphere();
         if (_spheres.TryGetValue(key, out int value))
         {
             if (value > 0)
@@ -106,6 +172,7 @@ public class CastModel : MonoBehaviour
                 }
                 else
                 {
+                    ReturnSphereToInventory(_activeSpheres[0]);
                     _activeSpheres.RemoveAt(0);
                     _activeSpheres.Add(CalculateElement(key));
                 }
@@ -124,9 +191,108 @@ public class CastModel : MonoBehaviour
     [ContextMenu("Show Sphere")]
     public void ShowSphere()
     {
+
+        int value = 0;
+
+        if (_spheres.TryGetValue(SpheresElements.water.ToString(), out value))
+        {
+            _countTextWater.text = $"x{value}";
+        }
+        else
+        {
+            _countTextWater.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.life.ToString(), out value))
+        {
+            _countTextLife.text = $"x{value}";
+        }
+        else
+        {
+            _countTextLife.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.shield.ToString(), out value))
+        {
+            _countTextShield.text = $"x{value}";
+        }
+        else
+        {
+            _countTextShield.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.freze.ToString(), out value))
+        {
+            _countTextFreze.text = $"x{value}";
+        }
+        else
+        {
+            _countTextFreze.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.razor.ToString(), out value))
+        {
+            _countTextRazor.text = $"x{value}";
+        }
+        else
+        {
+            _countTextRazor.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.dark.ToString(), out value))
+        {
+            _countTextDark.text = $"x{value}";
+        }
+        else
+        {
+            _countTextDark.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.earth.ToString(), out value))
+        {
+            _countTextEarth.text = $"x{value}";
+        }
+        else
+        {
+            _countTextEarth.text = $"x0";
+        }
+        if (_spheres.TryGetValue(SpheresElements.fire.ToString(), out value))
+        {
+            _countTextFire.text = $"x{value}";
+        }
+        else
+        {
+            _countTextFire.text = $"x0";
+        }
+        
+        /*_countTextWater, _countTextLife, _countTextShield, _countTextFreze,
+        _countTextRazor, _countTextMagic, _countTextEarth, _countTextFire;*/
+
         //Debug.Log($"ShowSphere {(element1 | element2)} {(MetaSpheres)(element1 | element2)}");
 
-        Debug.Log($"ShowSphere {(int)SpheresElements.lif}");
+        /*
+        _metaSpheres.Clear();
+        _metaSpheres = new Dictionary<int, string>();
+
+        _metaSpheres.Add(0b_00001000001, "costLifeDark");
+        _metaSpheres.Add(0b_00100000001, "water");
+        _metaSpheres.Add(0b_00000000110, "steam");
+        _metaSpheres.Add(0b_00000010010, "costFireFreze");
+        _metaSpheres.Add(0b_00100000010, "dark");
+        _metaSpheres.Add(0b_01000000010, "water");
+        _metaSpheres.Add(0b_00000010100, "ice");
+        _metaSpheres.Add(0b_00000100100, "damageElectro");
+        _metaSpheres.Add(0b_00001000100, "poison");
+        _metaSpheres.Add(0b_00000101000, "costEarthRazor");
+        _metaSpheres.Add(0b_00010010000, "water");
+
+
+        var resultKey = (element1 | element2);
+
+        if (_metaSpheres.TryGetValue((int)resultKey, out string value))
+        {
+            Debug.Log($"Meta Sphere is {value}");
+        }
+        else
+        {
+            Debug.Log($"Meta Sphere is empty");
+        }*/
+
+        /*Debug.Log($"ShowSphere {(int)SpheresElements.lif}");
         Debug.Log($"ShowSphere {(int)SpheresElements.fir}");
         Debug.Log($"ShowSphere {(int)SpheresElements.wat}");
         Debug.Log($"ShowSphere {(int)SpheresElements.ear}");
@@ -155,7 +321,7 @@ public class CastModel : MonoBehaviour
 
         Debug.Log($"ShowSphere {SpheresElements.ear | SpheresElements.raz} {0b_00000101000}");
 
-        Debug.Log($"ShowSphere {SpheresElements.fre | SpheresElements.ste} {0b_00010010000}");
+        Debug.Log($"ShowSphere {SpheresElements.fre | SpheresElements.ste} {0b_00010010000}");*/
 
 
         /*foreach(var element in _spheres)
@@ -166,6 +332,7 @@ public class CastModel : MonoBehaviour
 
     public void AddSphere(string key, int value)
     {
+        ShowSphere();
         if (_spheres.TryGetValue(key, out int valuecur))
         {
             _spheres[key] += value;
@@ -180,19 +347,19 @@ public class CastModel : MonoBehaviour
 
 public enum SpheresElements
 {
-    lif = 0b_00000000001,//life
-    fir = 0b_00000000010,//fire
-    wat = 0b_00000000100,//water
-    ear = 0b_00000001000,//earth
-    fre = 0b_00000010000,//freze
-    raz = 0b_00000100000,//razor
-    dar = 0b_00001000000,//dark
-    ste = 0b_00010000000,//steam
-    poi = 0b_00100000000,//poison
+    life = 0b_00000000001,//life
+    fire = 0b_00000000010,//fire
+    water = 0b_00000000100,//water
+    earth = 0b_00000001000,//earth
+    freze = 0b_00000010000,//freze
+    razor = 0b_00000100000,//razor
+    dark = 0b_00001000000,//dark
+    steam = 0b_00010000000,//steam
+    poison = 0b_00100000000,//poison
     ice = 0b_01000000000,//ice
-    shi = 0b_10000000000//shield
+    shield = 0b_10000000000//shield
 }
-
+/*
 public enum MetaSpheres
 {
     cos1 = 0b_00001000001,//cost
@@ -206,4 +373,4 @@ public enum MetaSpheres
     pois = 0b_00001000100,//poison
     cos3 = 0b_00000101000,//cost
     wat3 = 0b_00010010000,//water
-}
+}*/

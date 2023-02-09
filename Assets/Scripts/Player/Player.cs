@@ -118,35 +118,35 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            _castModel.AddSpheretoActive("water");
+            _castModel.AddSpheretoActive(SpheresElements.water.ToString());
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            _castModel.AddSpheretoActive("life");
+            _castModel.AddSpheretoActive(SpheresElements.life.ToString());
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _castModel.AddSpheretoActive("shield");
+            _castModel.AddSpheretoActive(SpheresElements.shield.ToString());
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _castModel.AddSpheretoActive("freze");
+            _castModel.AddSpheretoActive(SpheresElements.freze.ToString());
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _castModel.AddSpheretoActive("razor");
+            _castModel.AddSpheretoActive(SpheresElements.razor.ToString());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            _castModel.AddSpheretoActive("magic");
+            _castModel.AddSpheretoActive(SpheresElements.dark.ToString());
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            _castModel.AddSpheretoActive("earth");
+            _castModel.AddSpheretoActive(SpheresElements.earth.ToString());
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            _castModel.AddSpheretoActive("fire");
+            _castModel.AddSpheretoActive(SpheresElements.fire.ToString());
         }
 
         if (_rotate)
