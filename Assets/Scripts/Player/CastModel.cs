@@ -95,17 +95,17 @@ public class CastModel : MonoBehaviour
         _metaSpheres = new Dictionary<int, MetaSphere>();
 
         _metaSpheres.Add(0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost));
-        _metaSpheres.Add(0b_00100000001, new MetaSphere("water", MetaSphereType.element));
-        _metaSpheres.Add(0b_00000000110, new MetaSphere("steam", MetaSphereType.element));
+        _metaSpheres.Add(0b_00100000001, new MetaSphere(SpheresElements.water.ToString(), MetaSphereType.element));
+        _metaSpheres.Add(0b_00000000110, new MetaSphere(SpheresElements.steam.ToString(), MetaSphereType.element));
         _metaSpheres.Add(0b_00000010010, new MetaSphere("FireFreze", MetaSphereType.cost));
-        _metaSpheres.Add(0b_00001000010, new MetaSphere("explosion", MetaSphereType.damage));
-        _metaSpheres.Add(0b_00100000010, new MetaSphere("dark", MetaSphereType.element));
-        _metaSpheres.Add(0b_01000000010, new MetaSphere("water", MetaSphereType.element));
-        _metaSpheres.Add(0b_00000010100, new MetaSphere("ice", MetaSphereType.element));
+        _metaSpheres.Add(0b_00001000010, new MetaSphere("Explosion", MetaSphereType.damage));
+        _metaSpheres.Add(0b_00100000010, new MetaSphere(SpheresElements.dark.ToString(), MetaSphereType.element));
+        _metaSpheres.Add(0b_01000000010, new MetaSphere(SpheresElements.water.ToString(), MetaSphereType.element));
+        _metaSpheres.Add(0b_00000010100, new MetaSphere(SpheresElements.ice.ToString(), MetaSphereType.element));
         _metaSpheres.Add(0b_00000100100, new MetaSphere("Electro", MetaSphereType.damage));
-        _metaSpheres.Add(0b_00001000100, new MetaSphere("poison", MetaSphereType.element));
+        _metaSpheres.Add(0b_00001000100, new MetaSphere(SpheresElements.poison.ToString(), MetaSphereType.element));
         _metaSpheres.Add(0b_00000101000, new MetaSphere("EarthRazor", MetaSphereType.cost));
-        _metaSpheres.Add(0b_00010010000, new MetaSphere("water", MetaSphereType.element));
+        _metaSpheres.Add(0b_00010010000, new MetaSphere(SpheresElements.water.ToString(), MetaSphereType.element));
 
         _castSequences.Clear();
         _castSequences = new Dictionary<string, List<string>>();
