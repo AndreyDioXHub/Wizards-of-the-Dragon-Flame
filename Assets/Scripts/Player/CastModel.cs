@@ -36,9 +36,9 @@ public class CastModel : MonoBehaviour
     void Start()
     {
         FillDictonaryes();
-        ShowSphere();
         CollectModificators();
         _castTimeCur = _castTime;
+        ShowSphere();
     }
 
     public void CollectModificators()
@@ -81,7 +81,6 @@ public class CastModel : MonoBehaviour
 
     public void ReloadActiveSpheres()
     {
-        ShowSphere();
         Debug.Log("Cast");
 
         List<string> activeSpheres = new List<string>();
@@ -97,6 +96,7 @@ public class CastModel : MonoBehaviour
         {
             AddSpheretoActive(sp);
         }
+        ShowSphere();
     }
 
     [ContextMenu("Fill Dictonaryes")]
@@ -128,7 +128,6 @@ public class CastModel : MonoBehaviour
 
     public string CalculateElement(string element, out bool result)
     {
-        ShowSphere();
         result = false;
         string product = element;
 
@@ -176,6 +175,7 @@ public class CastModel : MonoBehaviour
             product = element;
         }
 
+        ShowSphere();
         return product;
     }
 
@@ -202,30 +202,63 @@ public class CastModel : MonoBehaviour
         }
     }
 
+    public bool CheckDisable(string key)
+    {
+        bool modificatorEatSphere = false;
+        int icount = _sphereModificators.Length;
+
+        for(int i=0; i< icount; i++)
+        {
+            _sphereModificators[i].CheckCancel(key, out modificatorEatSphere);
+
+            if (modificatorEatSphere)
+            {
+                i = icount;
+            }
+        }
+
+        return modificatorEatSphere;
+    }
+
     public void AddSpheretoActive(string key)
     {
+
+        CollectModificators();
+
+        
+
         if (_spheres.TryGetValue(key, out int value))
         {
             if (value > 0)
             {
                 _spheres[key] -= _consumptionCount;
 
-                bool result = false;
-                string resultElement = CalculateElement(key, out result);
-
-                if (result)
+                bool modificatorEatSphere = CheckDisable(key);
+                if (modificatorEatSphere)
                 {
-                    if (_activeSpheres.Count < _activeSpheresCount)
+                    //show cost
+                }
+                else
+                {
+                    bool result = false;
+                    string resultElement = CalculateElement(key, out result);
+
+                    if (result)
                     {
-                        _activeSpheres.Add(resultElement);
+                        if (_activeSpheres.Count < _activeSpheresCount)
+                        {
+                            _activeSpheres.Add(resultElement);
+                        }
+                        else
+                        {
+                            ReturnSphereToInventory(_activeSpheres[0]);
+                            _activeSpheres.RemoveAt(0);
+                            _activeSpheres.Add(resultElement);
+                        }
                     }
-                    else
-                    {
-                        ReturnSphereToInventory(_activeSpheres[0]);
-                        _activeSpheres.RemoveAt(0);
-                        _activeSpheres.Add(resultElement);
-                    }
-                }                
+
+                }
+                               
             }
             else
             {
@@ -241,7 +274,6 @@ public class CastModel : MonoBehaviour
     }
     public void AddSphere(string key, int value)
     {
-        ShowSphere();
         if (_spheres.TryGetValue(key, out int valuecur))
         {
             _spheres[key] += value;
@@ -250,6 +282,8 @@ public class CastModel : MonoBehaviour
         {
             _spheres.Add(key, value);
         }
+
+        ShowSphere();
     }
 
     [ContextMenu("Show Sphere")]
