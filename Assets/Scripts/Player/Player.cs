@@ -108,7 +108,12 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            _castModel.CastUpdate();
+            _castModel.CastUpdate(CastDirection.forward);
+        }
+        
+        if (Input.GetMouseButton(1))
+        {
+            _castModel.CastUpdate(CastDirection.self);
         }
 
         if (Input.GetMouseButtonUp(0))

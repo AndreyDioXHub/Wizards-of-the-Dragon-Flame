@@ -19,7 +19,8 @@ public class CastModel : MonoBehaviour
     private float _castTime = 1;
     [SerializeField]
     private float _castTimeCur;
-
+    [SerializeField]
+    private SphereModificator[] _sphereModificators;
     private int _consumptionCount = 1;
     private int _activeSpheresCount = 5;
     private Dictionary<string, int> _spheres = new Dictionary<string, int>();
@@ -36,7 +37,13 @@ public class CastModel : MonoBehaviour
     {
         FillDictonaryes();
         ShowSphere();
+        CollectModificators();
         _castTimeCur = _castTime;
+    }
+
+    public void CollectModificators()
+    {
+        _sphereModificators = gameObject.GetComponents<SphereModificator>();
     }
 
     // Update is called once per frame
@@ -50,7 +57,7 @@ public class CastModel : MonoBehaviour
         _castTimeCur = _castTime;
     }
 
-    public void CastUpdate()
+    public void CastUpdate(CastDirection direction)
     {
         if (_activeSpheres.Count > 0)
         {
@@ -357,6 +364,11 @@ public enum MetaSphereType
     element,
     cost,
     damage
+}
+public enum CastDirection
+{
+    forward,
+    self
 }
 
 /*
