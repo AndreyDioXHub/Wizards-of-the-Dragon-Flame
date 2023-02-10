@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class FireModificator : SphereModificator
 {
-    public override void CheckCancel(string sphere)
+    public override void CheckCancel(string sphere, out bool isCancel)
     {
-        base.CheckCancel(sphere);
+        base.CheckCancel(sphere, out isCancel);
 
         if(sphere == SpheresElements.water.ToString())
         {
+            isCancel = true;
             Destroy(this);
         }
     }
