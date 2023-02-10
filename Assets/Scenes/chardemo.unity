@@ -3964,8 +3964,6 @@ GameObject:
   - component: {fileID: 1660336457}
   - component: {fileID: 1660336461}
   - component: {fileID: 1660336462}
-  - component: {fileID: 1660336464}
-  - component: {fileID: 1660336463}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -4093,36 +4091,10 @@ MonoBehaviour:
   _viewActiveSpheres: {fileID: 2000864773}
   _castTime: 1
   _castTimeCur: 0
+  _castTimeReloadingCur: 0
+  _readyToNewCast: 1
   _sphereModificators: []
   _activeSpheres: []
---- !u!114 &1660336463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660336456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8338f2696d39ae64ba27786da6a2541f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 
-  _element: {fileID: 0}
---- !u!114 &1660336464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660336456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8338f2696d39ae64ba27786da6a2541f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 
-  _element: {fileID: 0}
 --- !u!1 &1670787277
 GameObject:
   m_ObjectHideFlags: 0

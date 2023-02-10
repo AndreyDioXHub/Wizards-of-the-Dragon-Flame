@@ -20,6 +20,11 @@ public class CastModel : MonoBehaviour
     [SerializeField]
     private float _castTimeCur;
     [SerializeField]
+    private float _castTimeReloadingCur;
+    [SerializeField]
+    private bool _readyToNewCast = true;
+
+    [SerializeField]
     private SphereModificator[] _sphereModificators;
     private int _consumptionCount = 1;
     private int _activeSpheresCount = 5;
@@ -49,7 +54,17 @@ public class CastModel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*if (!_readyToNewCast)
+        {
+            _castTimeReloadingCur += Time.deltaTime;
+
+            if(_castTimeReloadingCur >= _castTime)
+            {
+                _castTimeReloadingCur = 0;
+                _readyToNewCast = true;
+            }
+
+        }*/
     }
 
     public void CastStop()
@@ -61,12 +76,17 @@ public class CastModel : MonoBehaviour
     {
         if (_activeSpheres.Count > 0)
         {
-            _castTimeCur += Time.deltaTime;
-
-            if (_castTimeCur >= _castTime)
+            if (_readyToNewCast)
             {
-                _castTimeCur = 0;
-                ReloadActiveSpheres();
+                //_readyToNewCast = false;
+
+                _castTimeCur += Time.deltaTime;
+
+                if (_castTimeCur >= _castTime)
+                {
+                    _castTimeCur = 0;
+                    ReloadActiveSpheres();
+                }
             }
         }
         else
