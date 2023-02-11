@@ -222,6 +222,19 @@ public class CastModel : MonoBehaviour
         }
     }
 
+    public void ReturnAllSphereToInventory()
+    {
+        foreach(var sp in _activeSpheres)
+        {
+            ReturnSphereToInventory(sp);
+        }
+
+        _activeSpheres = null;
+        _activeSpheres = new List<string>();
+
+        ShowSphere();
+    }
+
     public bool CheckDisable(string key)
     {
         bool modificatorEatSphere = false;

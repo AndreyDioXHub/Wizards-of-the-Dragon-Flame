@@ -121,6 +121,11 @@ public class Player : MonoBehaviour
             _castModel.CastStop();
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _castModel.ReturnAllSphereToInventory();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _castModel.AddSpheretoActive(SpheresElements.water.ToString());
