@@ -18,7 +18,7 @@ public class Staff : MonoBehaviour
 
 
     [SerializeField]
-    private List<GameObject> _magics = new List<GameObject>();
+    private List<Magic> _magics = new List<Magic>();
 
     [SerializeField]
     private bool _mayShoot;
@@ -72,10 +72,13 @@ public class Staff : MonoBehaviour
 
             if (!_magicInited)
             {
+                //сложить в словарь одинаковые ключи
                 foreach (var sp in _castModel.ActiveSpheres)
                 {
                    
                 }
+
+                _magicInited = true;
             }
 
             _direction = direction;
@@ -87,6 +90,20 @@ public class Staff : MonoBehaviour
     public void ShootStop()
     {
         _isShoot = false;
+
+        if (_magicInited)
+        {
+
+            foreach (var magic in _magics)
+            {
+                magic.DestroyMagic();
+            }
+
+            _magics = null;
+            _magics = new List<Magic>();
+
+            _magicInited = false;
+        }
     }
 
     public void UpdateMayShoot()

@@ -32,6 +32,6 @@ public class Magic : MonoBehaviour
 
     public void DestroyMagic()
     {
-
+        Destroy(gameObject);
     }
 }
