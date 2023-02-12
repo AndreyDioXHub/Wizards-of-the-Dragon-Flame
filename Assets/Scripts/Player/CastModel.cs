@@ -56,46 +56,8 @@ public class CastModel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (!_readyToNewCast)
-        {
-            _castTimeReloadingCur += Time.deltaTime;
 
-            if(_castTimeReloadingCur >= _castTime)
-            {
-                _castTimeReloadingCur = 0;
-                _readyToNewCast = true;
-            }
-
-        }*/
     }
-    /*
-    public void CastStop()
-    {
-        _castTimeCur = _castTime;
-    }
-
-    public void CastUpdate(CastDirection direction)
-    {
-        if (_activeSpheres.Count > 0)
-        {
-            if (_readyToNewCast)
-            {
-                //_readyToNewCast = false;
-
-                _castTimeCur += Time.deltaTime;
-
-                if (_castTimeCur >= _castTime)
-                {
-                    _castTimeCur = 0;
-                    ReloadActiveSpheres();
-                }
-            }
-        }
-        else
-        {
-            CastStop();
-        }
-    }*/
 
     public List<string> GetActiveSpheres()
     {
@@ -328,76 +290,6 @@ public class CastModel : MonoBehaviour
     {
         _viewActiveSpheres.ShowSphere(_activeSpheres);
         _viewInventory.ShowSphere(_spheres);
-
-        /*_countTextWater, _countTextLife, _countTextShield, _countTextFreze,
-        _countTextRazor, _countTextMagic, _countTextEarth, _countTextFire;*/
-
-        //Debug.Log($"ShowSphere {(element1 | element2)} {(MetaSpheres)(element1 | element2)}");
-
-        /*
-        _metaSpheres.Clear();
-        _metaSpheres = new Dictionary<int, string>();
-
-        _metaSpheres.Add(0b_00001000001, "costLifeDark");
-        _metaSpheres.Add(0b_00100000001, "water");
-        _metaSpheres.Add(0b_00000000110, "steam");
-        _metaSpheres.Add(0b_00000010010, "costFireFreze");
-        _metaSpheres.Add(0b_00100000010, "dark");
-        _metaSpheres.Add(0b_01000000010, "water");
-        _metaSpheres.Add(0b_00000010100, "ice");
-        _metaSpheres.Add(0b_00000100100, "damageElectro");
-        _metaSpheres.Add(0b_00001000100, "poison");
-        _metaSpheres.Add(0b_00000101000, "costEarthRazor");
-        _metaSpheres.Add(0b_00010010000, "water");
-
-
-        var resultKey = (element1 | element2);
-
-        if (_metaSpheres.TryGetValue((int)resultKey, out string value))
-        {
-            Debug.Log($"Meta Sphere is {value}");
-        }
-        else
-        {
-            Debug.Log($"Meta Sphere is empty");
-        }*/
-
-        /*Debug.Log($"ShowSphere {(int)SpheresElements.lif}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.fir}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.wat}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.ear}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.fre}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.raz}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.dar}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.ste}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.poi}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.ice}");
-        Debug.Log($"ShowSphere {(int)SpheresElements.shi}");
-
-        Debug.Log($"ShowSphere ____________________________");
-
-
-        Debug.Log($"ShowSphere {SpheresElements.lif | SpheresElements.dar} {0b_00001000001}");
-        Debug.Log($"ShowSphere {SpheresElements.lif | SpheresElements.poi} {0b_00100000001}");
-
-        Debug.Log($"ShowSphere {SpheresElements.fir | SpheresElements.wat} {0b_00000000110}");
-        Debug.Log($"ShowSphere {SpheresElements.fir | SpheresElements.fre} {0b_00000010010}");
-        Debug.Log($"ShowSphere {SpheresElements.fir | SpheresElements.poi} {0b_00100000010}");
-        Debug.Log($"ShowSphere {SpheresElements.fir | SpheresElements.ice} {0b_01000000010}");
-
-        Debug.Log($"ShowSphere {SpheresElements.wat | SpheresElements.fre} {0b_00000010100}");
-        Debug.Log($"ShowSphere {SpheresElements.wat | SpheresElements.raz} {0b_00000100100}");
-        Debug.Log($"ShowSphere {SpheresElements.wat | SpheresElements.dar} {0b_00001000100}");
-
-        Debug.Log($"ShowSphere {SpheresElements.ear | SpheresElements.raz} {0b_00000101000}");
-
-        Debug.Log($"ShowSphere {SpheresElements.fre | SpheresElements.ste} {0b_00010010000}");*/
-
-
-        /*foreach(var element in _spheres)
-        {
-            Debug.Log($"ShowSphere {element.Key} {element.Value}");
-        }*/
     }
 
 
@@ -441,19 +333,3 @@ public enum CastDirection
     forward,
     self
 }
-
-/*
-public enum MetaSpheres
-{
-    cos1 = 0b_00001000001,//cost
-    wat1 = 0b_00100000001,//water
-    stea = 0b_00000000110,//steam
-    cos2 = 0b_00000010010,//cost
-    dark = 0b_00100000010,//dark
-    wat2 = 0b_01000000010,//water
-    ice1 = 0b_00000010100,//ice
-    dael = 0b_00000100100,//damage_electro
-    pois = 0b_00001000100,//poison
-    cos3 = 0b_00000101000,//cost
-    wat3 = 0b_00010010000,//water
-}*/

@@ -16,10 +16,8 @@ public class Staff : MonoBehaviour
     [SerializeField]
     private CastDirection _direction;
 
-
-    [SerializeField]
-    private List<Magic> _magics = new List<Magic>();
-
+    private Dictionary<string, Magic> _magics = new Dictionary<string, Magic>();
+    private Dictionary<string, int> _spheresCount = new Dictionary<string, int>();
     [SerializeField]
     private bool _mayShoot;
     [SerializeField]
@@ -51,17 +49,7 @@ public class Staff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (_isShoot)
-        {   
-            string spheres = "";
 
-            foreach(var sp in _castModel.ActiveSpheres)
-            {
-                spheres += $" {sp}";
-            }
-
-            Debug.Log($"is shoot {spheres}");
-        }*/
     }
 
     public void Shoot(CastDirection direction)
@@ -69,16 +57,35 @@ public class Staff : MonoBehaviour
         if (_mayShoot)
         {
             _tick.UpdateTick();
-
-            if (!_magicInited)
+            
+            if (_magicInited)
             {
-                //сложить в словарь одинаковые ключи
-                foreach (var sp in _castModel.ActiveSpheres)
+                
+
+            }
+            else
+            {
+                UpdateMagic();
+
+                if(_spheresCount.Count > 0)
                 {
-                   
+                    foreach (var sphC in _spheresCount)
+                    {
+                        GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), transform);
+
+                        Magic magic = go.GetComponent<Magic>();
+                        magic.UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+
+                        _magics.Add(sphC.Key, magic);
+                    }
+
+                    _magicInited = true;
+                }
+                else
+                {
+                    Debug.Log("chunk to the head");
                 }
 
-                _magicInited = true;
             }
 
             _direction = direction;
@@ -96,11 +103,11 @@ public class Staff : MonoBehaviour
 
             foreach (var magic in _magics)
             {
-                magic.DestroyMagic();
+                magic.Value.DestroyMagic();
             }
 
             _magics = null;
-            _magics = new List<Magic>();
+            _magics = new Dictionary<string, Magic>();
 
             _magicInited = false;
         }
@@ -113,6 +120,87 @@ public class Staff : MonoBehaviour
         if (_isShoot)
         {
             _castModel.ReloadActiveSpheres();
+        }
+
+        if (_magicInited)
+        {
+            UpdateMagic();
+        }
+        
+
+    }
+
+    public void UpdateMagic()
+    {
+        _spheresCount.Clear();
+
+        _spheresCount = new Dictionary<string, int>();
+
+        foreach (var actSph in _castModel.ActiveSpheres)
+        {
+            if (_spheresCount.TryGetValue(actSph, out int value))
+            {
+                _spheresCount[actSph] += 1;
+            }
+            else
+            {
+                _spheresCount.Add(actSph, 1);
+            }
+        }
+
+        if (_magics.Count > 0)
+        {
+            foreach (var sphC in _spheresCount)
+            {
+                if (_magics.TryGetValue(sphC.Key, out Magic magic))
+                {
+                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+                }
+            }
+
+            CalculateCrossSpheres();
+
+        }
+
+    }
+
+    private void CalculateCrossSpheres()
+    {
+        List<string> incommingMagics = new List<string>();
+
+        foreach (var sc in _spheresCount)
+        {
+            incommingMagics.Add(sc.Key);
+        }
+
+        List<string> curentMagics = new List<string>();
+
+        foreach (var sc in _magics)
+        {
+            curentMagics.Add(sc.Key);
+        }
+
+        List<string> crossMagic = new List<string>();
+
+        foreach (var cm in curentMagics)
+        {
+            string f = incommingMagics.Find(im => im == cm);
+            if (string.IsNullOrEmpty(f))
+            {
+                crossMagic.Add(cm);
+            }
+
+        }
+
+        foreach (var cross in crossMagic)
+        {
+            _magics[cross].DestroyMagic();
+            _magics.Remove(cross);
+        }
+
+        if (_magics.Count == 0)
+        {
+            _magicInited = false;
         }
     }
 }

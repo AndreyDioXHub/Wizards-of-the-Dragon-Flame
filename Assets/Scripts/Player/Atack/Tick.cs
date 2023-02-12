@@ -29,8 +29,8 @@ public class Tick : MonoBehaviour
         if(_tickTimeCur > _tickTime)
         {
             _tickTimeCur = 0;
-            OnTickPassed?.Invoke();
             _mayUpdateTick = true;
+            OnTickPassed?.Invoke();
         }
     }
 
