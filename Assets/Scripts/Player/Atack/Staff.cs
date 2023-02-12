@@ -158,13 +158,13 @@ public class Staff : MonoBehaviour
                 }
             }
 
-            CalculateCrossSpheres();
+            ClereCrossSpheres();
 
         }
 
     }
 
-    private void CalculateCrossSpheres()
+    private void ClereCrossSpheres()
     {
         List<string> incommingMagics = new List<string>();
 
