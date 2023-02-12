@@ -11,6 +11,8 @@ public class CastModel : MonoBehaviour
      private TextMeshProUGUI _countTextWater, _countTextLife, _countTextShield, _countTextFreze,
          _countTextRazor, _countTextDark, _countTextEarth, _countTextFire; */
     //public string element = "water";
+    public List<string> ActiveSpheres { get => _activeSpheres; }
+
     [SerializeField]
     private SpheresView _viewInventory;
     [SerializeField]
@@ -66,7 +68,7 @@ public class CastModel : MonoBehaviour
 
         }*/
     }
-
+    /*
     public void CastStop()
     {
         _castTimeCur = _castTime;
@@ -93,15 +95,17 @@ public class CastModel : MonoBehaviour
         {
             CastStop();
         }
+    }*/
 
-        //Debug.Log("Cast");
-
-        //int icount = _activeSpheres.Count;
+    public List<string> GetActiveSpheres()
+    {
+        return _activeSpheres;
+        //ReloadActiveSpheres();
     }
 
     public void ReloadActiveSpheres()
     {
-        Debug.Log("Cast");
+        //Debug.Log("Cast");
 
         List<string> activeSpheres = new List<string>();
 

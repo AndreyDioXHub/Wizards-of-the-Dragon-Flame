@@ -4294,6 +4294,8 @@ GameObject:
   - component: {fileID: 1660336457}
   - component: {fileID: 1660336461}
   - component: {fileID: 1660336462}
+  - component: {fileID: 1660336464}
+  - component: {fileID: 1660336463}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -4399,6 +4401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 1660336457}
   _castModel: {fileID: 1660336462}
+  _staff: {fileID: 1660336464}
   _point: {fileID: 1043079583}
   _playerCamera: {fileID: 1391434297}
   _mouseSensitivity: 10
@@ -4425,6 +4428,53 @@ MonoBehaviour:
   _readyToNewCast: 1
   _sphereModificators: []
   _activeSpheres: []
+--- !u!114 &1660336463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660336456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTickPassed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1660336464}
+        m_TargetAssemblyTypeName: Staff, Assembly-CSharp
+        m_MethodName: UpdateMayShoot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _tickTime: 10
+  _tickTimeCur: 0
+  _mayUpdateTick: 1
+--- !u!114 &1660336464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660336456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee2cad3cc40e484aaa00f6aa21e248b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tick: {fileID: 1660336463}
+  _castModel: {fileID: 1660336462}
+  _direction: 0
+  _mayShoot: 1
+  _isShoot: 0
 --- !u!1 &1670787277
 GameObject:
   m_ObjectHideFlags: 0
