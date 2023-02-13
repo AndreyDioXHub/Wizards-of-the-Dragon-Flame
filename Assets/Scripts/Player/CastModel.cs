@@ -26,17 +26,31 @@ public class CastModel : MonoBehaviour
     [SerializeField]
     private bool _readyToNewCast = true;
 
-    [SerializeField]
-    private SphereModificator[] _sphereModificators;
     private int _consumptionCount = 1;
     private int _activeSpheresCount = 5;
+
+    [SerializeField]
+    private SphereModificator[] _sphereModificators;
+    [SerializeField]
+    private List<string> _activeSpheres = new List<string>();
     private Dictionary<string, int> _spheres = new Dictionary<string, int>();
     private Dictionary<int, MetaSphere> _metaSpheres = new Dictionary<int, MetaSphere>();
     private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();
-    //private Dictionary<string, T> _modificatorsLis = new Dictionary<string, T>();
-    [SerializeField]
-    private List<string> _activeSpheres = new List<string>();
 
+    private Dictionary<string, string> _modificatorsLis = new Dictionary<string, string>()
+    {
+        {"life","FireModificator" },
+        {"fire","FireModificator" },
+        {"water","WaterModificator" },
+        {"earth","FireModificator" },
+        {"freze","FireModificator" },
+        {"razor","FireModificator" },
+        {"dark","FireModificator" },
+        {"steam","FireModificator" },
+        {"poison","FireModificator" },
+        {"ice","FireModificator" },
+        {"shield","FireModificator" },
+    };
     //base: water, life, shield, freze, razor, dark, earth, fire
     //meta: steam, poison, ice 
 
@@ -51,7 +65,14 @@ public class CastModel : MonoBehaviour
 
     public void CollectModificators()
     {
-        _sphereModificators = gameObject.GetComponents<SphereModificator>();
+        _sphereModificators = gameObject.GetComponentsInChildren<SphereModificator>();
+
+        /*_sphereModificators = gameObject.GetComponents<SphereModificator>();
+        var sphereModificators = gameObject.GetComponentsInChildren<SphereModificator>();
+        foreach(var sm in sphereModificators)
+        {
+            Debug.Log($"{sm.gameObject.name}");
+        }*/
     }
 
     // Update is called once per frame
@@ -206,14 +227,16 @@ public class CastModel : MonoBehaviour
         ShowSphere();
     }
 
-    public bool CheckDisable(string key)
+    public bool CheckModificator(string key, int power, out int powerLeft)
     {
         bool modificatorEatSphere = false;
         int icount = _sphereModificators.Length;
+        powerLeft = 0;
 
-        for(int i=0; i< icount; i++)
+        for (int i=0; i< icount; i++)
         {
-            _sphereModificators[i].CheckCancel(key, out modificatorEatSphere);
+            //CheckCancel возващает инт сколько силы осталось
+            powerLeft = _sphereModificators[i].CheckCancel(key, power, out modificatorEatSphere);
 
             if (modificatorEatSphere)
             {
@@ -224,28 +247,75 @@ public class CastModel : MonoBehaviour
         return modificatorEatSphere;
     }
 
-    /*
+    [ContextMenu("Add Modificator")]
+    public void AddModificator()
+    {
+        AddModificator("water", 7);
+    }
+
+
     public void AddModificator(string key, int power)
     {
         CollectModificators();
 
-        bool needNew = true;
+        bool modificatorEatModificator = CheckModificator(key, power, out int powerLeft);
 
-        for(int i=0; i < _sphereModificators.Length - 1; i++)
+        if (modificatorEatModificator)
         {
-            if(_sphereModificators[i].Key == key)
+            if (powerLeft > 0)
             {
-                _sphereModificators[i].AddPower(power);
-                needNew = false;
-                i = _sphereModificators.Length;
+                power = powerLeft;
+            }
+            else
+            {
+                return;
             }
         }
 
+        bool needNew = true;
+
+        string len = _sphereModificators.Length.ToString();
+        string eq = "";
+
+        //Debug.Log($"AddModificator {}");
+
+        if (_sphereModificators.Length > 0)
+        {
+            
+            if (_sphereModificators.Length == 1)
+            {
+                eq += $"{_sphereModificators[0].Key} {key} {_sphereModificators[0].Key.Equals(key)} \n";
+
+                if (_sphereModificators[0].Key.Equals(key))
+                {
+                    _sphereModificators[0].AddPower(power);
+                    needNew = false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _sphereModificators.Length - 1; i++)
+                {
+                    eq += $"{_sphereModificators[i].Key} {key} {_sphereModificators[i].Key.Equals(key)} \n";
+
+                    if (_sphereModificators[i].Key.Equals(key))
+                    {
+                        _sphereModificators[i].AddPower(power);
+                        needNew = false;
+                        i = _sphereModificators.Length;
+                    }
+                }
+            }
+        }
+        Debug.Log($"AddModificator {needNew} \n{len}\n{eq}");
+
         if (needNew)
         {
-           
+            GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), transform);
+            SphereModificator modificator = go.GetComponent<SphereModificator>();
+            modificator.Init(power);
         }
-    }*/
+    }
 
 
     public void AddSpheretoActive(string key)
@@ -261,7 +331,9 @@ public class CastModel : MonoBehaviour
             {
                 _spheres[key] -= _consumptionCount;
 
-                bool modificatorEatSphere = CheckDisable(key);
+
+                bool modificatorEatSphere = CheckModificator(key, 1, out int powerLeft);
+
                 if (modificatorEatSphere)
                 {
                     //show cost

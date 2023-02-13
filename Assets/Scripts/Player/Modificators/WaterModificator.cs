@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireModificator : SphereModificator
+public class WaterModificator : SphereModificator
 {
     public override void Start()
     {
@@ -22,14 +22,14 @@ public class FireModificator : SphereModificator
 
         int incomingPowerleft = 0;
 
-        if(sphere == SpheresElements.water.ToString())
+        if (sphere == SpheresElements.fire.ToString())
         {
             incomingPowerleft = (power - _power) <= 0 ? 0 : power - _power;
-            
-           _power -= power;
-            isCancel = true; 
 
-            if(_power <= 0)
+            _power -= power;
+            isCancel = true;
+
+            if (_power <= 0)
             {
                 DestroyModificator();
             }

@@ -97,6 +97,7 @@ public class Staff : MonoBehaviour
     public void ShootStop()
     {
         _isShoot = false;
+        _castModel.ReloadActiveSpheres();
 
         if (_magicInited)
         {

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SphereModificator : MonoBehaviour
 {
-    public string Key { get => key; }
+    public string Key { get => _key; }
 
     [SerializeField]
-    protected string key;
+    protected string _key;
     [SerializeField]
     protected int _power = 1;
 
-   [SerializeField]
+    [SerializeField]
     protected ActiveElementView _element;
 
     public virtual void Init(int power)
@@ -19,9 +19,10 @@ public class SphereModificator : MonoBehaviour
         _power = power;
     }
 
-    public virtual void CheckCancel(string sphere, out bool isCancel)
+    public virtual int CheckCancel(string sphere, int power, out bool isCancel)
     {
         isCancel = false;
+        return 1;
     }
     public virtual void AddPower(int power)
     {
@@ -31,7 +32,6 @@ public class SphereModificator : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        DisableView.Instance.AddNewDisable(key, out _element);
     }
 
     // Update is called once per frame
@@ -43,6 +43,6 @@ public class SphereModificator : MonoBehaviour
     public virtual void DestroyModificator()
     {
         Destroy(_element.gameObject);
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
