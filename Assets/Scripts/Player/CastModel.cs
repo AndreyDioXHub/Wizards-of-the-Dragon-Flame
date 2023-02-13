@@ -33,6 +33,7 @@ public class CastModel : MonoBehaviour
     private Dictionary<string, int> _spheres = new Dictionary<string, int>();
     private Dictionary<int, MetaSphere> _metaSpheres = new Dictionary<int, MetaSphere>();
     private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();
+    //private Dictionary<string, T> _modificatorsLis = new Dictionary<string, T>();
     [SerializeField]
     private List<string> _activeSpheres = new List<string>();
 
@@ -110,6 +111,10 @@ public class CastModel : MonoBehaviour
         _castSequences.Add(SpheresElements.steam.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.fire.ToString()});
         _castSequences.Add(SpheresElements.ice.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.freze.ToString()});
         _castSequences.Add(SpheresElements.poison.ToString(), new List<string>() {SpheresElements.water.ToString(), SpheresElements.dark.ToString()});
+
+        /*_modificatorsLis.Clear();
+        _modificatorsLis = new Dictionary<string, Type>();
+        _modificatorsLis.Add(SpheresElements.fire.ToString(), typeof(FireModificator));*/
     }
 
     public string CalculateElement(string element, out bool result)
@@ -218,6 +223,30 @@ public class CastModel : MonoBehaviour
 
         return modificatorEatSphere;
     }
+
+    /*
+    public void AddModificator(string key, int power)
+    {
+        CollectModificators();
+
+        bool needNew = true;
+
+        for(int i=0; i < _sphereModificators.Length - 1; i++)
+        {
+            if(_sphereModificators[i].Key == key)
+            {
+                _sphereModificators[i].AddPower(power);
+                needNew = false;
+                i = _sphereModificators.Length;
+            }
+        }
+
+        if (needNew)
+        {
+           
+        }
+    }*/
+
 
     public void AddSpheretoActive(string key)
     {
