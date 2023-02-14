@@ -12,9 +12,18 @@ public class WaterModificator : SphereModificator
     public override void Init(int power)
     {
         base.Init(power);
-        DisableView.Instance.AddNewDisable(_key, out _element);
-        _element.Init(_key);
+        ModificatorView.Instance.AddNewModificator(_key, power, out _element);
+        _element.UpdateInfo(_key, _power);
     }
+    /*public override void AddPower(int power)
+    {
+        _power += power;
+
+        if (_element != null)
+        {
+            _element.UpdateInfo(_key, power);
+        }
+    }*/
 
     public override int CheckCancel(string sphere, int power, out bool isCancel)
     {
@@ -34,7 +43,13 @@ public class WaterModificator : SphereModificator
                 DestroyModificator();
             }
         }
+        /*else if(sphere == SpheresElements.steam.ToString())
+        {
+            incomingPowerleft = (power - _power) <= 0 ? 0 : power - _power;
 
+        }*/
+
+        _element.UpdateInfo(_key, _power);
         return incomingPowerleft;
     }
 }

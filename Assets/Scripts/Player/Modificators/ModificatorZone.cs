@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ModificatorZone : MonoBehaviour
 {
+
+    [SerializeField]
+    private Tick _tick;
+
     [SerializeField]
     private SpheresElements _element;
+
     [SerializeField]
     private Collider _other;
     // Start is called before the first frame update
@@ -16,7 +21,9 @@ public class ModificatorZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        _tick.UpdateTick();
         _other = other;
+        //AddModificator();
     }
     private void OnTriggerExit(Collider other)
     {

@@ -12,7 +12,7 @@ public class SphereModificator : MonoBehaviour
     protected int _power = 1;
 
     [SerializeField]
-    protected ActiveElementView _element;
+    protected ModificatorElementView _element;
 
     public virtual void Init(int power)
     {
@@ -27,6 +27,11 @@ public class SphereModificator : MonoBehaviour
     public virtual void AddPower(int power)
     {
         _power += power;
+
+        if (_element != null)
+        {
+            _element.UpdateInfo(_key, _power);
+        }
     }
 
     // Start is called before the first frame update

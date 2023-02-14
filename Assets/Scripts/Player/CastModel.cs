@@ -233,14 +233,17 @@ public class CastModel : MonoBehaviour
         int icount = _sphereModificators.Length;
         powerLeft = 0;
 
-        for (int i=0; i< icount; i++)
+        if (_sphereModificators.Length > 0)
         {
-            //CheckCancel возващает инт сколько силы осталось
-            powerLeft = _sphereModificators[i].CheckCancel(key, power, out modificatorEatSphere);
-
-            if (modificatorEatSphere)
+            for (int i = 0; i < icount; i++)
             {
-                i = icount;
+                //CheckCancel возващает инт сколько силы осталось
+                powerLeft = _sphereModificators[i].CheckCancel(key, power, out modificatorEatSphere);
+
+                if (modificatorEatSphere)
+                {
+                    i = icount;
+                }
             }
         }
 
@@ -254,9 +257,14 @@ public class CastModel : MonoBehaviour
     }
 
 
-    public void AddModificator(string key, int power)
+    public void AddModificator(string key, int power, bool hideSpheres = true)
     {
         CollectModificators();
+
+        if (hideSpheres)
+        {
+            ReturnAllSphereToInventory();
+        }
 
         bool modificatorEatModificator = CheckModificator(key, power, out int powerLeft);
 

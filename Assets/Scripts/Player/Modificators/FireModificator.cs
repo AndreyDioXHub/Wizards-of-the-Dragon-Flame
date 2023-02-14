@@ -12,8 +12,8 @@ public class FireModificator : SphereModificator
     public override void Init(int power)
     {
         base.Init(power);
-        DisableView.Instance.AddNewDisable(_key, out _element);
-        _element.Init(_key);
+        ModificatorView.Instance.AddNewModificator(_key, power, out _element);
+        _element.UpdateInfo(_key, _power);
     }
 
     public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -22,19 +22,20 @@ public class FireModificator : SphereModificator
 
         int incomingPowerleft = 0;
 
-        if(sphere == SpheresElements.water.ToString())
+        if (sphere == SpheresElements.water.ToString())
         {
             incomingPowerleft = (power - _power) <= 0 ? 0 : power - _power;
             
-           _power -= power;
+            _power -= power;
             isCancel = true; 
 
-            if(_power <= 0)
+            if (_power <= 0)
             {
                 DestroyModificator();
             }
         }
 
+        _element.UpdateInfo(_key, _power);
         return incomingPowerleft;
     }
 }

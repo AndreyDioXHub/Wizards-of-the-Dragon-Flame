@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisableView : MonoBehaviour
+public class ModificatorView : MonoBehaviour
 {
-    public static DisableView Instance;
+    public static ModificatorView Instance;
 
     [SerializeField]
     private Transform _content;
     [SerializeField]
-    private GameObject _activeElementViewPrefab;
+    private GameObject _modificatorElementViewPrefab;
 
     private void Awake()
     {
@@ -23,10 +23,10 @@ public class DisableView : MonoBehaviour
         }
     }
 
-    public void AddNewDisable(string key, out ActiveElementView view)
+    public void AddNewModificator(string key, int power, out ModificatorElementView view)
     {
-        view = Instantiate(_activeElementViewPrefab, _content).GetComponent<ActiveElementView>();
-        view.Init(key);
+        view = Instantiate(_modificatorElementViewPrefab, _content).GetComponent<ModificatorElementView>();
+        view.UpdateInfo(key, power);
     }
 
     // Start is called before the first frame update
