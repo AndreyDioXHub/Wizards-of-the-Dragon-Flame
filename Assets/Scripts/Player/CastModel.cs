@@ -253,7 +253,7 @@ public class CastModel : MonoBehaviour
     [ContextMenu("Add Modificator")]
     public void AddModificator()
     {
-        AddModificator("water", 7);
+        AddModificator("razor", 7);
     }
 
 

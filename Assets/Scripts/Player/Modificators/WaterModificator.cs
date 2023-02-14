@@ -43,11 +43,14 @@ public class WaterModificator : SphereModificator
                 DestroyModificator();
             }
         }
-        /*else if(sphere == SpheresElements.steam.ToString())
+        else if(sphere == SpheresElements.razor.ToString())
         {
-            incomingPowerleft = (power - _power) <= 0 ? 0 : power - _power;
-
-        }*/
+            incomingPowerleft = 0;
+            isCancel = true;
+            //do razor damage
+            Debug.Log($"do razor damage {power}");
+            //DestroyModificator();
+        }
 
         _element.UpdateInfo(_key, _power);
         return incomingPowerleft;
