@@ -36,7 +36,7 @@ public class ModificatorZone : MonoBehaviour
         {
             if (_other.tag == "Player")
             {
-                _other.GetComponent<CastModel>().AddModificator(_element.ToString(), 1);
+                MagicModel.Instance.AddModificator(_element.ToString(), 1);
             }
         }
     }

@@ -10,6 +10,10 @@ public class SphereModificator : MonoBehaviour
     protected string _key;
     [SerializeField]
     protected int _power = 1;
+    [SerializeField]
+    protected float _timeAction = 1;
+    [SerializeField]
+    protected float _timeActionCur;
 
     [SerializeField]
     protected ModificatorElementView _element;
@@ -30,7 +34,7 @@ public class SphereModificator : MonoBehaviour
 
         if (_element != null)
         {
-            _element.UpdateInfo(_key, _power);
+            _element.UpdateInfo(_key, _power, 1);
         }
     }
 
@@ -43,6 +47,10 @@ public class SphereModificator : MonoBehaviour
     public virtual void Update()
     {
         
+    }
+    public virtual void DoDamage()
+    {
+
     }
 
     public virtual void DestroyModificator()

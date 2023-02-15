@@ -12,8 +12,11 @@ public class FireModificator : SphereModificator
     public override void Init(int power)
     {
         base.Init(power);
+        MagicModel.Instance.ReturnAllSphereToInventory("water");
+        MagicModel.Instance.ReturnAllSphereToInventory("steam");
         ModificatorView.Instance.AddNewModificator(_key, power, out _element);
-        _element.UpdateInfo(_key, _power);
+        _element.UpdateInfo(_key, _power, 1);
+
     }
 
     public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -35,7 +38,7 @@ public class FireModificator : SphereModificator
             }
         }
 
-        _element.UpdateInfo(_key, _power);
+        _element.UpdateInfo(_key, _power, 1);
         return incomingPowerleft;
     }
 }

@@ -12,8 +12,12 @@ public class WaterModificator : SphereModificator
     public override void Init(int power)
     {
         base.Init(power);
+        MagicModel.Instance.ReturnAllSphereToInventory("fire");
+        MagicModel.Instance.ReturnAllSphereToInventory("steam");
+        MagicModel.Instance.ReturnAllSphereToInventory("razor");
         ModificatorView.Instance.AddNewModificator(_key, power, out _element);
-        _element.UpdateInfo(_key, _power);
+        _element.UpdateInfo(_key, _power, 1);
+
     }
     /*public override void AddPower(int power)
     {
@@ -52,7 +56,7 @@ public class WaterModificator : SphereModificator
             //DestroyModificator();
         }
 
-        _element.UpdateInfo(_key, _power);
+        _element.UpdateInfo(_key, _power, 1);
         return incomingPowerleft;
     }
 }

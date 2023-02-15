@@ -13,7 +13,7 @@ public class Tick : MonoBehaviour
     private float _tickTimeCur;
 
     [SerializeField]
-    private bool _mayUpdateTick;
+    private bool _mayUpdateTick = true;
 
     // Start is called before the first frame update
     void Start()

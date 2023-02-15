@@ -10,8 +10,6 @@ public class Staff : MonoBehaviour
     
     [SerializeField]
     private Tick _tick;
-    [SerializeField]
-    private CastModel _castModel;
 
     [SerializeField]
     private CastDirection _direction;
@@ -120,7 +118,7 @@ public class Staff : MonoBehaviour
 
         if (_isShoot)
         {
-            _castModel.ReloadActiveSpheres();
+            MagicModel.Instance.ReloadActiveSpheres();
         }
 
         if (_magicInited)
@@ -137,7 +135,7 @@ public class Staff : MonoBehaviour
 
         _spheresCount = new Dictionary<string, int>();
 
-        foreach (var actSph in _castModel.ActiveSpheres)
+        foreach (var actSph in MagicModel.Instance.ActiveSpheres)
         {
             if (_spheresCount.TryGetValue(actSph, out int value))
             {

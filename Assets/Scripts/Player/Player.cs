@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private CharacterController _character;
     [SerializeField]
-    private CastModel _castModel;
-    [SerializeField]
     private Staff _staff;
 
     [SerializeField]
@@ -123,51 +121,51 @@ public class Player : MonoBehaviour
             _staff.ShootStop();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             _staff.ShootStop();
-            _castModel.ReturnAllSphereToInventory();
+            MagicModel.Instance.ReturnAllSphereToInventory();
         }
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.water.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.water.ToString());
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.life.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.life.ToString());
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.shield.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.shield.ToString());
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.freze.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.freze.ToString());
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.razor.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.razor.ToString());
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.dark.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.dark.ToString());
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.earth.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.earth.ToString());
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _staff.ShootStop();
-            _castModel.AddSpheretoActive(SpheresElements.fire.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.fire.ToString());
         }
 
         if (_rotate)

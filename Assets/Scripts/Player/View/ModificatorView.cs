@@ -26,7 +26,7 @@ public class ModificatorView : MonoBehaviour
     public void AddNewModificator(string key, int power, out ModificatorElementView view)
     {
         view = Instantiate(_modificatorElementViewPrefab, _content).GetComponent<ModificatorElementView>();
-        view.UpdateInfo(key, power);
+        view.UpdateInfo(key, power, 1);
     }
 
     // Start is called before the first frame update

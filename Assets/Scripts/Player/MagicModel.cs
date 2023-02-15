@@ -5,14 +5,18 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 
-public class CastModel : MonoBehaviour
+public class MagicModel : MonoBehaviour
 {
+    public static MagicModel Instance;
+
     /* [SerializeField]
      private TextMeshProUGUI _countTextWater, _countTextLife, _countTextShield, _countTextFreze,
          _countTextRazor, _countTextDark, _countTextEarth, _countTextFire; */
     //public string element = "water";
     public List<string> ActiveSpheres { get => _activeSpheres; }
 
+    [SerializeField]
+    private Player _player;
     [SerializeField]
     private SpheresView _viewInventory;
     [SerializeField]
@@ -44,7 +48,7 @@ public class CastModel : MonoBehaviour
         {"water","WaterModificator" },
         {"earth","FireModificator" },
         {"freze","FireModificator" },
-        {"razor","FireModificator" },
+        {"razor","RazorModificator" },
         {"dark","FireModificator" },
         {"steam","FireModificator" },
         {"poison","FireModificator" },
@@ -53,6 +57,18 @@ public class CastModel : MonoBehaviour
     };
     //base: water, life, shield, freze, razor, dark, earth, fire
     //meta: steam, poison, ice 
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +81,7 @@ public class CastModel : MonoBehaviour
 
     public void CollectModificators()
     {
-        _sphereModificators = gameObject.GetComponentsInChildren<SphereModificator>();
+        _sphereModificators = _player.gameObject.GetComponentsInChildren<SphereModificator>();
 
         /*_sphereModificators = gameObject.GetComponents<SphereModificator>();
         var sphereModificators = gameObject.GetComponentsInChildren<SphereModificator>();
@@ -226,6 +242,57 @@ public class CastModel : MonoBehaviour
 
         ShowSphere();
     }
+    public void ReturnAllSphereToInventory(string element)
+    {
+        List<string> returnal = new List<string>();
+
+        foreach (var sp in _activeSpheres)
+        {
+            if (sp.Equals(element))
+            {
+                ReturnSphereToInventory(sp);
+                returnal.Add(sp);
+               // _activeSpheres.Remove(sp);
+            }
+        }
+
+        foreach (var r in returnal)
+        {
+            _activeSpheres.Remove(r);
+        }
+
+        /*_activeSpheres = null;
+        _activeSpheres = new List<string>();*/
+
+        ShowSphere();
+    }
+
+    [ContextMenu("Drop All Spheres Into World")]
+    public void DropAllSpheresIntoWorld()
+    {
+        ReturnAllSphereToInventory();
+
+        int i = 0;
+
+        foreach(var sphere in _spheres)
+        {
+            if (Enum.TryParse(sphere.Key, out SpheresElements elementEnum))
+            {
+                i++;
+                var go = Instantiate(Resources.Load<GameObject>("SphereWorld"));
+                go.name = $"sphere world: {sphere.Key}";
+                go.GetComponent<SphereWorld>().Init(elementEnum, sphere.Value);
+                go.transform.position = _player.transform.position + new Vector3(i, 0.2f, i);
+            }
+        }
+
+        i = 0;
+
+        _spheres.Clear();
+        _spheres = new Dictionary<string, int>();
+
+        ShowSphere();
+    }
 
     public bool CheckModificator(string key, int power, out int powerLeft)
     {
@@ -257,14 +324,14 @@ public class CastModel : MonoBehaviour
     }
 
 
-    public void AddModificator(string key, int power, bool hideSpheres = true)
+    public void AddModificator(string key, int power)
     {
         CollectModificators();
 
-        if (hideSpheres)
+        /*if (hideSpheres)
         {
             ReturnAllSphereToInventory();
-        }
+        }*/
 
         bool modificatorEatModificator = CheckModificator(key, power, out int powerLeft);
 
@@ -319,7 +386,7 @@ public class CastModel : MonoBehaviour
 
         if (needNew)
         {
-            GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), transform);
+            GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), _player.transform);
             SphereModificator modificator = go.GetComponent<SphereModificator>();
             modificator.Init(power);
         }
