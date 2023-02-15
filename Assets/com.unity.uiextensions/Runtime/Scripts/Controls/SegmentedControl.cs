@@ -130,8 +130,12 @@ namespace UnityEngine.UI.Extensions
 
             LayoutSegments();
 
-            if (m_selectedSegmentIndex != -1)
-                selectedSegmentIndex = m_selectedSegmentIndex;
+            if (m_selectedSegmentIndex != -1) {
+                int m_indx = m_selectedSegmentIndex;
+                m_selectedSegmentIndex = -1;
+                selectedSegmentIndex = m_indx;
+            }
+                
         }
 
 #if UNITY_EDITOR
