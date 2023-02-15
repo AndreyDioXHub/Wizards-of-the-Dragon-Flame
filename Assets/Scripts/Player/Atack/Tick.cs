@@ -14,6 +14,8 @@ public class Tick : MonoBehaviour
 
     [SerializeField]
     private bool _mayUpdateTick = true;
+    [SerializeField]
+    private bool _passTick = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,11 @@ public class Tick : MonoBehaviour
     {
         if (_mayUpdateTick)
         {
+            if (_passTick)
+            {
+                OnTickPassed?.Invoke();
+            }
+
             _mayUpdateTick = false;
             _tickTimeCur = 0;
         }
