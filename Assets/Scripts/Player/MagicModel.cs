@@ -75,7 +75,7 @@ public class MagicModel : MonoBehaviour
     void Start()
     {
         FillDictonaryes();
-        CollectModificators();
+        //CollectModificators();
         _castTimeCur = _castTime;
         ShowSphere();
     }
