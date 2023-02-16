@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using com.czeeep.network.player;
 
 namespace com.cyraxchel.pun {
     public class PlayerUI : MonoBehaviour {
@@ -24,7 +25,7 @@ namespace com.cyraxchel.pun {
 
         #region Private Fields
 
-        PlayerManager target;
+        PlayerNetwork target;
         float characterControllerHeight = 0f;
         Transform targetTransform;
         Renderer targetRenderer;
@@ -66,7 +67,7 @@ namespace com.cyraxchel.pun {
 
         #region Public Methods
 
-        public void SetTarget(PlayerManager _target) {
+        public void SetTarget(PlayerNetwork _target) {
             if(_target == null) {
                 Debug.LogError("Missing PlayerManager target for PlayerUI.SetTarget.", this);
                 return;
