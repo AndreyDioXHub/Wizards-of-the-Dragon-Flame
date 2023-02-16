@@ -12,10 +12,8 @@ GameObject:
   - component: {fileID: 2642601302486525056}
   - component: {fileID: 2642601302486525057}
   - component: {fileID: 2642601302486525058}
-  - component: {fileID: 2642601302486525062}
-  - component: {fileID: 2642601302486525083}
-  - component: {fileID: 2642601302486525060}
   - component: {fileID: -3889067943508537448}
+  - component: {fileID: 4172693832694840922}
   - component: {fileID: 6738917798563588107}
   - component: {fileID: 3123449471866275239}
   m_Layer: 0
@@ -109,74 +107,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2642601302486525062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642601302486525059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7f35e2b8431b740aa3a90c3e183c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 2642601302486525058}
-  _staff: {fileID: 2642601302486525083}
-  _point: {fileID: 0}
-  _playerCamera: {fileID: 0}
-  _mouseSensitivity: 10
-  _speed: 5
-  _interactableDistance: 2
-  _isGrounded: 0
---- !u!114 &2642601302486525083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642601302486525059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cee2cad3cc40e484aaa00f6aa21e248b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tick: {fileID: 2642601302486525060}
-  _direction: 0
-  _mayShoot: 1
-  _isShoot: 0
-  _magicInited: 0
---- !u!114 &2642601302486525060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642601302486525059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnTickPassed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2642601302486525083}
-        m_TargetAssemblyTypeName: Staff, Assembly-CSharp
-        m_MethodName: UpdateMayShoot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _tickTime: 1
-  _tickTimeCur: 0
-  _mayUpdateTick: 1
-  _passTick: 0
 --- !u!114 &-3889067943508537448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +119,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e432009526da340b10fa145146b74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 1
-  PlayerUiPrefab: {fileID: 1356691274992317193, guid: 84a0535e7f27bce499976a70f1e7a14b, type: 3}
+  _character: {fileID: 2642601302486525058}
+  _mouseSensitivity: 100
+  _speed: 5
+  _interactableDistance: 2
+  _isGrounded: 0
+--- !u!114 &4172693832694840922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642601302486525059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365468ff991f60f4f9e12ab2b9cf778e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _random: 0
 --- !u!114 &6738917798563588107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +157,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -3889067943508537448}
+  - {fileID: 4172693832694840922}
+  - {fileID: 3123449471866275239}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

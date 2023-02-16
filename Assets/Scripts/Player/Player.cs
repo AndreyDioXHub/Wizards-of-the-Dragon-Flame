@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private CharacterController _character;
     [SerializeField]
-    private Staff _staff;
+    private StaffModel _staff;
 
     [SerializeField]
     private Transform _point;

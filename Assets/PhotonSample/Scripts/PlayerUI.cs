@@ -44,8 +44,9 @@ namespace com.cyraxchel.pun {
 
         // Update is called once per frame
         void Update() {
-            if(playerHealthSlider != null) {
-                playerHealthSlider.value = target.Health;
+            if(playerHealthSlider != null) 
+            {
+                //playerHealthSlider.value = target.Health;
             }
             if(target == null) {
                 Destroy(gameObject);
