@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class StaffModel : MonoBehaviour
 {
+    public UnityEvent<Dictionary<string, int>, CastDirection> OnStaffShoot;
+    public UnityEvent<bool> OnStaffShootStop;
+
     public static StaffModel Instance;
     //public UnityEvent OnShoot;
     public bool IsShoot  { get => _isShoot; }
@@ -95,7 +98,7 @@ public class StaffModel : MonoBehaviour
                         GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), _player.transform);
 
                         Magic magic = go.GetComponent<Magic>();
-                        magic.UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+                        magic.UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
 
                         _magics.Add(sphC.Key, magic);
                     }
@@ -176,7 +179,7 @@ public class StaffModel : MonoBehaviour
             {
                 if (_magics.TryGetValue(sphC.Key, out Magic magic))
                 {
-                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
                 }
             }
 

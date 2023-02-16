@@ -31,6 +31,7 @@ namespace com.czeeep.network {
         #endregion
 
         #region Public Methods
+        [ContextMenu("Leave Room")]
         public void LeaveRoom() {
             PhotonNetwork.LeaveRoom();
         }
