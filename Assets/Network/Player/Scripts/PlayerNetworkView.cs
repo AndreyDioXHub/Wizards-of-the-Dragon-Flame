@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public static StaffModel LocalStaffModelInstance;
 
+    /*
     #region Staff 
     private Dictionary<string, int> _spheresCount = new Dictionary<string, int>();
     [SerializeField]
@@ -33,21 +35,23 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
         {"ice","Magic" },
         {"shield","Magic" },
     };
-    #endregion
+    #endregion*/
 
     // Start is called before the first frame update
     void Start()
     {
         if (photonView.IsMine)
         {
-            StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
-            StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);
+            LocalStaffModelInstance = StaffModel.Instance;
+            //StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
+            //StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (_executeShoot)
         {
 
@@ -60,7 +64,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    /*if(_spheresCount.Count > 0)
+                    if(_spheresCount.Count > 0)
                     {
                         foreach (var sphC in _spheresCount)
                         {
@@ -77,7 +81,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
                     else
                     {
                         Debug.Log("chunk to the head");
-                    }*/
+                    }
 
                 }
             }
@@ -87,7 +91,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             _executeShoot = false;
-        }
+        }*/
 
         /*if (photonView.IsMine)
         {
@@ -106,14 +110,14 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnStaffShoot(Dictionary<string, int> spheresCount, CastDirection direction)
     {
-        _spheresCount = spheresCount;
-        _direction = direction;
+        //_spheresCount = spheresCount;
+        //_direction = direction;
     }
 
     public void OnStaffShootStop(bool isShoot)
     {
-        _isShoot = isShoot;
-        _executeShoot = true;
+        //_isShoot = isShoot;
+       // _executeShoot = true;
     }
 
 

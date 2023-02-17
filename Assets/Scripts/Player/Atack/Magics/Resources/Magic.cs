@@ -36,7 +36,7 @@ public class Magic : MonoBehaviourPunCallbacks, IPunObservable
 
         if(photonView.IsMine)
         {
-            //PlayerNetworkView.LocalStaffModelInstance.AddMagic(_name, this);
+            PlayerNetworkView.LocalStaffModelInstance.AddMagic(_name, this);
         }
         /* _view = transform.GetComponentInParent<PlayerNetworkView>();
          _view.AddMagic(gameObject);*/
