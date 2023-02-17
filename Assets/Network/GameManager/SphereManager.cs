@@ -67,10 +67,11 @@ namespace com.czeeep.network {
         public void SyncSpheres() {
             if (PhotonNetwork.IsMasterClient) {
                 Debug.Log("Start sync");
-                foreach (var item in _spheres) {
+                for (int i = 0; i < _spheres.Count; i++) {
+                    var item = _spheres[i];
                     if(item != null) {
                         var _sphere = item.GetComponent<SphereWorld>();
-                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType());
+                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType(), i);
                     }
                 }
             }
