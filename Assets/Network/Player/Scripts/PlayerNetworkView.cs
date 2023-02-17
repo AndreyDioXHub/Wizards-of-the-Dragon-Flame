@@ -120,6 +120,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        /*
         if (stream.IsWriting)
         {
             //We own this player: send the others out data
@@ -136,7 +137,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
             this._isShoot = (bool)stream.ReceiveNext();
             this._executeShoot = (bool)stream.ReceiveNext();
             this._direction = (CastDirection)stream.ReceiveNext();
-        }
+        }*/
     }
 
     private void OnDestroy()
