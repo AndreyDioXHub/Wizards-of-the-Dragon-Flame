@@ -94,9 +94,12 @@ namespace com.czeeep.network {
                     //PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().SetFireButton(fireButton);
                     Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
                 }
-                
+            }
+            if(PhotonNetwork.IsMasterClient) {
+                sphereManager.CreateSpheres();
             }
         }
+
 
         // Update is called once per frame
         void Update() {
