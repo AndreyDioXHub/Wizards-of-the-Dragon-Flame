@@ -10,6 +10,7 @@ namespace com.czeeep.network {
         #region Constants
 
         public const string CreateSphereAction = "CreateSphere";
+        public const string DestroySphereAction = "RemovedExtenral";
 
         #endregion
 
@@ -66,10 +67,11 @@ namespace com.czeeep.network {
         public void SyncSpheres() {
             if (PhotonNetwork.IsMasterClient) {
                 Debug.Log("Start sync");
-                foreach (var item in _spheres) {
+                for (int i = 0; i < _spheres.Count; i++) {
+                    var item = _spheres[i];
                     if(item != null) {
                         var _sphere = item.GetComponent<SphereWorld>();
-                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType());
+                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType(), i);
                     }
                 }
             }
@@ -78,7 +80,7 @@ namespace com.czeeep.network {
         internal void WillDestroyed(int m_index) {
             Debug.Log("<color=red>Destroy sphere local</color>");
             if(PhotonNetwork.IsConnected) {
-                photonView.RPC(CreateSphereAction, RpcTarget.Others, m_index);
+                photonView.RPC(DestroySphereAction, RpcTarget.Others, m_index);
             }
         }
 
