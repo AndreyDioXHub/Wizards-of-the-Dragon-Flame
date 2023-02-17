@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public static PlayerNetworkView LocalPlayerNetworkViewInstance;
 
     #region Staff 
+    //public static GameObject LocalPlayerInstance;
+    public static StaffModel LocalStaffModelInstance;
+
     [SerializeField]
     private List<GameObject> _magicsList = new List<GameObject>();
     /*
@@ -44,6 +48,9 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
+            LocalPlayerNetworkViewInstance = this;
+            LocalStaffModelInstance = StaffModel.Instance;
+
             /*StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
             StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);*/
         }
@@ -59,7 +66,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            _magicsList.Add(magic);
+            //_magicsList.Add(magic);
         }
     }
 
@@ -87,11 +94,11 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(_isShoot);
             stream.SendNext(_direction);
             stream.SendNext(_executeShoot);*/
-            stream.SendNext(_magicsList);
+            //stream.SendNext(_magicsList);
         }
         else
         {
-            this._magicsList = (List<GameObject>)stream.ReceiveNext();
+            //this._magicsList = (List<GameObject>)stream.ReceiveNext();
             //this._random = (int)stream.ReceiveNext();
             /*this._magicsList = (Dictionary<string, string>)stream.ReceiveNext();
             this._isShoot = (bool)stream.ReceiveNext();

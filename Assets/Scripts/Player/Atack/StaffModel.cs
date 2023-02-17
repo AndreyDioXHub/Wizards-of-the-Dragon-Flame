@@ -1,4 +1,5 @@
 using com.czeeep.network.player;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,12 +96,16 @@ public class StaffModel : MonoBehaviour
                 {
                     foreach (var sphC in _spheresCount)
                     {
-                        GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), _player.transform);
+                        //GameObject go = PhotonNetwork.Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]));//, _player.transform);
 
-                        Magic magic = go.GetComponent<Magic>();
+                        object[] myCustomInitData = GetInitData(sphC.Key, (int)_direction, sphC.Value);
+                        GameObject go = PhotonNetwork.Instantiate(_magicsList[sphC.Key], new Vector3(0, 0, 0), Quaternion.identity, 0, myCustomInitData);//, _player.transform);
+                        go.transform.SetParent(PlayerNetwork.LocalPlayerInstance.transform);
+                        //go.transform.localPosition = Vector3.zero;
+                        /*Magic magic = go.GetComponent<Magic>();
                         magic.UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
 
-                        _magics.Add(sphC.Key, magic);
+                        _magics.Add(sphC.Key, magic);*/
                     }
 
                     _magicInited = true;
@@ -116,6 +121,22 @@ public class StaffModel : MonoBehaviour
             _isShoot = true;
             _mayShoot = false;
         }
+    }
+
+    private object[] GetInitData(string key, int direction, int value)
+    {
+        List<object> data = new List<object>();
+
+        data.Add(key);
+        data.Add(direction);
+        data.Add(value);
+
+        return data.ToArray();
+    }
+
+    public void AddMagic(string key, Magic magic)
+    {
+        _magics.Add(key, magic);
     }
 
     public void ShootStop()
@@ -179,7 +200,7 @@ public class StaffModel : MonoBehaviour
             {
                 if (_magics.TryGetValue(sphC.Key, out Magic magic))
                 {
-                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
+                    _magics[sphC.Key].UpdateInfo(sphC.Key, (int)_direction, sphC.Value);
                 }
             }
 
