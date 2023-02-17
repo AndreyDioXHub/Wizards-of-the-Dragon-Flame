@@ -21,6 +21,7 @@ namespace com.czeeep.network {
 
         public Joystick joystick;
         public Button fireButton;
+        public SphereManager sphereManager;
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
                 //LoadArena();
+                //TODO Sync state spheres
             }
         }
 
@@ -71,6 +73,10 @@ namespace com.czeeep.network {
 
         #endregion
 
+
+        #region MonoBehaviour callbacks
+
+        
         // Start is called before the first frame update
         void Start() {
             Instance = this;
@@ -87,13 +93,19 @@ namespace com.czeeep.network {
                     //PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().SetFireButton(fireButton);
                     Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
                 }
-                
             }
+            if(PhotonNetwork.IsMasterClient) {
+                sphereManager.CreateSpheres();
+            } 
+            sphereManager.SyncSpheres();
         }
+
 
         // Update is called once per frame
         void Update() {
 
         }
+
+        #endregion
     }
 }
