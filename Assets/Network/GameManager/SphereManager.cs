@@ -10,6 +10,7 @@ namespace com.czeeep.network {
         #region Constants
 
         public const string CreateSphereAction = "CreateSphere";
+        public const string DestroySphereAction = "RemovedExtenral";
 
         #endregion
 
@@ -78,7 +79,7 @@ namespace com.czeeep.network {
         internal void WillDestroyed(int m_index) {
             Debug.Log("<color=red>Destroy sphere local</color>");
             if(PhotonNetwork.IsConnected) {
-                photonView.RPC(CreateSphereAction, RpcTarget.Others, m_index);
+                photonView.RPC(DestroySphereAction, RpcTarget.Others, m_index);
             }
         }
 
