@@ -63,13 +63,11 @@ namespace com.czeeep.network {
             _spheres.Add(_sphere);
             //TODO Addlink to Manager
 
-            if(photonView != null) {
-                photonView.RPC(CreateSphereAction, RpcTarget.Others, pos, rotation, elementType);
-            }
         }
 
         public void SyncSpheres() {
             if (PhotonNetwork.IsMasterClient) {
+                Debug.Log("Start sync");
                 foreach (var item in _spheres) {
                     if(item != null) {
                         var _sphere = item.GetComponent<SphereWorld>();

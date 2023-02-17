@@ -16,6 +16,8 @@ namespace com.czeeep.network {
 
         #region Public Fields
 
+        const string UpdateMethodCall = "MasterUpdateSpheres";
+
         public static GameManager Instance;
         public GameObject playerPrefab;
 
@@ -96,7 +98,15 @@ namespace com.czeeep.network {
             }
             if(PhotonNetwork.IsMasterClient) {
                 sphereManager.CreateSpheres();
-            } 
+            } else {
+                var photonView = PhotonView.Get(this);
+                photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
+            }
+            
+        }
+
+        [PunRPC]
+        public void MasterUpdateSpheres() {
             sphereManager.SyncSpheres();
         }
 
