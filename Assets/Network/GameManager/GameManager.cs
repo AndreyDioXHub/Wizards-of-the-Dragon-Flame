@@ -21,6 +21,7 @@ namespace com.czeeep.network {
 
         public Joystick joystick;
         public Button fireButton;
+        public SphereManager sphereManager;
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
                 //LoadArena();
+                //TODO Sync state spheres
             }
         }
 
@@ -71,9 +73,14 @@ namespace com.czeeep.network {
 
         #endregion
 
+
+        #region MonoBehaviour callbacks
+
+        
         // Start is called before the first frame update
         void Start() {
             Instance = this;
+            sphereManager = new SphereManager();
             if(playerPrefab == null) {
                 Debug.LogError("Missing player prefab");
             } else {
@@ -95,5 +102,7 @@ namespace com.czeeep.network {
         void Update() {
 
         }
+
+        #endregion
     }
 }

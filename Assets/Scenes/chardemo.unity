@@ -3958,6 +3958,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 2642601302486525059, guid: 23e6e3d3555fef7459eb53993dae836f, type: 3}
   joystick: {fileID: 0}
   fireButton: {fileID: 0}
+  sphereManager:
+    spherePrefab: {fileID: 3949965128032651956, guid: a699a446b3a465f4994b7e31ff295605, type: 3}
 --- !u!1 &1576228254
 GameObject:
   m_ObjectHideFlags: 0
@@ -6478,6 +6480,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3949965127855374609, guid: a699a446b3a465f4994b7e31ff295605, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3949965128032651945, guid: a699a446b3a465f4994b7e31ff295605, type: 3}
       propertyPath: m_RootOrder
       value: 4
