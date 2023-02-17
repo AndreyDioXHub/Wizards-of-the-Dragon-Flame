@@ -97,7 +97,7 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 sphereManager.CreateSpheres();
             } 
-            sphereManager.CloneSpheres();
+            sphereManager.SyncSpheres();
         }
 
 
