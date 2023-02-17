@@ -7,11 +7,14 @@ public class Magic : MonoBehaviour
 {
     [SerializeField]
     protected MagicInfo _magicInfo;
+    [SerializeField]
+    protected PlayerNetworkView _view;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _view = transform.GetComponentInParent<PlayerNetworkView>();
+        _view.AddMagic(gameObject);
     }
 
     // Update is called once per frame

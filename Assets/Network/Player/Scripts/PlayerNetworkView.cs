@@ -7,6 +7,9 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     #region Staff 
+    [SerializeField]
+    private List<GameObject> _magicsList = new List<GameObject>();
+    /*
     private Dictionary<string, int> _spheresCount = new Dictionary<string, int>();
     [SerializeField]
     private CastDirection _direction;
@@ -33,6 +36,7 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
         {"ice","Magic" },
         {"shield","Magic" },
     };
+    */
     #endregion
 
     // Start is called before the first frame update
@@ -40,80 +44,35 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
-            StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);
+            /*StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
+            StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);*/
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_executeShoot)
-        {
-
-            if (_isShoot)
-            {
-                if (_magicInited)
-                {
-
-
-                }
-                else
-                {
-                    /*if(_spheresCount.Count > 0)
-                    {
-                        foreach (var sphC in _spheresCount)
-                        {
-                            GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), transform);
-
-                            Magic magic = go.GetComponent<Magic>();
-                            magic.UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
-
-                            _magics.Add(sphC.Key, magic);
-                        }
-
-                        _magicInited = true;
-                    }
-                    else
-                    {
-                        Debug.Log("chunk to the head");
-                    }*/
-
-                }
-            }
-            else
-            {
-
-            }
-
-            _executeShoot = false;
-        }
-
-        /*if (photonView.IsMine)
-        {
-            //Destroy(_character);
-        }
-        else
-        {
-            return;
-        }*/
-
-        //_random = Random.Range(-1000, 1000);
 
     }
 
-
+    public void AddMagic(GameObject magic)
+    {
+        if (photonView.IsMine)
+        {
+            _magicsList.Add(magic);
+        }
+    }
 
     public void OnStaffShoot(Dictionary<string, int> spheresCount, CastDirection direction)
     {
-        _spheresCount = spheresCount;
-        _direction = direction;
+        //_spheresCount = spheresCount;
+        //_direction = direction;
     }
 
     public void OnStaffShootStop(bool isShoot)
     {
-        _isShoot = isShoot;
-        _executeShoot = true;
+        //_isShoot = isShoot;
+        //_executeShoot = true;
     }
 
 
@@ -124,18 +83,20 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
         {
             //We own this player: send the others out data
             //stream.SendNext(_random);
-            stream.SendNext(_magicsList);
+            /*stream.SendNext(_magicsList);
             stream.SendNext(_isShoot);
             stream.SendNext(_direction);
-            stream.SendNext(_executeShoot);
+            stream.SendNext(_executeShoot);*/
+            stream.SendNext(_magicsList);
         }
         else
         {
+            this._magicsList = (List<GameObject>)stream.ReceiveNext();
             //this._random = (int)stream.ReceiveNext();
-            this._magicsList = (Dictionary<string, string>)stream.ReceiveNext();
+            /*this._magicsList = (Dictionary<string, string>)stream.ReceiveNext();
             this._isShoot = (bool)stream.ReceiveNext();
             this._executeShoot = (bool)stream.ReceiveNext();
-            this._direction = (CastDirection)stream.ReceiveNext();
+            this._direction = (CastDirection)stream.ReceiveNext();*/
         }
     }
 
