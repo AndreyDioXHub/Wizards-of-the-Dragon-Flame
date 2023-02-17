@@ -67,6 +67,17 @@ namespace com.czeeep.network {
                 photonView.RPC(CreateSphereAction, RpcTarget.Others, pos, rotation, elementType);
             }
         }
+
+        public void SyncSpheres() {
+            if (PhotonNetwork.IsMasterClient) {
+                foreach (var item in _spheres) {
+                    if(item != null) {
+                        var _sphere = item.GetComponent<SphereWorld>();
+                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType());
+                    }
+                }
+            }
+        }
         #endregion
 
         [Serializable]
@@ -89,5 +100,6 @@ namespace com.czeeep.network {
                 return pos;
             }
         }
+
     }
 }

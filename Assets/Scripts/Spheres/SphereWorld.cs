@@ -64,6 +64,10 @@ public class SphereWorld : MonoBehaviour
         }
     }
 
+    public int GetElementType() {
+        return (int)_element;
+    }
+
     void Update()
     {
         
