@@ -81,9 +81,11 @@ namespace com.czeeep.network {
 
             public static Vector3 GenerateRandomPosition() {
                 if(random == null) {
-                    random = new System.Random(100);
+                    //random = new System.Random(100);
                 }
-                Vector3 pos = new Vector3(random.Next(), 0, random.Next());
+                
+                Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
+                Debug.Log($"x: {pos.x}, y: {pos.y}");
                 return pos;
             }
         }

@@ -80,7 +80,6 @@ namespace com.czeeep.network {
         // Start is called before the first frame update
         void Start() {
             Instance = this;
-            sphereManager = new SphereManager();
             if(playerPrefab == null) {
                 Debug.LogError("Missing player prefab");
             } else {
