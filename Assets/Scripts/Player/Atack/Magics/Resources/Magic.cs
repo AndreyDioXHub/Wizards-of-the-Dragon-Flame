@@ -34,7 +34,10 @@ public class Magic : MonoBehaviourPunCallbacks, IPunObservable
 
         gameObject.name = $"Magic {_name}: {(CastDirection)_direction} - {_power}";
 
-        PlayerNetworkView.LocalStaffModelInstance.AddMagic(_name, this);
+        if(photonView.IsMine)
+        {
+            PlayerNetworkView.LocalStaffModelInstance.AddMagic(_name, this);
+        }
         /* _view = transform.GetComponentInParent<PlayerNetworkView>();
          _view.AddMagic(gameObject);*/
     }
