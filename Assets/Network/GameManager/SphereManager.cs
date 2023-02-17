@@ -55,14 +55,12 @@ namespace com.czeeep.network {
         }
 
         [PunRPC]
-        protected void CreateSphere(Vector3 pos, Quaternion rotation, int elementType = -1) {
+        protected void CreateSphere(Vector3 pos, Quaternion rotation, int elementType = -1, int indx = -1) {
             GameObject _sphere = Instantiate(spherePrefab, null);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
-            _sphere.GetComponent<SphereWorld>().Init((SpheresElements)elementType, 5);  //TODO Add count by logic!
             _spheres.Add(_sphere);
-            //TODO Addlink to Manager
-
+            _sphere.GetComponent<SphereWorld>().Init((SpheresElements)elementType, 5, _spheres.Count-1);
         }
 
         public void SyncSpheres() {
@@ -76,6 +74,29 @@ namespace com.czeeep.network {
                 }
             }
         }
+
+        internal void WillDestroyed(int m_index) {
+            Debug.Log("<color=red>Destroy sphere local</color>");
+            if(PhotonNetwork.IsConnected) {
+                photonView.RPC(CreateSphereAction, RpcTarget.Others, m_index);
+            }
+        }
+
+        [PunRPC]
+        public void RemovedExtenral(int m_index) {
+            if(m_index > -1 && m_index < _spheres.Count) {
+                GameObject _go = _spheres[m_index];
+                if(_go != null) {
+                    _go.GetComponent<SphereWorld>().SilentDestroy = true;
+                    Destroy(_go);
+                }
+            } else {
+                Debug.LogWarning($"Sphere {m_index} not exist.");
+            }
+        }
+
+
+
         #endregion
 
         [Serializable]

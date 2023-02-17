@@ -136,7 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365468ff991f60f4f9e12ab2b9cf778e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _random: 0
+  _direction: 0
+  _isShoot: 0
+  _executeShoot: 0
+  _magicInited: 0
 --- !u!114 &6738917798563588107
 MonoBehaviour:
   m_ObjectHideFlags: 0
