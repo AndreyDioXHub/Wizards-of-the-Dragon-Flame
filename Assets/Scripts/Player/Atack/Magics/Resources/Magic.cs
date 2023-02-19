@@ -27,7 +27,7 @@ public class Magic : MonoBehaviour
     public void UpdateInfo(MagicInfo magicInfo)
     {
         _magicInfo = magicInfo;
-        name = $"Magic {_magicInfo.name}: {_magicInfo.power}";
+        name = $"c:{_magicInfo.name}:{_magicInfo.direction}:{_magicInfo.power}";
     }
 
     public void DestroyMagic()

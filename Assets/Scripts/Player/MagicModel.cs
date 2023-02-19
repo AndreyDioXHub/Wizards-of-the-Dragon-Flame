@@ -376,6 +376,7 @@ public class MagicModel : MonoBehaviour
                     if (_sphereModificators[i].Key.Equals(key))
                     {
                         _sphereModificators[i].AddPower(power);
+                        //_sphereModificators[i].gameObject.name = $"m:{key}:{_sphereModificators[i].Power}";
                         needNew = false;
                         i = _sphereModificators.Length;
                     }
@@ -389,6 +390,7 @@ public class MagicModel : MonoBehaviour
             GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), _player.transform);
             SphereModificator modificator = go.GetComponent<SphereModificator>();
             modificator.Init(power);
+            //go.name = $"m:{key}:1";
         }
     }
 

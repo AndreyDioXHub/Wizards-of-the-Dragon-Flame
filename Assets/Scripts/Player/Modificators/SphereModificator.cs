@@ -5,6 +5,7 @@ using UnityEngine;
 public class SphereModificator : MonoBehaviour
 {
     public string Key { get => _key; }
+    public int Power { get => _power; }
 
     [SerializeField]
     protected string _key;
@@ -20,6 +21,7 @@ public class SphereModificator : MonoBehaviour
 
     public virtual void Init(int power)
     {
+        gameObject.name = $"m:{_key}:{power}";
         _power = power;
     }
 
@@ -36,6 +38,8 @@ public class SphereModificator : MonoBehaviour
         {
             _element.UpdateInfo(_key, _power, 1);
         }
+
+        gameObject.name = $"m:{_key}:{_power}";
     }
 
     // Start is called before the first frame update
