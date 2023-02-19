@@ -25,6 +25,8 @@ namespace com.czeeep.network.player {
         private float _mouseSensitivity = 100f;
         [SerializeField]
         private float _speed;
+        [SerializeField]
+        private LayerMask _ignoreLayers;
 
         private float _xRotation = 0f;
         private float _angleTrashHold = 1f;
@@ -165,7 +167,7 @@ namespace com.czeeep.network.player {
                 RaycastHit hit;
                 Ray ray = FollowCamera.Instance.SelfCamera.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, _ignoreLayers))
                 {
                     var point = hit.point;
                     _move = true;
@@ -208,50 +210,54 @@ namespace com.czeeep.network.player {
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                StaffModel.Instance.ShootStop();
+                //StaffModel.Instance.ShootStop();
                 MagicModel.Instance.ReturnAllSphereToInventory();
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (!Input.GetMouseButtonDown(1))
             {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.water.ToString());
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.water.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.life.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.shield.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.freze.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.razor.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.dark.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.earth.ToString());
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    //StaffModel.Instance.ShootStop();
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.fire.ToString());
+                }
             }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.life.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.shield.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.freze.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.razor.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.dark.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.earth.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StaffModel.Instance.ShootStop();
-                MagicModel.Instance.AddSpheretoActive(SpheresElements.fire.ToString());
-            }
+            
 
             if (_rotate)
             {

@@ -1,149 +1,225 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
 {
+    [SerializeField]
+    private List<GameObject> _exceptionGameObjects = new List<GameObject>();
+    [SerializeField]
+    private string _mySpheresMagicModificators;
+    [SerializeField]
+    private string _mySpheresMagicModificatorsPrev;
 
-    #region Staff 
-    private Dictionary<string, int> _spheresCount = new Dictionary<string, int>();
     [SerializeField]
-    private CastDirection _direction;
+    private List<MagicInfo> _magics = new List<MagicInfo>();
     [SerializeField]
-    private bool _isShoot;
+    private List<ModificatorInfo> _modificators = new List<ModificatorInfo>();
     [SerializeField]
-    private bool _executeShoot;
+    private List<string> _spheres = new List<string>();
 
-    [Tooltip("Non Network variable")]
     [SerializeField]
-    private bool _magicInited;
-
-    private Dictionary<string, string> _magicsList = new Dictionary<string, string>()
-    {
-        {"life","Magic" },
-        {"fire","Magic" },
-        {"water","Magic" },
-        {"earth","Magic" },
-        {"freze","Magic" },
-        {"razor","Magic" },
-        {"dark","Magic" },
-        {"steam","Magic" },
-        {"poison","Magic" },
-        {"ice","Magic" },
-        {"shield","Magic" },
-    };
-    #endregion
+    private List<bool> _changes = new List<bool>();
 
     // Start is called before the first frame update
     void Start()
     {
         if (photonView.IsMine)
         {
-            StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
-            StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);
+            /*StaffModel.Instance.OnStaffShoot.AddListener(OnStaffShoot);
+            StaffModel.Instance.OnStaffShootStop.AddListener(OnStaffShootStop);*/
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (_executeShoot)
+        if (photonView.IsMine)
         {
-
-            if (_isShoot)
-            {
-                if (_magicInited)
-                {
-
-
-                }
-                else
-                {
-                    /*if(_spheresCount.Count > 0)
-                    {
-                        foreach (var sphC in _spheresCount)
-                        {
-                            GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), transform);
-
-                            Magic magic = go.GetComponent<Magic>();
-                            magic.UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
-
-                            _magics.Add(sphC.Key, magic);
-                        }
-
-                        _magicInited = true;
-                    }
-                    else
-                    {
-                        Debug.Log("chunk to the head");
-                    }*/
-
-                }
-            }
-            else
-            {
-
-            }
-
-            _executeShoot = false;
-        }
-
-        /*if (photonView.IsMine)
-        {
+            _mySpheresMagicModificators = CreateSpheresMagicModificatorsString();
             //Destroy(_character);
         }
         else
         {
             return;
-        }*/
+        }
+
+        if (!_mySpheresMagicModificators.Equals(_mySpheresMagicModificatorsPrev))
+        {
+            CheckSplitMagicString(out _changes);
+            _mySpheresMagicModificatorsPrev = _mySpheresMagicModificators;
+        }
 
         //_random = Random.Range(-1000, 1000);
 
     }
 
 
-
-    public void OnStaffShoot(Dictionary<string, int> spheresCount, CastDirection direction)
+    public void CheckSplitMagicString(out List<bool> changes)
     {
-        _spheresCount = spheresCount;
-        _direction = direction;
+        Debug.Log($"splited");
+
+        //spell: selement:intdirection:power
+        //modificator: melement:power:time
+        //element: eelement
+
+        //magic, modificator, sphere
+        changes = new List<bool> { false, false, false };
+
+        //bool someChanged = 
+
+        string[] parts = _mySpheresMagicModificators.Split('|');
+
+        List<MagicInfo> magics = new List<MagicInfo>();
+        List<ModificatorInfo> modificators = new List<ModificatorInfo>();
+        List<string> spheres = new List<string>();
+
+        foreach (var p in parts)
+        {
+            // Debug.Log(p);
+            if (p.Length > 0)
+            {
+                char first = p[0];
+                string clearPart = p.Remove(0,1);
+                string[] clearPartSplited = clearPart.Split(':');
+                switch (first)
+                {
+                    case 's':
+
+                        MagicInfo magInfo = new MagicInfo(clearPartSplited[0], (CastDirection)int.Parse(clearPartSplited[1]), int.Parse(clearPartSplited[2]));
+                        /*modInfo.key = clearPartSplited[0];
+                        modInfo.power = int.Parse(clearPartSplited[1]);
+                        modInfo.time = float.Parse(clearPartSplited[2], CultureInfo.InvariantCulture.NumberFormat);*/
+                        magics.Add(magInfo);
+
+                        break;
+                    case 'm':
+                        ModificatorInfo modInfo = new ModificatorInfo();
+                        modInfo.key = clearPartSplited[0];
+                        modInfo.power = int.Parse(clearPartSplited[1]); 
+                        modInfo.time = float.Parse(clearPartSplited[2], CultureInfo.InvariantCulture.NumberFormat);
+                        modificators.Add(modInfo);
+                        break;
+                    case 'e':
+                        spheres.Add(clearPart);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        bool magicChanged = false;
+
+        if(_magics.Count != magics.Count)
+        {
+            magicChanged = true;
+        }
+        else
+        {
+            for (int i = 0; i < _magics.Count - 1; i++)
+            {
+                if(!_magics[i].name.Equals(magics[i].name) || _magics[i].power != magics[i].power)
+                {
+                    magicChanged = true;
+                }
+            }
+        }
+
+        _magics = magics;
+
+        bool modChanged = false;
+
+        if (_modificators.Count != modificators.Count)
+        {
+            modChanged = true;
+        }
+        else
+        {
+            for (int i = 0; i < _modificators.Count - 1; i++)
+            {
+                if (!_modificators[i].key.Equals(modificators[i].key) || _modificators[i].power != modificators[i].power)
+                {
+                    modChanged = true;
+                }
+            }
+        }
+        _modificators = modificators;
+
+        bool sphChanged = false;
+
+        if (_spheres.Count != spheres.Count)
+        {
+            sphChanged = true;
+        }
+        else
+        {
+            for (int i = 0; i < _spheres.Count - 1; i++)
+            {
+                if (!_spheres[i].Equals(spheres[i]) )
+                {
+                    sphChanged = true;
+                }
+            }
+        }
+        _spheres = spheres;
+
+        changes[0] = magicChanged;
+        changes[1] = modChanged;
+        changes[2] = sphChanged;
     }
 
-    public void OnStaffShootStop(bool isShoot)
+    public string CreateSpheresMagicModificatorsString()
     {
-        _isShoot = isShoot;
-        _executeShoot = true;
-    }
+        string result = "";
+        List<GameObject> childs = new List<GameObject>();
 
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            bool isAdd = true;
+            GameObject go = transform.GetChild(i).gameObject;
+            foreach (var ex in _exceptionGameObjects)
+            {
+                if(go == ex)
+                {
+                    isAdd = false;
+                }
+            }
+            if (isAdd)
+            {
+                childs.Add(go);
+            }
+        }
+
+        foreach (GameObject child in childs)
+        {
+            result += $"{child.name}|";
+            //child.transform.SetParent(null);
+            //Destroy(child);
+        }
+
+        return result;
+    }
 
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        /*
         if (stream.IsWriting)
         {
             //We own this player: send the others out data
             //stream.SendNext(_random);
-            stream.SendNext(_magicsList);
-            stream.SendNext(_isShoot);
-            stream.SendNext(_direction);
-            stream.SendNext(_executeShoot);
+            stream.SendNext(_mySpheresMagicModificators);
         }
         else
         {
             //this._random = (int)stream.ReceiveNext();
-            this._magicsList = (Dictionary<string, string>)stream.ReceiveNext();
-            this._isShoot = (bool)stream.ReceiveNext();
-            this._executeShoot = (bool)stream.ReceiveNext();
-            this._direction = (CastDirection)stream.ReceiveNext();
-        }*/
+            this._mySpheresMagicModificators = (string)stream.ReceiveNext();
+        }
     }
 
     private void OnDestroy()
     {
-        StaffModel.Instance.OnStaffShoot.RemoveListener(OnStaffShoot);
-        StaffModel.Instance.OnStaffShootStop.RemoveListener(OnStaffShootStop);
-
     }
 }

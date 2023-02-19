@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4172693832694840922}
   - component: {fileID: 6738917798563588107}
   - component: {fileID: 3123449471866275239}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -122,6 +122,9 @@ MonoBehaviour:
   _character: {fileID: 2642601302486525058}
   _mouseSensitivity: 100
   _speed: 5
+  _ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 55
   _interactableDistance: 2
   _isGrounded: 0
 --- !u!114 &4172693832694840922
@@ -136,10 +139,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365468ff991f60f4f9e12ab2b9cf778e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _direction: 0
-  _isShoot: 0
-  _executeShoot: 0
-  _magicInited: 0
+  _exceptionGameObjects:
+  - {fileID: 2642601303272781503}
+  _mySpheresMagicModificators: 
+  _mySpheresMagicModificatorsPrev: 
+  _magics: []
+  _modificators: []
+  _spheres: []
+  _changes: 
 --- !u!114 &6738917798563588107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +200,7 @@ GameObject:
   - component: {fileID: 2642601303272781491}
   - component: {fileID: 2642601303272781500}
   - component: {fileID: 2642601303272781501}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: t
   m_TagString: Untagged
   m_Icon: {fileID: 0}

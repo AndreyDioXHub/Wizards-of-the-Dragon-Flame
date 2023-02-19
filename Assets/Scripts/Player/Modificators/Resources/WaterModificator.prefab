@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0512c1fc17b1b7488a11cd26da4c569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _key: water
-  _power: 1
+  _info:
+    key: water
+    power: 1
+    time: 1
+  _timeActionCur: 0
   _element: {fileID: 0}

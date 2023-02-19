@@ -13,10 +13,10 @@ public class RazorModificator : SphereModificator
 
         if(_element != null)
         {
-            _element.UpdateInfo(_key, _power, 1 - _timeActionCur/ _timeAction);
+            _element.UpdateInfo(_info.key, _info.power, 1 - _timeActionCur/ _info.time);
         }
 
-        if(_timeActionCur >= _timeAction)
+        if(_timeActionCur >= _info.time)
         {
             DestroyModificator();
         }
@@ -25,15 +25,15 @@ public class RazorModificator : SphereModificator
     public override void DoDamage()
     {
         base.DoDamage();
-        Debug.Log($"do razor damage {_power}");
+        Debug.Log($"do razor damage {_info.power}");
     }
 
     public override void Init(int power)
     {
         base.Init(power);
         MagicModel.Instance.ReturnAllSphereToInventory("water");
-        ModificatorView.Instance.AddNewModificator(_key, power, out _element);
-        _element.UpdateInfo(_key, _power, 1);
+        ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
+        _element.UpdateInfo(_info.key, _info.power, 1);
         _timeActionCur = 0;
     }
 

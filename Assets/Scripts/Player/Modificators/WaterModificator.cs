@@ -15,8 +15,8 @@ public class WaterModificator : SphereModificator
         MagicModel.Instance.ReturnAllSphereToInventory("fire");
         MagicModel.Instance.ReturnAllSphereToInventory("steam");
         MagicModel.Instance.ReturnAllSphereToInventory("razor");
-        ModificatorView.Instance.AddNewModificator(_key, power, out _element);
-        _element.UpdateInfo(_key, _power, 1);
+        ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
+        _element.UpdateInfo(_info.key, _info.power, 1);
 
     }
     /*public override void AddPower(int power)
@@ -37,12 +37,12 @@ public class WaterModificator : SphereModificator
 
         if (sphere == SpheresElements.fire.ToString())
         {
-            incomingPowerleft = (power - _power) <= 0 ? 0 : power - _power;
+            incomingPowerleft = (power - _info.power) <= 0 ? 0 : power - _info.power;
 
-            _power -= power;
+            _info.power -= power;
             isCancel = true;
 
-            if (_power <= 0)
+            if (_info.power <= 0)
             {
                 DestroyModificator();
             }
@@ -56,7 +56,7 @@ public class WaterModificator : SphereModificator
             //DestroyModificator();
         }
 
-        _element.UpdateInfo(_key, _power, 1);
+        _element.UpdateInfo(_info.key, _info.power, 1);
         return incomingPowerleft;
     }
 }

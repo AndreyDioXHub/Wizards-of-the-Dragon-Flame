@@ -365,9 +365,9 @@ public class MagicModel : MonoBehaviour
             
             if (_sphereModificators.Length == 1)
             {
-                eq += $"{_sphereModificators[0].Key} {key} {_sphereModificators[0].Key.Equals(key)} \n";
+                eq += $"{_sphereModificators[0].Info.key} {key} {_sphereModificators[0].Info.key.Equals(key)} \n";
 
-                if (_sphereModificators[0].Key.Equals(key))
+                if (_sphereModificators[0].Info.key.Equals(key))
                 {
                     _sphereModificators[0].AddPower(power);
                     needNew = false;
@@ -377,9 +377,9 @@ public class MagicModel : MonoBehaviour
             {
                 for (int i = 0; i < _sphereModificators.Length - 1; i++)
                 {
-                    eq += $"{_sphereModificators[i].Key} {key} {_sphereModificators[i].Key.Equals(key)} \n";
+                    eq += $"{_sphereModificators[i].Info.key} {key} {_sphereModificators[i].Info.key.Equals(key)} \n";
 
-                    if (_sphereModificators[i].Key.Equals(key))
+                    if (_sphereModificators[i].Info.key.Equals(key))
                     {
                         _sphereModificators[i].AddPower(power);
                         //_sphereModificators[i].gameObject.name = $"m:{key}:{_sphereModificators[i].Power}";

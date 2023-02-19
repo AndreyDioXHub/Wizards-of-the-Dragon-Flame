@@ -80,6 +80,7 @@ public class StaffModel : MonoBehaviour
     {
         if (_mayShoot)
         {
+            Debug.Log("StaffModel Shoot");
             _tick.UpdateTick();
             
             if (_magicInited)
@@ -121,7 +122,7 @@ public class StaffModel : MonoBehaviour
     public void ShootStop()
     {
         _isShoot = false;
-        //_castModel.ReloadActiveSpheres();
+        //MagicModel.Instance.ReloadActiveSpheres();
 
         if (_magicInited)
         {
