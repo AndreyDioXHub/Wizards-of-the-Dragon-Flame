@@ -41,10 +41,10 @@ public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
             _mySpheresMagicModificators = CreateSpheresMagicModificatorsString();
             //Destroy(_character);
         }
-        else
+        /*else
         {
             return;
-        }
+        }*/
 
         if (!_mySpheresMagicModificators.Equals(_mySpheresMagicModificatorsPrev))
         {
