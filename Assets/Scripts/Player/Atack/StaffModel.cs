@@ -80,7 +80,6 @@ public class StaffModel : MonoBehaviour
     {
         if (_mayShoot)
         {
-            Debug.Log("StaffModel Shoot");
             _tick.UpdateTick();
             
             if (_magicInited)
@@ -96,6 +95,7 @@ public class StaffModel : MonoBehaviour
                 {
                     foreach (var sphC in _spheresCount)
                     {
+                        Debug.Log("StaffModel Shoot");
                         GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), _player.transform);
 
                         Magic magic = go.GetComponent<Magic>();
@@ -121,8 +121,12 @@ public class StaffModel : MonoBehaviour
 
     public void ShootStop()
     {
+        if (_isShoot)
+        {
+            MagicModel.Instance.ReloadActiveSpheres();
+        }
         _isShoot = false;
-        //MagicModel.Instance.ReloadActiveSpheres();
+        //
 
         if (_magicInited)
         {

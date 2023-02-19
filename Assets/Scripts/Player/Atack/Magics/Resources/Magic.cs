@@ -11,7 +11,8 @@ public class Magic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        //Debug.Log("StaffModel Shoot Magic");
     }
 
     // Update is called once per frame
