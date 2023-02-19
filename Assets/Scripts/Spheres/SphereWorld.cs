@@ -1,3 +1,4 @@
+using com.czeeep.network;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,18 @@ public class SphereWorld : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _image;
 
+    int m_index = -1;
+
+    public bool SilentDestroy { get; internal set; } = false;
+
     private void Start()
     {
         
     }
 
-    public void Init(SpheresElements element, int count)
+    public void Init(SpheresElements element, int count, int _index = -1)
     {
+        m_index = _index;
         _element = element;
         _count = count;
         switch (element)
@@ -61,6 +67,16 @@ public class SphereWorld : MonoBehaviour
             MagicModel.Instance.AddSphere(_element.ToString(), _count);
             //Debug.Log($"SphereWorld: Added {_element}: {_count}");
             Destroy(gameObject);
+        }
+    }
+
+    public int GetElementType() {
+        return (int)_element;
+    }
+
+    void OnDestroy() {
+        if(!SilentDestroy) {
+            GameManager.Instance.sphereManager.WillDestroyed(m_index);
         }
     }
 

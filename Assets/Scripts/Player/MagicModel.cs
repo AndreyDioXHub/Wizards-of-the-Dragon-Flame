@@ -1,3 +1,4 @@
+using com.czeeep.network.player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ public class MagicModel : MonoBehaviour
     public List<string> ActiveSpheres { get => _activeSpheres; }
 
     [SerializeField]
-    private Player _player;
+    private PlayerNetwork _player;
     [SerializeField]
     private SpheresView _viewInventory;
     [SerializeField]
@@ -74,9 +75,14 @@ public class MagicModel : MonoBehaviour
     void Start()
     {
         FillDictonaryes();
-        CollectModificators();
+        //CollectModificators();
         _castTimeCur = _castTime;
         ShowSphere();
+    }
+
+    public void Init(PlayerNetwork player)
+    {
+        _player = player;
     }
 
     public void CollectModificators()

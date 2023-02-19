@@ -40,14 +40,12 @@ public class Magic : MonoBehaviour
 public class MagicInfo
 {
     public string name;
-    public Tick tick;
     public CastDirection direction;
     public int power;
 
-    public MagicInfo(string name, Tick tick, CastDirection direction, int power)
+    public MagicInfo(string name, CastDirection direction, int power)
     {
         this.name = name;
-        this.tick = tick;
         this.direction = direction;
         this.power = power;
     }

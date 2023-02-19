@@ -5,6 +5,11 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     public static FollowCamera Instance;
+
+    public Camera SelfCamera { get => _selfCamera; }
+
+    [SerializeField]
+    private Camera _selfCamera;
     [SerializeField]
     private Transform _target;
     [SerializeField]

@@ -1,13 +1,21 @@
+using com.czeeep.network.player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Staff : MonoBehaviour
+public class StaffModel : MonoBehaviour
 {
+    public UnityEvent<Dictionary<string, int>, CastDirection> OnStaffShoot;
+    public UnityEvent<bool> OnStaffShootStop;
+
+    public static StaffModel Instance;
     //public UnityEvent OnShoot;
     public bool IsShoot  { get => _isShoot; }
-    
+
+    [SerializeField]
+    private PlayerNetwork _player;
+
     [SerializeField]
     private Tick _tick;
 
@@ -37,6 +45,24 @@ public class Staff : MonoBehaviour
         {"ice","Magic" },
         {"shield","Magic" },
     };
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    public void Init(PlayerNetwork player)
+    {
+        _player = player;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -69,10 +95,10 @@ public class Staff : MonoBehaviour
                 {
                     foreach (var sphC in _spheresCount)
                     {
-                        GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), transform);
+                        GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), _player.transform);
 
                         Magic magic = go.GetComponent<Magic>();
-                        magic.UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+                        magic.UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
 
                         _magics.Add(sphC.Key, magic);
                     }
@@ -153,7 +179,7 @@ public class Staff : MonoBehaviour
             {
                 if (_magics.TryGetValue(sphC.Key, out Magic magic))
                 {
-                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _tick, _direction, sphC.Value));
+                    _magics[sphC.Key].UpdateInfo(new MagicInfo(sphC.Key, _direction, sphC.Value));
                 }
             }
 
