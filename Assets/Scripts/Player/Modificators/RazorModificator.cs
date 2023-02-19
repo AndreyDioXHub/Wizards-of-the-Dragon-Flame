@@ -1,57 +1,64 @@
+using com.czeeep.spell.magicmodel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RazorModificator : SphereModificator
+
+namespace com.czeeep.spell.modificator
 {
-
-    public override void Update()
+    public class RazorModificator : SphereModificator
     {
-        base.Update();
 
-        _timeActionCur += Time.deltaTime;
-
-        if(_element != null)
+        public override void Update()
         {
-            _element.UpdateInfo(_info.key, _info.power, 1 - _timeActionCur/ _info.time);
+            base.Update();
+
+            _timeActionCur += Time.deltaTime;
+
+            if (_element != null)
+            {
+                _element.UpdateInfo(_info.key, _info.power, 1 - _timeActionCur / _info.time);
+            }
+
+            if (_timeActionCur >= _info.time)
+            {
+                DestroyModificator();
+            }
         }
 
-        if(_timeActionCur >= _info.time)
+        public override void DoDamage()
         {
-            DestroyModificator();
+            base.DoDamage();
+            Debug.Log($"do razor damage {_info.power}");
         }
-    }
 
-    public override void DoDamage()
-    {
-        base.DoDamage();
-        Debug.Log($"do razor damage {_info.power}");
-    }
-
-    public override void Init(int power)
-    {
-        base.Init(power);
-        MagicModel.Instance.ReturnAllSphereToInventory("water");
-        ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-        _element.UpdateInfo(_info.key, _info.power, 1);
-        _timeActionCur = 0;
-    }
-
-    public override int CheckCancel(string sphere, int power, out bool isCancel)
-    {
-        base.CheckCancel(sphere, power, out isCancel);
-
-        int incomingPowerleft = 0;
-
-        if (sphere == SpheresElements.water.ToString())
+        public override void Init(int power)
         {
-            incomingPowerleft = 0;
-            isCancel = true;
+            base.Init(power);
+            MagicModel.Instance.ReturnAllSphereToInventory("water");
+            ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
+            _element.UpdateInfo(_info.key, _info.power, 1);
             _timeActionCur = 0;
-            //do razor damage
-            Debug.Log($"do razor damage {power}");
         }
-        
-        return incomingPowerleft;
+
+        public override int CheckCancel(string sphere, int power, out bool isCancel)
+        {
+            base.CheckCancel(sphere, power, out isCancel);
+
+            int incomingPowerleft = 0;
+
+            if (sphere == SpheresElements.water.ToString())
+            {
+                incomingPowerleft = 0;
+                isCancel = true;
+                _timeActionCur = 0;
+                //do razor damage
+                Debug.Log($"do razor damage {power}");
+            }
+
+            return incomingPowerleft;
+        }
     }
+
+
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using com.czeeep.spell.magicmodel;
 
 namespace com.czeeep.network {
 

@@ -1,4 +1,5 @@
 using com.czeeep.network;
+using com.czeeep.spell.magicmodel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

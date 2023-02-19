@@ -1,3 +1,5 @@
+using com.czeeep.spell.magicmodel;
+using com.czeeep.spell.staffmodel;
 using System;
 using System.Collections;
 using System.Collections.Generic;

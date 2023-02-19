@@ -1,3 +1,6 @@
+using com.czeeep.spell.magic;
+using com.czeeep.spell.modificator;
+using com.czeeep.spell.staffmodel;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;

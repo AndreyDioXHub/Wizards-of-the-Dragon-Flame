@@ -1,3 +1,4 @@
+using com.czeeep.spell.magicmodel;
 using System;
 using System.Collections;
 using System.Collections.Generic;

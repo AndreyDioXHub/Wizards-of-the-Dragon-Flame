@@ -6,6 +6,8 @@ using System;
 using Photon.Pun.Demo.PunBasics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using com.czeeep.spell.magicmodel;
+using com.czeeep.spell.staffmodel;
 
 namespace com.czeeep.network.player {
     public class PlayerNetwork : MonoBehaviourPunCallbacks, IPunObservable 
