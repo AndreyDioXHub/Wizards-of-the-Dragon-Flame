@@ -13,9 +13,16 @@ public class ActiveSpheresView : MonoBehaviour
     private List<GameObject> _spheresUI;
     [SerializeField]
     private List<GameObject> _spheresPlayer;
+    [SerializeField]
+    private Transform _localBackPack;
 
     public void ShowSphere(List<string> activeSpheres)
     {
+        if(_localBackPack == null)
+        {
+            _localBackPack = PlayerNetwork.LocalPlayerInstance.GetComponent<PlayerNetwork>().ModelBackPackSphere;
+        }
+
         /*List<GameObject> childs = new List<GameObject>();
 
         for (int i = 0; i < _content.childCount; i++)
@@ -49,8 +56,8 @@ public class ActiveSpheresView : MonoBehaviour
             goUI.GetComponent<ActiveElementView>().Init(activeSpheres[i]);
             _spheresUI.Add(goUI);
 
-            GameObject goP = new GameObject($"e{activeSpheres[i]}");
-            goP.transform.SetParent(PlayerNetwork.LocalPlayerInstance.transform);
+            GameObject goP = new GameObject($"{activeSpheres[i]}");
+            goP.transform.SetParent(_localBackPack);
             _spheresPlayer.Add(goP);
         }
 

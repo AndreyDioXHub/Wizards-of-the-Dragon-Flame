@@ -32,7 +32,7 @@ namespace com.czeeep.spell.magic
         public void UpdateInfo(MagicInfo magicInfo)
         {
             _magicInfo = magicInfo;
-            name = $"s{_magicInfo.name}:{(int)_magicInfo.direction}:{_magicInfo.power}";
+            name = $"{"{"}\"key\": \"{_magicInfo.key}\", \"power\": {(int)_magicInfo.power}, \"direction\": {(int)_magicInfo.direction}{"}"}";
         }
 
         public void DestroyMagic()
@@ -44,13 +44,13 @@ namespace com.czeeep.spell.magic
     [Serializable]
     public class MagicInfo
     {
-        public string name;
-        public CastDirection direction;
+        public string key;
         public int power;
+        public CastDirection direction;
 
-        public MagicInfo(string name, CastDirection direction, int power)
+        public MagicInfo(string key, CastDirection direction, int power)
         {
-            this.name = name;
+            this.key = key;
             this.direction = direction;
             this.power = power;
         }

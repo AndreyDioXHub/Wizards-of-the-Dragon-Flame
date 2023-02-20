@@ -14,19 +14,30 @@ namespace com.czeeep.network.player {
     {
 
         public static GameObject LocalPlayerInstance;
+        public Transform ModelBackPackMagic { get => _modelBackPackMagic; }
+        public Transform ModelBackPackModificator { get => _modelBackPackModificator; }
+        public Transform ModelBackPackSphere { get => _modelBackPackSphere; }
 
         [SerializeField]
         private CharacterController _character;
+        [SerializeField]
+        private PlayerInfo _info;
+        [SerializeField]
+        private Transform _modelBackPackMagic;
+        [SerializeField]
+        private Transform _modelBackPackModificator;
+        [SerializeField]
+        private Transform _modelBackPackSphere;
         /*[SerializeField]
         private Staff _staff;*/
 
-       /*[SerializeField]
-        private Transform _point;*/
+        /*[SerializeField]
+         private Transform _point;*/
 
-        [SerializeField]
+        /*[SerializeField]
         private float _mouseSensitivity = 100f;
         [SerializeField]
-        private float _speed;
+        private float _speed;*/
         [SerializeField]
         private LayerMask _ignoreLayers;
 
@@ -263,15 +274,15 @@ namespace com.czeeep.network.player {
 
             if (_rotate)
             {
-                if (_deltaAngle > _angleTrashHold * _mouseSensitivity)
+                if (_deltaAngle > _angleTrashHold * _info.MouseSensitivity)
                 {
                     if (_rotationKeel > 0)
                     {
-                        _xRotation -= _mouseSensitivity * Time.deltaTime;
+                        _xRotation -= _info.MouseSensitivity * Time.deltaTime;
                     }
                     else
                     {
-                        _xRotation += _mouseSensitivity * Time.deltaTime;
+                        _xRotation += _info.MouseSensitivity * Time.deltaTime;
                     }
 
                     transform.Rotate(Vector3.up * _xRotation);
@@ -285,7 +296,7 @@ namespace com.czeeep.network.player {
 
             if (_move)
             {
-                _character.Move(_speed * _targetDirectionNormalize * Time.deltaTime);
+                _character.Move(_info.Speed * _targetDirectionNormalize * Time.deltaTime);
 
                 if (_dist > _positionTrashHold)
                 {

@@ -24,13 +24,15 @@ namespace com.czeeep.spell.modificator
 
         public virtual void Init(int power)
         {
-            gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}"; 
             _info.power = power;
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
         {
-            gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
             isCancel = false;
             return 1;
         }
@@ -43,7 +45,8 @@ namespace com.czeeep.spell.modificator
                 _element.UpdateInfo(_info.key, _info.power, 1);
             }
 
-            gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
         }
 
         // Start is called before the first frame update

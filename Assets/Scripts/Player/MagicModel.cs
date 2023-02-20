@@ -396,7 +396,7 @@ namespace com.czeeep.spell.magicmodel
 
             if (needNew)
             {
-                GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), _player.transform);
+                GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), _player.ModelBackPackModificator);
                 SphereModificator modificator = go.GetComponent<SphereModificator>();
                 modificator.Init(power);
                 //go.name = $"m:{key}:1";
