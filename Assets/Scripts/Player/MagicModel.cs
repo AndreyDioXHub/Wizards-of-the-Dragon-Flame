@@ -492,6 +492,7 @@ namespace com.czeeep.spell.magicmodel
 
 public enum SpheresElements
 {
+    none = 0,             //unknown
     life = 0b_00000000001,//life
     fire = 0b_00000000010,//fire
     water = 0b_00000000100,//water
