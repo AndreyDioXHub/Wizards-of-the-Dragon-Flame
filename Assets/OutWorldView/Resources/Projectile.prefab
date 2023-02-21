@@ -70,6 +70,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 703004426172594163, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
   m_PrefabInstance: {fileID: 6693175297632323622}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7487898598482801994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134885336624414677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTickPassed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1821868363024022412}
+        m_TargetAssemblyTypeName: Projectile, Assembly-CSharp
+        m_MethodName: DestroyProjectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _tickTime: 10
+  _tickTimeCur: 0
+  _mayUpdateTick: 1
+  _passTick: 0
 --- !u!114 &1821868363024022412
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,4 +17,9 @@ public class Projectile : MonoBehaviour
     {
         transform.position = transform.position + transform.forward * _speed*Time.deltaTime;
     }
+
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
+    }
 }
