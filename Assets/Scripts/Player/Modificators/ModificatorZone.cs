@@ -10,7 +10,9 @@ public class ModificatorZone : MonoBehaviour
     private Tick _tick;
 
     [SerializeField]
-    private SpheresElements _element;
+    private string _element;
+    [SerializeField]
+    private int _power = 1;
 
     [SerializeField]
     private Collider _other;
@@ -20,11 +22,22 @@ public class ModificatorZone : MonoBehaviour
         
     }
 
+    public void UpdateInfo(string element, int power)
+    {
+        _element = element;
+        _power = power;
+    }
+
+    public void DestroyZone()
+    {
+        Destroy(gameObject);
+    } 
+
     private void OnTriggerEnter(Collider other)
     {
         _tick.UpdateTick();
         _other = other;
-        //AddModificator();
+        AddModificator();
     }
     private void OnTriggerExit(Collider other)
     {
@@ -37,7 +50,8 @@ public class ModificatorZone : MonoBehaviour
         {
             if (_other.tag == "Player")
             {
-                MagicModel.Instance.AddModificator(_element.ToString(), 1);
+                //Debug.Log("UpdateTick AddModificator ");
+                MagicModel.Instance.AddModificator(_element, _power);
             }
         }
     }

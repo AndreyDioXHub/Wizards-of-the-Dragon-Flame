@@ -5972,6 +5972,7 @@ MonoBehaviour:
   _activeElementViewPrefab: {fileID: 8182584738591445376, guid: d292b642cbf1474429172ad0745d466d, type: 3}
   _spheresUI: []
   _spheresPlayer: []
+  _localBackPack: {fileID: 0}
 --- !u!114 &2000864774
 MonoBehaviour:
   m_ObjectHideFlags: 0

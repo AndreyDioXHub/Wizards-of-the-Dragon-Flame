@@ -8,11 +8,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace com.czeeep.network.player
 {
     public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
     {
+        //public UnityEvent<TransferMagicItems> OnTransferChanged;
+        public UnityEvent<List<MagicInfo>> OnMagicChanged;
+        public UnityEvent<List<ModificatorInfo>> OnModificatorChanged;
+        public UnityEvent<List<string>> OnSphereChanged;
+
         [SerializeField]
         private PlayerNetwork _player;
         [SerializeField]
@@ -60,6 +66,9 @@ namespace com.czeeep.network.player
             if (!_mySpheresMagicModificators.Equals(_mySpheresMagicModificatorsPrev))
             {
                 _transferMagicItems = DeserializeMagicString();
+                OnMagicChanged?.Invoke(_transferMagicItems.magics);
+                OnModificatorChanged?.Invoke(_transferMagicItems.modificators);
+                OnSphereChanged?.Invoke(_transferMagicItems.spheres);
                 _mySpheresMagicModificatorsPrev = _mySpheresMagicModificators;
             }
 
@@ -70,6 +79,7 @@ namespace com.czeeep.network.player
         public TransferMagicItems DeserializeMagicString()
         {
             Debug.Log($"Deserialized");
+
             return JsonConvert.DeserializeObject<TransferMagicItems>(_mySpheresMagicModificators);
         }
 

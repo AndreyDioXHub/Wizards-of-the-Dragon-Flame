@@ -39,6 +39,7 @@ public class Tick : MonoBehaviour
     [ContextMenu("Update Tick")]
     public void UpdateTick()
     {
+        //Debug.Log("UpdateTick");
         if (_mayUpdateTick)
         {
             if (_passTick)
