@@ -1,4 +1,5 @@
 using com.czeeep.spell.magic;
+using com.czeeep.spell.staffmodel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,8 @@ public class OutMagic : MonoBehaviour
     private GameObject _selfMagicPrefab;
 
     private Dictionary<string, ModificatorZone> _activeMagics = new Dictionary<string, ModificatorZone>();
-    private Dictionary<string, string> _typeMagic = new Dictionary<string, string>()
+
+    private Dictionary<string, string> _typeMagicByKey = new Dictionary<string, string>()
     {
         {"life","lazer" },
         {"fire","spray" },
@@ -33,15 +35,32 @@ public class OutMagic : MonoBehaviour
         {"ice","projectile" },
         {"shield","laser" },
     };
+    
+    private Dictionary<int, string> _typeMagic = new Dictionary<int, string>()
+    {
+        {0b_001,"spray" },
+        {0b_011,"lazer" },
+        {0b_111,"projectile" }
+    };
+
 
     public void Init(List<MagicInfo> magics)
     {
         _magics = magics;
-        UpdateMagics();
+        if(_magics.Count == 0)
+        {
+            StopShoot();
+        }
+        else
+        {
+            UpdateMagics();
+        }
     } 
 
     public void UpdateMagics()
     {
+        string allMagicType = MagicType();
+
         foreach (var magic in _magics)
         {
             if (_activeMagics.TryGetValue(magic.key, out ModificatorZone zone))
@@ -52,34 +71,77 @@ public class OutMagic : MonoBehaviour
             else
             {
                 //string type = "";
-                switch (_typeMagic[magic.key])
+                switch (allMagicType)
                 {
                     case "lazer":
                         GameObject gol = Instantiate(Resources.Load<GameObject>(_laserPrefab.name), _content);
-                        ModificatorZone mzl = gol.GetComponent<ModificatorZone>();
+                        ModificatorZone mzl = gol.GetComponentInChildren<ModificatorZone>();
                         mzl.UpdateInfo(magic.key, magic.power);
                         _activeMagics.Add(magic.key, mzl);
                         break;
                     case "spray":
                         GameObject gos = Instantiate(Resources.Load<GameObject>(_sprayPrefab.name), _content);
-                        ModificatorZone mzs = gos.GetComponent<ModificatorZone>();
+                        ModificatorZone mzs = gos.GetComponentInChildren<ModificatorZone>();
                         mzs.UpdateInfo(magic.key, magic.power);
                         _activeMagics.Add(magic.key, mzs);
                         break;
                     case "projectile":
-                        GameObject gop = Instantiate(Resources.Load<GameObject>(_sprayPrefab.name), _content);
+                        GameObject gop = Instantiate(Resources.Load<GameObject>(_projectilePrefab.name), _content);
                         gop.transform.position = new Vector3(-5, -5, -5);
-                        ModificatorZone mzp = gop.GetComponent<ModificatorZone>();
+                        ModificatorZone mzp = gop.GetComponentInChildren<ModificatorZone>();
                         mzp.UpdateInfo(magic.key, magic.power);
-
                         break;
                     default:
                         break;
                 }
+
                 //GameObject go = Instantiate()
                 //_spheresCount.Add(actSph, 1);
             }
         }
+
+        if (allMagicType.Equals("projectile"))
+        {
+            StaffModel.Instance.ShootStop();
+        }
+    }
+
+    public void StopShoot()
+    {
+        foreach(var am in _activeMagics)
+        {
+            am.Value.DestroyZone();
+        }
+
+        _activeMagics.Clear();
+        _activeMagics = new Dictionary<string, ModificatorZone>();
+    }
+
+    public string MagicType()
+    {
+        //string result = "";
+        int result = 0b_001;
+
+        foreach (var magic in _magics)
+        {
+            switch (_typeMagicByKey[magic.key])
+            {
+                case "spray":
+                    result = (result | 0b_001);
+                    break;
+                case "lazer":
+                    result = (result | 0b_011);
+                    break;
+                case "projectile":
+                    result = (result | 0b_111);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        return _typeMagic[result];
     }
 
     // Start is called before the first frame update

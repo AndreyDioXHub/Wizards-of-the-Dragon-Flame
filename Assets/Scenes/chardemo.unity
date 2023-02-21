@@ -266,7 +266,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 165801429}
-  _element: 2
+  _element: fire
+  _power: 1
   _other: {fileID: 0}
 --- !u!1 &198001848
 GameObject:
@@ -4030,7 +4031,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1578516035}
-  _element: 4
+  _element: water
+  _power: 1
   _other: {fileID: 0}
 --- !u!65 &1578516037
 BoxCollider:

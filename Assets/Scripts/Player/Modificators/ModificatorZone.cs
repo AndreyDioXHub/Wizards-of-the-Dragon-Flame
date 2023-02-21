@@ -30,7 +30,7 @@ public class ModificatorZone : MonoBehaviour
 
     public void DestroyZone()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     } 
 
     private void OnTriggerEnter(Collider other)
