@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,28 @@ namespace com.czeeep.network {
         [SerializeField]
         public byte amount;
 
+        static Dictionary<byte, int> SphereComparisom = new Dictionary<byte, int>() {
+            {0, 0 }, //None
+            {1, 1 }, //life
+            {2, 2 }, //fire
+            {3, 4 }, //water
+            {4, 8 }, //earth
+            {5, 16 }, //freeze
+            {6, 32 }, //razor
+            {7, 64 }, //dark
+            {8, 1024 }  //shield
+        };
 
+        public static byte[] ConvertSphere(int sphereId, int sphereType, int amount, Vector3 position) {
+            List<byte> total = new List<byte>();
+
+            total.AddRange(BitConverter.GetBytes(sphereId));
+            total.AddRange(BitConverter.GetBytes(sphereId));
+            
+            
+            //total.Add()
+
+            return total.ToArray();
+        }
     }
 }
