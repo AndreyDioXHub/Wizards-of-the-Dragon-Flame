@@ -7,6 +7,8 @@ public class Tick : MonoBehaviour
 {
     public UnityEvent OnTickPassed;
 
+    public float TickFill { get => (1 - _tickTimeCur/ _tickTime); }
+
     [SerializeField]
     private float _tickTime = 2;
     [SerializeField]

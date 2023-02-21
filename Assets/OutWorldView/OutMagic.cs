@@ -1,5 +1,7 @@
+using com.czeeep.network.player;
 using com.czeeep.spell.magic;
 using com.czeeep.spell.staffmodel;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,11 +88,14 @@ public class OutMagic : MonoBehaviour
                         _activeMagics.Add(magic.key, mzs);
                         break;
                     case "projectile":
-                        GameObject gop = Instantiate(Resources.Load<GameObject>(_projectilePrefab.name), _content);
-                        gop.transform.localPosition = new Vector3(0, 0, 1.2f);
-                        ModificatorZone mzp = gop.GetComponentInChildren<ModificatorZone>();
+                        Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
+                        Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.2f;
+                        //GameObject gop = PhotonNetwork.Instantiate(Resources.Load<GameObject>(_projectilePrefab.name), _content);
+                        GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
+                        //gop.transform.localPosition = new Vector3(0, 0, 1.2f);
+                        Projectile mzp = gop.GetComponent<Projectile>();
                         mzp.UpdateInfo(magic.key, magic.power);
-                        gop.transform.SetParent(null);
+                        //gop.transform.SetParent(null);
                         //if()
                         //Photon.
                         break;

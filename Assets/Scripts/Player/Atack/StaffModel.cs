@@ -16,7 +16,6 @@ namespace com.czeeep.spell.staffmodel
         public static StaffModel Instance;
         //public UnityEvent OnShoot;
         public bool IsShoot { get => _isShoot; }
-
         [SerializeField]
         private PlayerNetwork _player;
 
@@ -78,6 +77,22 @@ namespace com.czeeep.spell.staffmodel
         void Update()
         {
 
+        }
+
+        public float GetTickFill()
+        {
+            float result = 1;
+
+            if (_isShoot)
+            {
+                result = _tick.TickFill;
+            }
+            else
+            {
+                result = 1;
+            }
+
+            return result;
         }
 
         public void Shoot(CastDirection direction)

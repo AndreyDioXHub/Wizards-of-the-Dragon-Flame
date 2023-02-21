@@ -1,4 +1,5 @@
 using com.czeeep.network.player;
+using com.czeeep.spell.staffmodel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,7 @@ public class ActiveSpheresView : MonoBehaviour
         for (int i=0; i< activeSpheres.Count; i++)
         {
             GameObject goUI = Instantiate(_activeElementViewPrefab, _content);//.GetComponent<ActiveElementView>().Init(activeSpheres[i]);
-            goUI.GetComponent<ActiveElementView>().Init(activeSpheres[i]);
+            goUI.GetComponent<ModificatorElementView>().UpdateInfo(activeSpheres[i], 1);
             _spheresUI.Add(goUI);
 
             GameObject goP = new GameObject($"{activeSpheres[i]}");
@@ -62,5 +63,26 @@ public class ActiveSpheresView : MonoBehaviour
         }
 
 
+    }
+
+    private void Update()
+    {
+        if (_spheresUI != null)
+        {
+            try
+            {
+                foreach (var sui in _spheresUI)
+                {
+                    if (sui != null)
+                    {
+                        sui.GetComponent<ModificatorElementView>().UpdateInfo(StaffModel.Instance.GetTickFill());
+                    }
+                }
+            }
+            catch(MissingReferenceException e)
+            {
+
+            }
+        }
     }
 }

@@ -19,4 +19,17 @@ public class ModificatorElementView : MonoBehaviour
         _count.text = $"x{power}";
         _bar.fillAmount = fill;
     }
+
+    public void UpdateInfo(string name, float fill)
+    {
+        _name.text = name;
+        _count.text = $"";
+        _bar.fillAmount = fill;
+    }
+    public void UpdateInfo(float fill)
+    {
+        //_name.text = name;
+        //_count.text = $"";
+        _bar.fillAmount = fill;
+    }
 }
