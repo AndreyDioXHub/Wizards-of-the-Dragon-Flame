@@ -490,20 +490,20 @@ namespace com.czeeep.spell.magicmodel
 
     }
 
-    public enum SpheresElements
-    {
-        life = 0b_00000000001,//life
-        fire = 0b_00000000010,//fire
-        water = 0b_00000000100,//water
-        earth = 0b_00000001000,//earth
-        freze = 0b_00000010000,//freze
-        razor = 0b_00000100000,//razor
-        dark = 0b_00001000000,//dark
-        steam = 0b_00010000000,//steam
-        poison = 0b_00100000000,//poison
-        ice = 0b_01000000000,//ice
-        shield = 0b_10000000000//shield
-    }
+public enum SpheresElements
+{
+    life = 0b_00000000001,//life
+    fire = 0b_00000000010,//fire
+    water = 0b_00000000100,//water
+    earth = 0b_00000001000,//earth
+    freze = 0b_00000010000,//freze
+    razor = 0b_00000100000,//razor
+    dark = 0b_00001000000,//dark
+    steam = 0b_00010000000,//steam
+    poison = 0b_00100000000,//poison
+    ice = 0b_01000000000,//ice
+    shield = 0b_10000000000//shield
+}
 
     [Serializable]
     public class MetaSphere

@@ -53,7 +53,13 @@ namespace com.czeeep.network {
                 for (int i = 0; i < _config.MaxSpheres; i++) {
                     CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
                 }
+                SerializaToRoom();
             }
+            
+        }
+
+        private void SerializaToRoom() {
+            //Create properties in room
         }
 
         [PunRPC]
