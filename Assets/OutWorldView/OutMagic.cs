@@ -44,7 +44,7 @@ public class OutMagic : MonoBehaviour
     };
 
 
-    public void Init(List<MagicInfo> magics)
+    public void Init(List<MagicInfo> magics, bool ismine)
     {
         _magics = magics;
         if(_magics.Count == 0)
@@ -87,9 +87,12 @@ public class OutMagic : MonoBehaviour
                         break;
                     case "projectile":
                         GameObject gop = Instantiate(Resources.Load<GameObject>(_projectilePrefab.name), _content);
-                        gop.transform.position = new Vector3(-5, -5, -5);
+                        gop.transform.localPosition = new Vector3(0, 0, 1.2f);
                         ModificatorZone mzp = gop.GetComponentInChildren<ModificatorZone>();
                         mzp.UpdateInfo(magic.key, magic.power);
+                        gop.transform.SetParent(null);
+                        //if()
+                        //Photon.
                         break;
                     default:
                         break;

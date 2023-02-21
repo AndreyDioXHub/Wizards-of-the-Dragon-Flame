@@ -15,7 +15,7 @@ namespace com.czeeep.network.player
     public class PlayerNetworkView : MonoBehaviourPunCallbacks, IPunObservable
     {
         //public UnityEvent<TransferMagicItems> OnTransferChanged;
-        public UnityEvent<List<MagicInfo>> OnMagicChanged;
+        public UnityEvent<List<MagicInfo>, bool> OnMagicChanged;
         //public UnityEvent OnMagicEmpty;
 
         public UnityEvent<List<ModificatorInfo>> OnModificatorChanged;
@@ -69,7 +69,7 @@ namespace com.czeeep.network.player
             {
                 _transferMagicItems = DeserializeMagicString();
 
-                OnMagicChanged?.Invoke(_transferMagicItems.magics);
+                OnMagicChanged?.Invoke(_transferMagicItems.magics, photonView.IsMine);
                 OnModificatorChanged?.Invoke(_transferMagicItems.modificators);
                 OnSphereChanged?.Invoke(_transferMagicItems.spheres);
 
