@@ -33,7 +33,7 @@ public class OutMagic : MonoBehaviour
         {"steam","spray" },
         {"poison","spray" },
         {"ice","projectile" },
-        {"shield","laser" },
+        {"shield","lazer" },
     };
     
     private Dictionary<int, string> _typeMagic = new Dictionary<int, string>()
@@ -138,6 +138,7 @@ public class OutMagic : MonoBehaviour
                 default:
                     break;
             }
+            Debug.Log($"MagicType {_typeMagicByKey[magic.key]} {result}");
         }
 
 
