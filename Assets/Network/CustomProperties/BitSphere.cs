@@ -156,7 +156,7 @@ namespace com.czeeep.network {
 
         #region FROM BYTE TO BITSPHERE
 
-        public BitSphere ConvertToSphere(byte[] message) {
+        public static BitSphere ConvertToSphere(byte[] message) {
             BitSphere _element = new BitSphere(message);
             return _element;
         }

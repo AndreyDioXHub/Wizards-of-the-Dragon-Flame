@@ -62,7 +62,7 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
                 //LoadArena();
-                //TODO Sync state spheres
+                //TODO Generate List of shperes and set it to Room properties
             }
         }
 
@@ -73,12 +73,18 @@ namespace com.czeeep.network {
             }
         }
 
+        public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged) {
+            base.OnRoomPropertiesUpdate(propertiesThatChanged);
+            //Update spheres elements
+            //PhotonNetwork.CurrentRoom.SetCustomProperties()
+        }
+
         #endregion
 
 
         #region MonoBehaviour callbacks
 
-        
+
         // Start is called before the first frame update
         void Start() {
             Instance = this;
@@ -99,8 +105,11 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 sphereManager.CreateSpheres();
             } else {
-                var photonView = PhotonView.Get(this);
-                photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
+                //TODO Load from customProperties
+                var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+                sphereManager.CreateSpheres(hashtable);
+                //var photonView = PhotonView.Get(this);
+                //photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
             }
             
         }

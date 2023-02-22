@@ -12,6 +12,8 @@ namespace com.czeeep.network {
 
         public const string CreateSphereAction = "CreateSphere";
         public const string DestroySphereAction = "RemovedExtenral";
+        const string TOTAL_SPHERE_COUNTS = "scount";
+        const string SPHERE_PREFIX = "s";
 
         #endregion
 
@@ -27,7 +29,7 @@ namespace com.czeeep.network {
 
         #endregion
 
-        #region Piblic Fields
+        #region Public Fields
 
         public PhotonView photonView { get; set; }
 
@@ -46,19 +48,18 @@ namespace com.czeeep.network {
 
         #region Public Methods
 
-
         public void CreateSpheres() {
             if(PhotonNetwork.IsMasterClient) {
                 //Create spheres
-                for (int i = 0; i < _config.MaxSpheres; i++) {
+                for (int i = 0; i < _config.MaxSpheresInGroup; i++) {
                     CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
                 }
-                SerializaToRoom();
+                SerializeToRoom();
             }
             
         }
 
-        private void SerializaToRoom() {
+        private void SerializeToRoom() {
             //Create properties in room
         }
 
@@ -114,7 +115,7 @@ namespace com.czeeep.network {
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Максимальное количество сфер")]
-            public int MaxSpheres = 20;
+            public int MaxSpheresInGroup = 20;
 
             static System.Random random = null;
 
@@ -129,5 +130,20 @@ namespace com.czeeep.network {
             }
         }
 
+        internal void CreateSpheres(ExitGames.Client.Photon.Hashtable hashtable) {
+            // Replicate from serser
+            int count = (int)hashtable[TOTAL_SPHERE_COUNTS];
+            if(count > 0) {
+                //Generate
+                for (int i = 0; i < count; i++) {
+                    byte[] itm = (byte[])hashtable[SPHERE_PREFIX + i.ToString()];
+                    if (itm != null && itm.Length > 0) {
+                        BitSphere bsphere = BitSphere.ConvertToSphere(itm);
+                        //TODO Add INDEX
+                        CreateSphere(bsphere.GetPosition(), Quaternion.identity, bsphere.GetIntSphereType());
+                    }
+                }
+            }
+        }
     }
 }
