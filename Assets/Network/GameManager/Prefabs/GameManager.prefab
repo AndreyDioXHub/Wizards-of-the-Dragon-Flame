@@ -63,6 +63,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spherePrefab: {fileID: 3949965128032651956, guid: a699a446b3a465f4994b7e31ff295605, type: 3}
+  _config:
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    MaxSpheresInGroup: 20
+    MaxSpheresTotal: 160
 --- !u!114 &5197955819643881968
 MonoBehaviour:
   m_ObjectHideFlags: 0

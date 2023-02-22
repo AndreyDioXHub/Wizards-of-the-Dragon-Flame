@@ -1,5 +1,6 @@
 using com.czeeep.network;
 using com.czeeep.spell.magicmodel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class SphereWorld : MonoBehaviour
     private SpriteRenderer _image;
 
     int m_index = -1;
+    string hashKey = string.Empty;
+    BitSphere bit_sphere;
 
     public bool SilentDestroy { get; internal set; } = false;
 
@@ -69,6 +72,27 @@ public class SphereWorld : MonoBehaviour
             //Debug.Log($"SphereWorld: Added {_element}: {_count}");
             Destroy(gameObject);
         }
+    }
+
+    internal byte[] GetHashData() {
+        byte[] bmask = BitSphere.ConvertSphere6((int)_element, _count, transform.position);
+        bit_sphere = BitSphere.ConvertToSphere(bmask);
+        UpdatepositionByBitSphere();
+        return bmask;
+
+    }
+
+    private void UpdatepositionByBitSphere() {
+        if(bit_sphere != null) {
+            Vector3 pos = transform.position;
+            Vector3 bpos = bit_sphere.GetPosition();
+            bpos.y = pos.y;
+            transform.position = bpos;
+        }
+    }
+
+    internal void SetIndex(string key) {
+        hashKey = key;
     }
 
     public int GetElementType() {

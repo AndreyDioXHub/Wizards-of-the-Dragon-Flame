@@ -6628,6 +6628,10 @@ PrefabInstance:
       propertyPath: observableSearch
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5197955819643881968, guid: 116283841029dae4e80f7e9afef601eb, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116283841029dae4e80f7e9afef601eb, type: 3}
 --- !u!1001 &3949965129225298490

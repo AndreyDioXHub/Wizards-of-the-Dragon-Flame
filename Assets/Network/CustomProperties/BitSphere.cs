@@ -80,6 +80,7 @@ namespace com.czeeep.network {
             zposition = BitConverter.ToUInt16(partial);
         }
 
+
         #endregion
 
         #region PUBLIC METHODS
@@ -143,7 +144,7 @@ namespace com.czeeep.network {
             }
 
             //Amount in sphere
-            total.AddRange(BitConverter.GetBytes((byte)amount));                //1     AMOUNT
+            total.Add((byte)amount);                                            //1     AMOUNT
 
             //Position
             total.AddRange(GetPositionToByte(position, 0));                     //2     X
@@ -156,7 +157,7 @@ namespace com.czeeep.network {
 
         #region FROM BYTE TO BITSPHERE
 
-        public BitSphere ConvertToSphere(byte[] message) {
+        public static BitSphere ConvertToSphere(byte[] message) {
             BitSphere _element = new BitSphere(message);
             return _element;
         }

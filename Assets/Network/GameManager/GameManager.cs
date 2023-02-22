@@ -62,7 +62,7 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
                 //LoadArena();
-                //TODO Sync state spheres
+                //TODO Generate List of shperes and set it to Room properties
             }
         }
 
@@ -73,12 +73,19 @@ namespace com.czeeep.network {
             }
         }
 
+        public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged) {
+            base.OnRoomPropertiesUpdate(propertiesThatChanged);
+            //Update spheres elements
+            Debug.Log("<b>Room properties updated</b>");
+            //PhotonNetwork.CurrentRoom.SetCustomProperties()
+        }
+
         #endregion
 
 
         #region MonoBehaviour callbacks
 
-        
+
         // Start is called before the first frame update
         void Start() {
             Instance = this;
@@ -87,7 +94,7 @@ namespace com.czeeep.network {
             } else {
                 if(PlayerNetwork.LocalPlayerInstance == null) {
                     Debug.LogFormat("We are Instantinating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-                    var GO = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5f, Quaternion.identity, 0);
+                    var GO = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.one * Random.Range(5,10), Quaternion.identity, 0);
                     //GO.GetComponent<PlayerAnimationManager>().SetControl(joystick);
                     //GO.GetComponent<PlayerManager>().SetFireButton(fireButton);
                 } else {
@@ -99,8 +106,11 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 sphereManager.CreateSpheres();
             } else {
-                var photonView = PhotonView.Get(this);
-                photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
+                //TODO Load from customProperties
+                var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+                sphereManager.CreateSpheres(hashtable);
+                //var photonView = PhotonView.Get(this);
+                //photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
             }
             
         }

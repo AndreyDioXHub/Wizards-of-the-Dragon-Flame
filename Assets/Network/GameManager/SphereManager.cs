@@ -12,6 +12,8 @@ namespace com.czeeep.network {
 
         public const string CreateSphereAction = "CreateSphere";
         public const string DestroySphereAction = "RemovedExtenral";
+        const string TOTAL_SPHERE_COUNTS = "scount";
+        const string SPHERE_PREFIX = "s";
 
         #endregion
 
@@ -27,7 +29,7 @@ namespace com.czeeep.network {
 
         #endregion
 
-        #region Piblic Fields
+        #region Public Fields
 
         public PhotonView photonView { get; set; }
 
@@ -46,29 +48,36 @@ namespace com.czeeep.network {
 
         #region Public Methods
 
-
         public void CreateSpheres() {
             if(PhotonNetwork.IsMasterClient) {
+                //Create hashtable
+                ExitGames.Client.Photon.Hashtable htable = new ExitGames.Client.Photon.Hashtable();
+                htable.Add(TOTAL_SPHERE_COUNTS, _config.MaxSpheresTotal);
+
                 //Create spheres
-                for (int i = 0; i < _config.MaxSpheres; i++) {
-                    CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
+                for (int i = 0; i < _config.MaxSpheresTotal; i++) {
+                    //TODO Generate by group
+                    string key = SPHERE_PREFIX + i.ToString();
+                    SphereWorld sworld = CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity,_config.GetTypeShpere(i), i);
+                    sworld.SetIndex(key);
+                    htable.Add(key, sworld.GetHashData());
                 }
-                SerializaToRoom();
+                //Set hash for replication
+                PhotonNetwork.CurrentRoom.SetCustomProperties(htable);
             }
             
         }
 
-        private void SerializaToRoom() {
-            //Create properties in room
-        }
 
         [PunRPC]
-        protected void CreateSphere(Vector3 pos, Quaternion rotation, int elementType = -1, int indx = -1) {
+        protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType = 0, int indx = -1) {
             GameObject _sphere = Instantiate(spherePrefab, null);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
             _spheres.Add(_sphere);
-            _sphere.GetComponent<SphereWorld>().Init((SpheresElements)elementType, 5, _spheres.Count-1);
+            var sworld = _sphere.GetComponent<SphereWorld>();
+            sworld.Init((SpheresElements)elementType, _config.DefaultAmount, _spheres.Count-1);
+            return sworld;
         }
 
         public void SyncSpheres() {
@@ -110,24 +119,86 @@ namespace com.czeeep.network {
 
         [Serializable]
         public class SphereConfig {
-
+            static int base_spheres = (int)SpheresElements.life | (int)SpheresElements.fire | (int)SpheresElements.water | (int)SpheresElements.earth | (int)SpheresElements.freze | (int)SpheresElements.razor | (int)SpheresElements.dark | (int)SpheresElements.shield;
+            static readonly int MAX_SPHERE_ID = (int)SpheresElements.shield; //0b_10000000000
+            static readonly int BASE_SPHERE_COUNT = 8;
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Максимальное количество сфер")]
-            public int MaxSpheres = 20;
+            public int MaxSpheresInGroup = 20;
+            public int MaxSpheresTotal = 160;
 
-            static System.Random random = null;
+            List<SpheresElements> baseSpheres;
 
-            public static Vector3 GenerateRandomPosition() {
-                if(random == null) {
-                    //random = new System.Random(100);
+            public int DefaultAmount { get; internal set; } = 5;
+
+            public SphereConfig() {
+                //Prepare array of base elements
+                CollectBaseSphereArray();
+                MaxSpheresInGroup = MaxSpheresTotal / baseSpheres.Count;
+            }
+            #region PRIVATE METHODS
+
+            private void CollectBaseSphereArray() {
+                baseSpheres = new List<SpheresElements>();
+                foreach (SpheresElements element in (SpheresElements[])Enum.GetValues(typeof(SpheresElements))) {
+                    if(IsBaseSphere((int)element)) {
+                        baseSpheres.Add(element);
+                    }
                 }
+            }
+            #endregion
+            public int GetTypeShpere(int indx) {
+                //Add Div
+                int part = indx / MaxSpheresInGroup;
+                if(part < baseSpheres.Count) {
+                    return (int)baseSpheres[part];
+                } else {
+                    return 0;
+                }
+            }
+
+            #region STATIC Methods
+
+            /// <summary>
+            /// Выдать новую случайную позицию.
+            /// TODO
+            /// </summary>
+            /// <returns>Vector3, где по Y стоит статическая высота</returns>
+            public static Vector3 GenerateRandomPosition() {
                 
                 Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
-                Debug.Log($"x: {pos.x}, y: {pos.y}");
+                Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
+
+            /// <summary>
+            /// Определить, является ли текущий тип сферы базовым.
+            /// </summary>
+            /// <param name="sphereType"></param>
+            /// <returns></returns>
+            public static bool IsBaseSphere(int sphereType) {
+                return (base_spheres & sphereType) > 0;
+            }
+
+            #endregion
         }
 
+        internal void CreateSpheres(ExitGames.Client.Photon.Hashtable hashtable) {
+            // Replicate from serser
+            int count = (int)hashtable[TOTAL_SPHERE_COUNTS];
+            Debug.Log($"Count of elements: {count}");
+            if(count > 0) {
+                //Generate
+                for (int i = 0; i < count; i++) {
+                    byte[] itm = (byte[])hashtable[SPHERE_PREFIX + i.ToString()];
+                    if (itm != null && itm.Length > 0) {
+                        BitSphere bsphere = BitSphere.ConvertToSphere(itm);
+                        //TODO Add INDEX
+                        CreateSphere(bsphere.GetPosition(), Quaternion.identity, bsphere.GetIntSphereType());
+                    }
+                }
+            }
+        }
     }
 }
