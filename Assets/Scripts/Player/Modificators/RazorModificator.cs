@@ -29,7 +29,8 @@ namespace com.czeeep.spell.modificator
         public override void DoDamage()
         {
             base.DoDamage();
-            Debug.Log($"do razor damage {_info.power}");
+            _playerInfo.MakeDamage(_damage * _info.power);
+            //Debug.Log($"do razor damage {_info.power}");
         }
 
         public override void Init(int power)

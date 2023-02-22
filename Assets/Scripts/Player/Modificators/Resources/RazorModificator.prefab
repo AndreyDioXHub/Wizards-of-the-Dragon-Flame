@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfe1ae627734fd468d9955ef7de4b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInfo: {fileID: 0}
   _info:
     key: razor
     power: 1
     time: 5
+  _damage: 2
   _timeActionCur: 0
   _element: {fileID: 0}
 --- !u!114 &792947185303416097

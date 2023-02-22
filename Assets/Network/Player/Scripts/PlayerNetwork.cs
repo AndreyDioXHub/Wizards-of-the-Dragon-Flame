@@ -14,6 +14,7 @@ namespace com.czeeep.network.player {
     {
 
         public static GameObject LocalPlayerInstance;
+        public static PlayerInfo Info;
         public Transform ModelBackPackMagic { get => _modelBackPackMagic; }
         public Transform ModelBackPackModificator { get => _modelBackPackModificator; }
         public Transform ModelBackPackSphere { get => _modelBackPackSphere; }
@@ -65,6 +66,7 @@ namespace com.czeeep.network.player {
         private float _deltaAngle;
         private float _rotationKeel;
         private float _gravity = 0;
+        private float _gravityDamage = 0;
 
         [Tooltip("The current health of our player")]
         //public float Health = 1f;
@@ -85,6 +87,7 @@ namespace com.czeeep.network.player {
             if(photonView.IsMine) 
             {
                 LocalPlayerInstance = gameObject;
+                Info = _info;
             }
 
             DontDestroyOnLoad(gameObject);
@@ -167,12 +170,19 @@ namespace com.czeeep.network.player {
             if (_isGrounded)
             {
                 _gravity = 0;
+
+                if (_gravityDamage > 10)
+                {
+                    _info.MakeDamage((int)_gravityDamage);
+                }
+
+                _gravityDamage = 0;
             }
             else
             {
                 _gravity = -9.8f;
                 _character.Move(transform.up * _gravity * Time.deltaTime);
-
+                _gravityDamage += -_gravity * Time.deltaTime;
             }
 
             var point = _point.position;// hit.point;

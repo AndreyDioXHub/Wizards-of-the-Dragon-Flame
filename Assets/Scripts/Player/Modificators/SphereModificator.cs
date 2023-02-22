@@ -1,3 +1,4 @@
+using com.czeeep.network.player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,15 +9,18 @@ namespace com.czeeep.spell.modificator
     public class SphereModificator : MonoBehaviour
     {
         public ModificatorInfo Info { get => _info; }
-
+        [SerializeField]
+        protected PlayerInfo _playerInfo;
         [SerializeField]
         protected ModificatorInfo _info = new ModificatorInfo();
+        [SerializeField]
+        protected int _damage = 1;
         /*protected string _key;
         [SerializeField]
         protected int _power = 1;
         [SerializeField]
         protected float _timeAction = 1;*/
-        [SerializeField]
+       [SerializeField]
         protected float _timeActionCur;
 
         [SerializeField]
@@ -27,6 +31,7 @@ namespace com.czeeep.spell.modificator
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
             gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}"; 
             _info.power = power;
+            _playerInfo = PlayerNetwork.Info;
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
@@ -34,6 +39,8 @@ namespace com.czeeep.spell.modificator
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
             gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
             isCancel = false;
+
+            //DoDamage();
             return 1;
         }
         public virtual void AddPower(int power)
@@ -47,6 +54,8 @@ namespace com.czeeep.spell.modificator
 
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
             gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
+
+            //DoDamage();
         }
 
         // Start is called before the first frame update
