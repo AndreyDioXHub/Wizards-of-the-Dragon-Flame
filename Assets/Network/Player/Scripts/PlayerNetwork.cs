@@ -31,8 +31,8 @@ namespace com.czeeep.network.player {
         /*[SerializeField]
         private Staff _staff;*/
 
-        /*[SerializeField]
-         private Transform _point;*/
+        [SerializeField]
+         private Transform _point;
 
         /*[SerializeField]
         private float _mouseSensitivity = 100f;
@@ -175,6 +175,30 @@ namespace com.czeeep.network.player {
 
             }
 
+            var point = _point.position;// hit.point;
+            _move = true;
+            // _rotate = true;
+            _pointposition = point;
+            _pointposition.y = 0;
+            _transformposition = transform.position;
+            _transformposition.y = 0;
+            _targetDirection = point - transform.position;
+            _targetDirection.y = 0.00F;
+
+            transform.rotation = Quaternion.LookRotation(_targetDirection);
+
+            if (_targetDirection.x * _targetDirection.x < _positionTrashHold)
+            {
+                _targetDirection.x = 0;
+            }
+            if (_targetDirection.z * _targetDirection.z < _positionTrashHold)
+            {
+                _targetDirection.z = 0;
+            }
+
+            _targetDirectionNormalize = _targetDirection.normalized;
+
+            /*
             if (true)
             {
                 RaycastHit hit;
@@ -182,7 +206,7 @@ namespace com.czeeep.network.player {
 
                 if (Physics.Raycast(ray, out hit, _ignoreLayers))
                 {
-                    var point = hit.point;
+                    var point = _point.position;// hit.point;
                     _move = true;
                     // _rotate = true;
                     _pointposition = point;
@@ -203,8 +227,9 @@ namespace com.czeeep.network.player {
                         _targetDirection.z = 0;
                     }
 
-                    _targetDirectionNormalize = _targetDirection.normalized;}
-            }
+                    _targetDirectionNormalize = _targetDirection.normalized;
+                }
+            }*/
 
             if (Input.GetMouseButton(0))
             {
@@ -221,7 +246,7 @@ namespace com.czeeep.network.player {
                 StaffModel.Instance.ShootStop();
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             {
                 //StaffModel.Instance.ShootStop();
                 MagicModel.Instance.ReturnAllSphereToInventory();
