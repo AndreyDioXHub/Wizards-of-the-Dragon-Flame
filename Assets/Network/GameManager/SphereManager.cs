@@ -50,26 +50,33 @@ namespace com.czeeep.network {
 
         public void CreateSpheres() {
             if(PhotonNetwork.IsMasterClient) {
+                //Create hashtable
+                ExitGames.Client.Photon.Hashtable htable = new ExitGames.Client.Photon.Hashtable();
+                htable.Add(TOTAL_SPHERE_COUNTS, _config.MaxSpheresTotal);
+
                 //Create spheres
-                for (int i = 0; i < _config.MaxSpheresInGroup; i++) {
-                    CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
+                for (int i = 0; i < _config.MaxSpheresTotal; i++) {
+                    //TODO Generate by group
+                    string key = SPHERE_PREFIX + i.ToString();
+                    SphereWorld sworld = CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
+                    sworld.SetIndex(key);
+                    htable.Add(key, sworld.GetHashData());
                 }
-                SerializeToRoom();
+                PhotonNetwork.CurrentRoom.SetCustomProperties(htable);
             }
             
         }
 
-        private void SerializeToRoom() {
-            //Create properties in room
-        }
 
         [PunRPC]
-        protected void CreateSphere(Vector3 pos, Quaternion rotation, int elementType = -1, int indx = -1) {
+        protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType = 0, int indx = -1) {
             GameObject _sphere = Instantiate(spherePrefab, null);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
             _spheres.Add(_sphere);
-            _sphere.GetComponent<SphereWorld>().Init((SpheresElements)elementType, 5, _spheres.Count-1);
+            var sworld = _sphere.GetComponent<SphereWorld>();
+            sworld.Init((SpheresElements)elementType, 5, _spheres.Count-1);
+            return sworld;
         }
 
         public void SyncSpheres() {
@@ -126,7 +133,7 @@ namespace com.czeeep.network {
                 }
                 
                 Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
-                Debug.Log($"x: {pos.x}, y: {pos.y}");
+                Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
         }
