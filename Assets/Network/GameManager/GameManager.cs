@@ -93,7 +93,7 @@ namespace com.czeeep.network {
             } else {
                 if(PlayerNetwork.LocalPlayerInstance == null) {
                     Debug.LogFormat("We are Instantinating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-                    var GO = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5f, Quaternion.identity, 0);
+                    var GO = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.one * Random.Range(5,10), Quaternion.identity, 0);
                     //GO.GetComponent<PlayerAnimationManager>().SetControl(joystick);
                     //GO.GetComponent<PlayerManager>().SetFireButton(fireButton);
                 } else {

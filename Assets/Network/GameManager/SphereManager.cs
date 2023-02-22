@@ -123,7 +123,7 @@ namespace com.czeeep.network {
             public Rect rect;
             [Tooltip("Максимальное количество сфер")]
             public int MaxSpheresInGroup = 20;
-            public int MaxSpheresTotal = 20;
+            public int MaxSpheresTotal = 160;
 
             static System.Random random = null;
 
