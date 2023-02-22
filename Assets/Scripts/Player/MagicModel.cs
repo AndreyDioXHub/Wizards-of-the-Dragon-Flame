@@ -505,18 +505,6 @@ namespace com.czeeep.spell.magicmodel
         shield = 0b_10000000000//shield
     }
 
-    public enum BaseSphare {
-        none = 0,               //unknown
-        life = 1,               //life
-        fire = 2,               //fire
-        water = 3,              //water
-        earth = 4,              //earth
-        freze = 5,              //freze
-        razor = 6,              //razor
-        dark = 7,               //dark
-        shield = 8              //shield
-    }
-
     [Serializable]
     public class MetaSphere
     {

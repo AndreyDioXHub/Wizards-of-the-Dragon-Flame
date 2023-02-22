@@ -62,6 +62,7 @@ namespace com.czeeep.network {
                     sworld.SetIndex(key);
                     htable.Add(key, sworld.GetHashData());
                 }
+                //Set hash for replication
                 PhotonNetwork.CurrentRoom.SetCustomProperties(htable);
             }
             
@@ -118,24 +119,62 @@ namespace com.czeeep.network {
 
         [Serializable]
         public class SphereConfig {
-
+            static int base_spheres = (int)SpheresElements.life | (int)SpheresElements.fire | (int)SpheresElements.water | (int)SpheresElements.earth | (int)SpheresElements.freze | (int)SpheresElements.razor | (int)SpheresElements.dark | (int)SpheresElements.shield;
+            static readonly int MAX_SPHERE_ID = (int)SpheresElements.shield; //0b_10000000000
+            static readonly int BASE_SPHERE_COUNT = 8;
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Максимальное количество сфер")]
             public int MaxSpheresInGroup = 20;
             public int MaxSpheresTotal = 160;
 
-            static System.Random random = null;
+            List<SpheresElements> baseSpheres;
 
-            public static Vector3 GenerateRandomPosition() {
-                if(random == null) {
-                    //random = new System.Random(100);
+            public SphereConfig() {
+                //Prepare array of base elements
+                CollectBaseSphereArray();
+            }
+            #region PRIVATE METHODS
+
+            private void CollectBaseSphereArray() {
+                baseSpheres = new List<SpheresElements>();
+                foreach (SpheresElements element in (SpheresElements[])Enum.GetValues(typeof(SpheresElements))) {
+                    if(IsBaseSphere((int)element)) {
+                        baseSpheres.Add(element);
+                    }
                 }
+            }
+            #endregion
+            public SpheresElements GetTypeShpere(int indx) {
+                //Add Div
+
+                return 0;
+            }
+
+            #region STATIC Methods
+
+            /// <summary>
+            /// Выдать новую случайную позицию.
+            /// TODO
+            /// </summary>
+            /// <returns>Vector3, где по Y стоит статическая высота</returns>
+            public static Vector3 GenerateRandomPosition() {
                 
                 Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
                 Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
+
+            /// <summary>
+            /// Определить, является ли текущий тип сферы базовым.
+            /// </summary>
+            /// <param name="sphereType"></param>
+            /// <returns></returns>
+            public static bool IsBaseSphere(int sphereType) {
+                return (base_spheres & sphereType) > 0;
+            }
+
+            #endregion
         }
 
         internal void CreateSpheres(ExitGames.Client.Photon.Hashtable hashtable) {
