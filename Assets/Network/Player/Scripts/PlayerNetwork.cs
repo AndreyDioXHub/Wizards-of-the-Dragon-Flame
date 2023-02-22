@@ -66,7 +66,7 @@ namespace com.czeeep.network.player {
         private float _deltaAngle;
         private float _rotationKeel;
         private float _gravity = 0;
-        private float _gravityDamage = 0;
+        //private float _gravityDamage = 0;
 
         [Tooltip("The current health of our player")]
         //public float Health = 1f;
@@ -171,18 +171,18 @@ namespace com.czeeep.network.player {
             {
                 _gravity = 0;
 
-                if (_gravityDamage > 10)
+                /*if (_gravityDamage > 10)
                 {
                     _info.MakeDamage((int)_gravityDamage);
                 }
 
-                _gravityDamage = 0;
+                _gravityDamage = 0;*/
             }
             else
             {
                 _gravity = -9.8f;
                 _character.Move(transform.up * _gravity * Time.deltaTime);
-                _gravityDamage += -_gravity * Time.deltaTime;
+                //_gravityDamage += -_gravity * Time.deltaTime;
             }
 
             var point = _point.position;// hit.point;

@@ -51,7 +51,7 @@ namespace com.czeeep.spell.magicmodel
         {"fire","FireModificator" },
         {"water","WaterModificator" },
         {"earth","FireModificator" },
-        {"freze","FireModificator" },
+        {"freze","FrezeModificator" },
         {"razor","RazorModificator" },
         {"dark","FireModificator" },
         {"steam","FireModificator" },
@@ -329,7 +329,7 @@ namespace com.czeeep.spell.magicmodel
         [ContextMenu("Add Modificator")]
         public void AddModificator()
         {
-            AddModificator("razor", 7);
+            AddModificator("freze", 7);
         }
 
 
