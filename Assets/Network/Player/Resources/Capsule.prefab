@@ -188,7 +188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointWorld: {fileID: 5613932493415345696}
+  _angle: 45
   _mousePos: {x: 0, y: 0}
+  _mousePosWorld: {x: 0, y: 0, z: 0}
   _screen: {x: 0, y: 0}
 --- !u!114 &1426536023637082926
 MonoBehaviour:
@@ -553,7 +555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6074573670204144807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.91, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

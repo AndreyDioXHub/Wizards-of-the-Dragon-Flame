@@ -14,6 +14,8 @@ public class FollowCamera : MonoBehaviour
     private Transform _target;
     [SerializeField]
     private Vector3 _offset;
+    [SerializeField]
+    private bool _ignorePlayerHeight;
 
     private void Awake()
     {
@@ -44,6 +46,11 @@ public class FollowCamera : MonoBehaviour
         if (_target != null)
         {
             transform.position = _target.position + _offset;
+        }
+
+        if (_ignorePlayerHeight)
+        {
+            transform.position = new Vector3(transform.position.x, _offset.y, transform.position.z);
         }
     }
 }
