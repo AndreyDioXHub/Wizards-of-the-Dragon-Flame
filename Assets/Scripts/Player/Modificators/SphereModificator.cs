@@ -15,12 +15,14 @@ namespace com.czeeep.spell.modificator
         protected ModificatorInfo _info = new ModificatorInfo();
         [SerializeField]
         protected int _damage = 1;
+        [SerializeField]
+        protected int _maxPower = 10;
         /*protected string _key;
         [SerializeField]
         protected int _power = 1;
         [SerializeField]
         protected float _timeAction = 1;*/
-       [SerializeField]
+        [SerializeField]
         protected float _timeActionCur;
 
         [SerializeField]
@@ -29,7 +31,7 @@ namespace com.czeeep.spell.modificator
         public virtual void Init(int power)
         {
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
-            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}"; 
+            Named();
             _info.power = power;
             _playerInfo = PlayerNetwork.Info;
         }
@@ -37,7 +39,7 @@ namespace com.czeeep.spell.modificator
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
         {
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
-            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
+            Named();
             isCancel = false;
 
             //DoDamage();
@@ -47,15 +49,25 @@ namespace com.czeeep.spell.modificator
         {
             _info.power += power;
 
-            if (_element != null)
-            {
-                _element.UpdateInfo(_info.key, _info.power, 1);
-            }
-
+            UpdateInfo(1);
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
-            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
+            Named();
 
             //DoDamage();
+        }
+
+        public void UpdateInfo(float fill)
+        {
+            if (_element != null)
+            {
+                _element.UpdateInfo(_info.key, _info.power, fill);
+            }
+
+        }
+
+        public void Named()
+        {
+            gameObject.name = $"{"{"}\"key\": \"{_info.key}\", \"power\": {(int)_info.power}, \"direction\": {(int)_info.time}{"}"}";
         }
 
         // Start is called before the first frame update

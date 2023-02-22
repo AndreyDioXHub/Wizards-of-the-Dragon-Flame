@@ -14,11 +14,11 @@ namespace com.czeeep.spell.modificator
             base.Update();
 
             _timeActionCur += Time.deltaTime;
-
-            if (_element != null)
+            UpdateInfo(1 - _timeActionCur / _info.time);
+            /*if (_element != null)
             {
                 _element.UpdateInfo(_info.key, _info.power, 1 - _timeActionCur / _info.time);
-            }
+            }*/
 
             if (_timeActionCur >= _info.time)
             {
@@ -38,7 +38,8 @@ namespace com.czeeep.spell.modificator
             base.Init(power);
             MagicModel.Instance.ReturnAllSphereToInventory("water");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-            _element.UpdateInfo(_info.key, _info.power, 1);
+            UpdateInfo(1);
+            //_element.UpdateInfo(_info.key, _info.power, 1);
             _timeActionCur = 0;
         }
 

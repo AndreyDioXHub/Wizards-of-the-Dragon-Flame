@@ -8,6 +8,7 @@ namespace com.czeeep.spell.modificator
 {
     public class WaterModificator : SphereModificator
     {
+
         public override void Start()
         {
             base.Start();
@@ -21,7 +22,22 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("razor");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
+            DoDamage();
 
+        }
+        public override void AddPower(int power)
+        {
+            base.AddPower(power);
+
+            if (_info.power > _maxPower)
+            {
+                _info.power = _maxPower;
+            }
+
+            UpdateInfo(1);
+            Named();
+
+            DoDamage();
         }
         /*public override void AddPower(int power)
         {
@@ -48,6 +64,7 @@ namespace com.czeeep.spell.modificator
 
                 if (_info.power <= 0)
                 {
+                    //DoDamage();
                     DestroyModificator();
                 }
             }
@@ -61,7 +78,20 @@ namespace com.czeeep.spell.modificator
             }
 
             _element.UpdateInfo(_info.key, _info.power, 1);
+            DoDamage();
             return incomingPowerleft;
+        }
+        public override void DoDamage()
+        {
+            base.DoDamage();
+
+            _playerInfo.SpeedFraud(1 - (float)_info.power / (float)(_maxPower + 1) );
+
+            if (_info.power <= 0)
+            {
+                _playerInfo.SpeedFraud(1);
+            }
+            //_playerInfo.MakeDamage(_damage * _info.power);
         }
     }
 

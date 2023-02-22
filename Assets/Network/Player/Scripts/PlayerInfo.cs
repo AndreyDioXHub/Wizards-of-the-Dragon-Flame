@@ -40,7 +40,10 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
-    //public void 
+    public void SpeedFraud(float slowdown)
+    {
+        _speed = _speedMax * slowdown;
+    }
 
     public void KnockoutRevive()
     {
