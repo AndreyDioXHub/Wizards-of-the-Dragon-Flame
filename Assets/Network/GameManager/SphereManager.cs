@@ -58,7 +58,7 @@ namespace com.czeeep.network {
                 for (int i = 0; i < _config.MaxSpheresTotal; i++) {
                     //TODO Generate by group
                     string key = SPHERE_PREFIX + i.ToString();
-                    SphereWorld sworld = CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity);
+                    SphereWorld sworld = CreateSphere(SphereConfig.GenerateRandomPosition(), Quaternion.identity,_config.GetTypeShpere(i), i);
                     sworld.SetIndex(key);
                     htable.Add(key, sworld.GetHashData());
                 }
@@ -76,7 +76,7 @@ namespace com.czeeep.network {
             _sphere.transform.rotation = rotation;
             _spheres.Add(_sphere);
             var sworld = _sphere.GetComponent<SphereWorld>();
-            sworld.Init((SpheresElements)elementType, 5, _spheres.Count-1);
+            sworld.Init((SpheresElements)elementType, _config.DefaultAmount, _spheres.Count-1);
             return sworld;
         }
 
@@ -130,9 +130,12 @@ namespace com.czeeep.network {
 
             List<SpheresElements> baseSpheres;
 
+            public int DefaultAmount { get; internal set; } = 5;
+
             public SphereConfig() {
                 //Prepare array of base elements
                 CollectBaseSphereArray();
+                MaxSpheresInGroup = MaxSpheresTotal / baseSpheres.Count;
             }
             #region PRIVATE METHODS
 
@@ -145,10 +148,14 @@ namespace com.czeeep.network {
                 }
             }
             #endregion
-            public SpheresElements GetTypeShpere(int indx) {
+            public int GetTypeShpere(int indx) {
                 //Add Div
-
-                return 0;
+                int part = indx / MaxSpheresInGroup;
+                if(part < baseSpheres.Count) {
+                    return (int)baseSpheres[part];
+                } else {
+                    return 0;
+                }
             }
 
             #region STATIC Methods
@@ -180,6 +187,7 @@ namespace com.czeeep.network {
         internal void CreateSpheres(ExitGames.Client.Photon.Hashtable hashtable) {
             // Replicate from serser
             int count = (int)hashtable[TOTAL_SPHERE_COUNTS];
+            Debug.Log($"Count of elements: {count}");
             if(count > 0) {
                 //Generate
                 for (int i = 0; i < count; i++) {
