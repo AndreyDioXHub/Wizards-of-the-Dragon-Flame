@@ -16,7 +16,7 @@ namespace com.czeeep.spell.modificator
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
             //DoDamage();
-            MagicModel.Instance.AddModificator("stun", 1);
+            MagicModel.Instance.AddModificator("stun", _info.power);
             DestroyModificator();
             //DoUpdatedDamage();
             //DoDamage();
