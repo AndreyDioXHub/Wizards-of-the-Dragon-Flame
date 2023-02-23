@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace com.czeeep.spell.modificator
 {
-    public class ModificatorLife : SphereModificator
+    public class LifeModificator : SphereModificator
     {
         public override void Start()
         {

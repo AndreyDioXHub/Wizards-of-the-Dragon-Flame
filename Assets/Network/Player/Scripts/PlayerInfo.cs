@@ -29,13 +29,14 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private int _hitPoint = 100;
     [SerializeField]
-    private int _shieldPoint = 100;
+    private int _shieldPoint = 0;
     [SerializeField]
     private float _mouseSensitivity = 100f;
     [SerializeField]
     private float _speed = 5;
     [SerializeField]
     private float _slowdown = 1;
+    //сделать мув поинт с замедлом вращения
 
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
     {
@@ -61,6 +62,11 @@ public class PlayerInfo : MonoBehaviour
         {
             damageLeft = -_shieldPoint;
             _shieldPoint = 0;
+        }
+
+        if (_shieldPoint > _shieldPointMax)
+        {
+            _shieldPoint = _shieldPointMax;
         }
 
         if (_hpView != null)

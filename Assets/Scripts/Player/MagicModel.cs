@@ -57,7 +57,7 @@ namespace com.czeeep.spell.magicmodel
         {"steam","FireModificator" },
         {"poison","FireModificator" },
         {"ice","FireModificator" },
-        {"shield","FireModificator" },
+        {"shield","ShieldModificator" },
     };
         //base: water, life, shield, freze, razor, dark, earth, fire
         //meta: steam, poison, ice 
