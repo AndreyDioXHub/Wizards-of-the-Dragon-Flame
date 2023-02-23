@@ -8,9 +8,12 @@ public class PlayerInfo : MonoBehaviour
     public UnityEvent OnPlayerKnockout;
     public float MouseSensitivity { get => _mouseSensitivity; }
     public float Speed { get => _speed * _slowdown; }
-    public float HitPointFill { get => _hitPoint / _hitPointMax; }
-    public float ShieldPointFill { get => _shieldPoint / _shieldPointMax; }
+    public float HitPointFill { get => (float)_hitPoint / (float)_hitPointMax; }
+    public float ShieldPointFill { get => (float)_shieldPoint / (float)_shieldPointMax; }
 
+
+    [SerializeField]
+    private HitPointView _hpView;
 
     [SerializeField]
     private int _hitPointMax = 100;
@@ -33,10 +36,21 @@ public class PlayerInfo : MonoBehaviour
     private float _speed = 5;
     [SerializeField]
     private float _slowdown = 1;
+
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
     {
         {"base", 1 }
     };
+
+    public void SetHPView(HitPointView hpView)
+    {
+        _hpView = hpView;
+    }
+
+    public void UnArmor()
+    {
+        _shieldPoint = 0;
+    }
 
     public void MakeShieldPointDamage(int damage, out int damageLeft)
     {
@@ -47,6 +61,11 @@ public class PlayerInfo : MonoBehaviour
         {
             damageLeft = -_shieldPoint;
             _shieldPoint = 0;
+        }
+
+        if (_hpView != null)
+        {
+            _hpView.DrawHP(HitPointFill, ShieldPointFill);
         }
 
     }
@@ -63,6 +82,11 @@ public class PlayerInfo : MonoBehaviour
         if (_hitPoint <= 0)
         {
             OnPlayerKnockout?.Invoke();
+        }
+
+        if (_hpView != null)
+        {
+            _hpView.DrawHP(HitPointFill, ShieldPointFill);
         }
     }
 

@@ -100,6 +100,7 @@ namespace com.czeeep.network.player {
                 FollowCamera.Instance.Init(transform);
                 StaffModel.Instance.Init(this);
                 MagicModel.Instance.Init(this);
+                _info.SetHPView(HitPointView.Instance);
             }
             else
             {
