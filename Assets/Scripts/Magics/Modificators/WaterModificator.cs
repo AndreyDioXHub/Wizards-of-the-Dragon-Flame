@@ -22,8 +22,8 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("razor");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-            DoUpdatedDamage();
-            DoDamage();
+            //DoUpdatedDamage();
+            //DoDamage();
 
         }
 
@@ -52,12 +52,15 @@ namespace com.czeeep.spell.modificator
                 isCancel = true;
                 //do razor damage
                 Debug.Log($"do razor damage {power}");
+                _playerInfo.UnArmor();
+                _playerInfo.MakeHitPointDamage(power);
+                //MagicModel.Instance.AddModificator(SpheresElements.razor.ToString(), power);
                 //DestroyModificator();
             }
 
             _element.UpdateInfo(_info.key, _info.power, 1);
-            DoDamage(); 
-            DoUpdatedDamage();
+            //DoDamage(); 
+            //DoUpdatedDamage();
             return incomingPowerleft;
         }
 

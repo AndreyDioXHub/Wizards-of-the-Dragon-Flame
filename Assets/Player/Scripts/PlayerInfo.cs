@@ -1,3 +1,4 @@
+using com.czeeep.spell.staffmodel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,12 +37,51 @@ public class PlayerInfo : MonoBehaviour
     private float _speed = 5;
     [SerializeField]
     private float _slowdown = 1;
+    [SerializeField]
+    private bool _isStuned = false;
     //сделать мув поинт с замедлом вращения
 
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
     {
         {"base", 1 }
     };
+    
+    private Dictionary<string, bool> _isStunedDictionary = new Dictionary<string, bool>()
+    {
+        {"base", false }
+    };
+
+    public void SetStun(string key, bool isStuned)
+    {
+
+        if (_isStunedDictionary.TryGetValue(key, out bool value))
+        {
+            _isStunedDictionary[key] = isStuned;
+
+            if (isStuned == false)
+            {
+                _isStunedDictionary.Remove(key);
+            }
+        }
+        else
+        {
+            _isStunedDictionary.Add(key, isStuned);
+        }
+
+        bool isStunedTotal = false;
+
+        foreach (var isd in _isStunedDictionary)
+        {
+            isStunedTotal = isStunedTotal || isd.Value;
+        }
+
+        _isStuned = isStunedTotal;
+
+        if (_isStuned)
+        {
+            StaffModel.Instance.ShootStop();
+        }
+    }
 
     public void SetHPView(HitPointView hpView)
     {

@@ -53,6 +53,12 @@ namespace com.czeeep.spell.modificator
         {
             base.DoDamage();
             _playerInfo.MakeDamage(_damage*_info.power);
+            //_playerInfo.SetStun(_info.key, true);
+        }
+        public override void DestroyModificator()
+        {
+            base.DestroyModificator();
+            //_playerInfo.SetStun(_info.key, false);
         }
     }
 

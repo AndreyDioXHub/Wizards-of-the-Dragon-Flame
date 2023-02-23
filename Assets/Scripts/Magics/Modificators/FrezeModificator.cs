@@ -18,8 +18,6 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("fire");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-            DoUpdatedDamage();
-            DoDamage();
 
         }
 
@@ -52,8 +50,8 @@ namespace com.czeeep.spell.modificator
             }*/
 
             _element.UpdateInfo(_info.key, _info.power, 1);
-            DoUpdatedDamage();
-            DoDamage();
+            //DoUpdatedDamage();
+            //DoDamage();
             return incomingPowerleft;
         }
 

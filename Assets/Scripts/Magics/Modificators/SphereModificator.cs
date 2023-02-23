@@ -37,6 +37,8 @@ namespace com.czeeep.spell.modificator
             _timeActionCur = 0;
             _info.power = power;
             _playerInfo = PlayerNetwork.Info;
+            DoUpdatedDamage();
+            DoDamage();
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
@@ -120,6 +122,7 @@ namespace com.czeeep.spell.modificator
 
         public virtual void DestroyModificator()
         {
+            DoDamage();
             Destroy(_element.gameObject);
             Destroy(gameObject);
         }

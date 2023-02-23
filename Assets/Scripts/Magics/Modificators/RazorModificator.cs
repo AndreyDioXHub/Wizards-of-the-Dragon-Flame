@@ -30,7 +30,7 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("water");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             UpdateInfo(1);
-            DoDamage();
+            //DoDamage();
             //_element.UpdateInfo(_info.key, _info.power, 1);
         }
 

@@ -50,7 +50,7 @@ namespace com.czeeep.spell.magicmodel
         {"life","LifeModificator" },
         {"fire","FireModificator" },
         {"water","WaterModificator" },
-        {"earth","FireModificator" },
+        {"earth","EarthModificator" },
         {"freze","FrezeModificator" },
         {"razor","RazorModificator" },
         {"dark","FireModificator" },
