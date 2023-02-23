@@ -104,6 +104,7 @@ Transform:
   - {fileID: 7908253374566201901}
   - {fileID: 531991337974958606}
   - {fileID: 5613932493415345696}
+  - {fileID: 389773199915887062}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,7 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206b7e4db54478d408cc93ed2035caea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointWorld: {fileID: 5613932493415345696}
+  _info: {fileID: 1426536023637082926}
+  _pointMain: {fileID: 389773199915887062}
   _angle: 45
   _mousePos: {x: 0, y: 0}
   _mousePosWorld: {x: 0, y: 0, z: 0}
@@ -247,7 +249,7 @@ MonoBehaviour:
   _modelBackPackMagic: {fileID: 2367527461362738189}
   _modelBackPackModificator: {fileID: 5136918549990471324}
   _modelBackPackSphere: {fileID: 6506874533805948202}
-  _point: {fileID: 5613932493415345696}
+  _point: {fileID: 389773199915887062}
   _ignoreLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -524,6 +526,37 @@ Transform:
   m_Father: {fileID: 531991337974958606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4111968059024420678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389773199915887062}
+  m_Layer: 0
+  m_Name: PointMain
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389773199915887062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111968059024420678}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.91, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2642601302486525063}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5372144816708965351
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5613932493415345696}
   m_Layer: 0
-  m_Name: Point
+  m_Name: PointJoyStick
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

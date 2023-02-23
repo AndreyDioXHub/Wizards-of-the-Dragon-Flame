@@ -9,7 +9,8 @@ using UnityEngine.UI;
 using com.czeeep.spell.magicmodel;
 using com.czeeep.spell.staffmodel;
 
-namespace com.czeeep.network.player {
+namespace com.czeeep.network.player 
+{
     public class PlayerNetwork : MonoBehaviourPunCallbacks, IPunObservable 
     {
 
@@ -51,7 +52,7 @@ namespace com.czeeep.network.player {
         private bool _foundInteractable = false;
 
         private bool _move;
-        private bool _rotate;
+        //private bool _rotate;
         [SerializeField]
         private bool _isGrounded;
 
@@ -60,11 +61,11 @@ namespace com.czeeep.network.player {
         private Vector3 _transformposition;
         private Vector3 _targetDirection;
         private Vector3 _targetDirectionNormalize;
-        private Vector3 _pointA;
-        private Vector3 _pointB;
+        //private Vector3 _pointA;
+        //private Vector3 _pointB;
         private float _dist;
-        private float _deltaAngle;
-        private float _rotationKeel;
+        //private float _deltaAngle;
+        //private float _rotationKeel;
         private float _gravity = 0;
         //private float _gravityDamage = 0;
 
@@ -307,7 +308,7 @@ namespace com.czeeep.network.player {
                 }
             }
             
-
+            /*
             if (_rotate)
             {
                 if (_deltaAngle > _angleTrashHold * _info.MouseSensitivity)
@@ -328,7 +329,7 @@ namespace com.czeeep.network.player {
                 {
                     _rotate = false;
                 }
-            }
+            }*/
 
             if (_move)
             {

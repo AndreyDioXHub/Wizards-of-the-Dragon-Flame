@@ -20,7 +20,7 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private int _shieldPointMax = 100;
     [SerializeField]
-    private float _mouseSensitivityMax = 100f;
+    private float _mouseSensitivityMax = 1f;
     [SerializeField]
     private float _speedMax = 5;
     [SerializeField]
@@ -31,7 +31,7 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private int _shieldPoint = 0;
     [SerializeField]
-    private float _mouseSensitivity = 100f;
+    private float _mouseSensitivity = 1f;
     [SerializeField]
     private float _speed = 5;
     [SerializeField]

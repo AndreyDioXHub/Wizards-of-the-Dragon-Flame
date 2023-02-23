@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerJoystick : MonoBehaviour
 {
     [SerializeField]
-    private Transform _pointWorld;
+    private PlayerInfo _info;
+    [SerializeField]
+    private Transform _pointMain;
+    /*[SerializeField]
+    private Transform _pointJoystick;*/
     [SerializeField]
     private float _angle = 45;
     [SerializeField]
@@ -30,8 +34,7 @@ public class PlayerJoystick : MonoBehaviour
         _mousePos.y = (_mousePos.y - _screen.y/2)/10;
         _mousePosWorld = new Vector3(_mousePos.x, 0, _mousePos.y);
         _mousePosWorld = Quaternion.Euler(0, _angle, 0) * _mousePosWorld;
-        _pointWorld.position = transform.position + _mousePosWorld;//new Vector3(_mousePos.x + transform.position.x, 0, _mousePos.y + transform.position.z);
-
-        //_pointWorld.position = Quaternion.Euler(0, _angle, 0) * _pointWorld.position;
+        _pointMain.position = transform.position + _mousePosWorld;
+        //_pointMain.position = Vector3.MoveTowards(_pointMain.position, _pointJoystick.position, Vector3.Distance(_pointJoystick.position, _pointMain.position)* _info.MouseSensitivity);
     }
 }
