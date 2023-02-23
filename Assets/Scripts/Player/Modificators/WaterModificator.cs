@@ -85,11 +85,15 @@ namespace com.czeeep.spell.modificator
         {
             base.DoDamage();
 
-            _playerInfo.SpeedFraud(1 - (float)_info.power / (float)(_maxPower + 1) );
+            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
+
+            slowdown = slowdown < 0.1f ? 0.1f : slowdown;
+
+            _playerInfo.SpeedFraud(_info.key, slowdown);
 
             if (_info.power <= 0)
             {
-                _playerInfo.SpeedFraud(1);
+                _playerInfo.SpeedFraud(_info.key, 1);
             }
             //_playerInfo.MakeDamage(_damage * _info.power);
         }
