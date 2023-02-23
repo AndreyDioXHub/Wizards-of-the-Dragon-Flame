@@ -47,7 +47,7 @@ namespace com.czeeep.spell.magicmodel
 
         private Dictionary<string, string> _modificatorsLis = new Dictionary<string, string>()
     {
-        {"life","FireModificator" },
+        {"life","LifeModificator" },
         {"fire","FireModificator" },
         {"water","WaterModificator" },
         {"earth","FireModificator" },

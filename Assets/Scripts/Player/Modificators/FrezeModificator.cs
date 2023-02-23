@@ -16,8 +16,6 @@ namespace com.czeeep.spell.modificator
         {
             base.Init(power);
             MagicModel.Instance.ReturnAllSphereToInventory("fire");
-            MagicModel.Instance.ReturnAllSphereToInventory("steam");
-            MagicModel.Instance.ReturnAllSphereToInventory("razor");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
             DoUpdatedDamage();
@@ -64,7 +62,7 @@ namespace com.czeeep.spell.modificator
             base.DoUpdatedDamage();
 
 
-            float slowdown = 1 - (float)((_info.power) * (_info.power) * _filling) / (float)(_maxPower * _maxPower);
+            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
 
             slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 

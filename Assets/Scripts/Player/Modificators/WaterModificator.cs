@@ -66,7 +66,7 @@ namespace com.czeeep.spell.modificator
         {
             base.DoUpdatedDamage();
 
-            float slowdown = 1 - (float)((_info.power) * (_info.power) * _filling) / (float)(_maxPower * _maxPower);
+            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
 
             slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 

@@ -97,9 +97,14 @@ namespace com.czeeep.spell.modificator
 
             if (_timeActionCur >= _info.time)
             {
-                _info.power = 0;
-                DoDamage();
-                DestroyModificator();
+                _timeActionCur = 0;
+                _info.power --;
+
+                if (_info.power <= 0)
+                {
+                    DoDamage();
+                    DestroyModificator();
+                }
             }
         }
 

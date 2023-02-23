@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1095836012926127491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9044201275405783422}
+  - component: {fileID: 1599782244325931130}
+  - component: {fileID: -3419975662608217004}
+  m_Layer: 0
+  m_Name: LifeModificator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9044201275405783422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095836012926127491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1599782244325931130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095836012926127491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ecc4b5fa5214e43949ec6414e09d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInfo: {fileID: 0}
+  _info:
+    key: life
+    power: 1
+    time: 2
+  _damage: -2
+  _maxPower: 10
+  _timeActionCur: 0
+  _filling: 0
+  _element: {fileID: 0}
+--- !u!114 &-3419975662608217004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095836012926127491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTickPassed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1599782244325931130}
+        m_TargetAssemblyTypeName: com.czeeep.spell.modificator.ModificatorLife, Assembly-CSharp
+        m_MethodName: DoDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _tickTime: 0.2
+  _tickTimeCur: 0
+  _mayUpdateTick: 1
+  _passTick: 0
