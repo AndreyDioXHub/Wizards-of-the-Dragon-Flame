@@ -6,27 +6,28 @@ using UnityEngine;
 
 namespace com.czeeep.spell.modificator
 {
-    public class EarthModificator : SphereModificator
+    public class StunModificator : SphereModificator
     {
-
         public override void Init(int power)
         {
             base.Init(power);
             MagicModel.Instance.ReturnAllSphereToInventory();
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-            //DoDamage();
-            MagicModel.Instance.AddModificator("stun", 1);
-            DestroyModificator();
-            //DoUpdatedDamage();
-            //DoDamage();
 
         }
+
         public override void DoDamage()
         {
             base.DoDamage();
-            _playerInfo.MakeDamage(_damage * _info.power);
+            _playerInfo.SetStun(_info.key, true);
+        }
+
+        public override void DestroyModificator()
+        {
+            base.DestroyModificator();
+            _playerInfo.SetStun(_info.key, false);
         }
     }
-
 }
+

@@ -9,6 +9,7 @@ public class PlayerInfo : MonoBehaviour
     public UnityEvent OnPlayerKnockout;
     public float MouseSensitivity { get => _mouseSensitivity; }
     public float Speed { get => _speed * _slowdown; }
+    public bool IsStuned { get => _isStuned; }
     public float HitPointFill { get => (float)_hitPoint / (float)_hitPointMax; }
     public float ShieldPointFill { get => (float)_shieldPoint / (float)_shieldPointMax; }
 
