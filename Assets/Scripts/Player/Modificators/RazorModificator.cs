@@ -13,23 +13,13 @@ namespace com.czeeep.spell.modificator
         {
             base.Update();
 
-            _timeActionCur += Time.deltaTime;
-            UpdateInfo(1 - _timeActionCur / _info.time);
-            /*if (_element != null)
-            {
-                _element.UpdateInfo(_info.key, _info.power, 1 - _timeActionCur / _info.time);
-            }*/
-
-            if (_timeActionCur >= _info.time)
-            {
-                DestroyModificator();
-            }
         }
 
         public override void DoDamage()
         {
             base.DoDamage();
-            _playerInfo.MakeDamage(_damage * _info.power);
+            _playerInfo.MakeShieldPointDamage(100, out int left);
+            _playerInfo.MakeHitPointDamage(_damage * _info.power);
             //Debug.Log($"do razor damage {_info.power}");
         }
 
@@ -40,7 +30,6 @@ namespace com.czeeep.spell.modificator
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             UpdateInfo(1);
             //_element.UpdateInfo(_info.key, _info.power, 1);
-            _timeActionCur = 0;
         }
 
         public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -53,9 +42,10 @@ namespace com.czeeep.spell.modificator
             {
                 incomingPowerleft = 0;
                 isCancel = true;
-                _timeActionCur = 0;
                 //do razor damage
-                Debug.Log($"do razor damage {power}");
+                DoDamage();
+                AddPower(1);
+                //Debug.Log($"do razor damage {power}");
             }
 
             return incomingPowerleft;

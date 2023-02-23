@@ -49,8 +49,9 @@ MonoBehaviour:
   _info:
     key: fire
     power: 1
-    time: 1
+    time: 2
   _damage: 1
+  _maxPower: 10
   _timeActionCur: 0
   _element: {fileID: 0}
 --- !u!114 &-3419975662608217004

@@ -49,7 +49,7 @@ MonoBehaviour:
   _info:
     key: freze
     power: 1
-    time: 1
+    time: 10
   _damage: 1
   _maxPower: 10
   _timeActionCur: 0

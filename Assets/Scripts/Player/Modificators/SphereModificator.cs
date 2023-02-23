@@ -24,6 +24,8 @@ namespace com.czeeep.spell.modificator
         protected float _timeAction = 1;*/
         [SerializeField]
         protected float _timeActionCur;
+        [SerializeField]
+        protected float _filling;
 
         [SerializeField]
         protected ModificatorElementView _element;
@@ -32,6 +34,7 @@ namespace com.czeeep.spell.modificator
         {
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
             Named();
+            _timeActionCur = 0;
             _info.power = power;
             _playerInfo = PlayerNetwork.Info;
         }
@@ -39,21 +42,29 @@ namespace com.czeeep.spell.modificator
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
         {
             //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
+
             Named();
             isCancel = false;
 
             //DoDamage();
             return 1;
         }
+
         public virtual void AddPower(int power)
         {
+
+            _timeActionCur = 0;
             _info.power += power;
 
-            UpdateInfo(1);
-            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
-            Named();
+            if (_info.power > _maxPower)
+            {
+                _info.power = _maxPower;
+            }
 
-            //DoDamage();
+            UpdateInfo(1);
+            Named();
+            DoUpdatedDamage();
+            DoDamage();
         }
 
         public void UpdateInfo(float fill)
@@ -78,8 +89,25 @@ namespace com.czeeep.spell.modificator
         // Update is called once per frame
         public virtual void Update()
         {
+            _timeActionCur += Time.deltaTime;
+            _filling = 1 - _timeActionCur / _info.time;
+            UpdateInfo(_filling);
+
+            DoUpdatedDamage();
+
+            if (_timeActionCur >= _info.time)
+            {
+                _info.power = 0;
+                DoDamage();
+                DestroyModificator();
+            }
+        }
+
+        public virtual void DoUpdatedDamage()
+        {
 
         }
+
         public virtual void DoDamage()
         {
 

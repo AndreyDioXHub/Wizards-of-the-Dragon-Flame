@@ -156,7 +156,7 @@ namespace com.czeeep.spell.magicmodel
             _metaSpheres.Add(0b_00100000010, new MetaSphere(SpheresElements.dark.ToString(), MetaSphereType.element));
             _metaSpheres.Add(0b_01000000010, new MetaSphere(SpheresElements.water.ToString(), MetaSphereType.element));
             _metaSpheres.Add(0b_00000010100, new MetaSphere(SpheresElements.ice.ToString(), MetaSphereType.element));
-            _metaSpheres.Add(0b_00000100100, new MetaSphere("Electro", MetaSphereType.damage));
+            _metaSpheres.Add(0b_00000100100, new MetaSphere("razor", MetaSphereType.damage));//Electro
             _metaSpheres.Add(0b_00001000100, new MetaSphere(SpheresElements.poison.ToString(), MetaSphereType.element));
             _metaSpheres.Add(0b_00000101000, new MetaSphere("EarthRazor", MetaSphereType.cost));
             _metaSpheres.Add(0b_00010010000, new MetaSphere(SpheresElements.water.ToString(), MetaSphereType.element));
@@ -197,19 +197,29 @@ namespace com.czeeep.spell.magicmodel
                                 case MetaSphereType.element:
                                     product = meta.name;
                                     result = true;
+                                    //_activeSpheres.Remove(_activeSpheres[i]);
                                     break;
                                 case MetaSphereType.cost:
                                     //do cost here
                                     break;
                                 case MetaSphereType.damage:
-                                    //do damage here
+                                    AddModificator(meta.name, 1);
                                     break;
                                 default:
                                     break;
                             }
 
                             iscross = true;
-                            _activeSpheres.Remove(_activeSpheres[i]);
+
+                            try
+                            {
+                                _activeSpheres.Remove(_activeSpheres[i]);
+                            }
+                            catch(ArgumentOutOfRangeException e) 
+                            {
+                                Debug.LogWarning("CalculateElement index was removed early");
+                            }
+
                             i = icount;
                         }
                     }

@@ -22,32 +22,10 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("razor");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
+            DoUpdatedDamage();
             DoDamage();
 
         }
-        public override void AddPower(int power)
-        {
-            base.AddPower(power);
-
-            if (_info.power > _maxPower)
-            {
-                _info.power = _maxPower;
-            }
-
-            UpdateInfo(1);
-            Named();
-
-            DoDamage();
-        }
-        /*public override void AddPower(int power)
-        {
-            _power += power;
-
-            if (_element != null)
-            {
-                _element.UpdateInfo(_key, power);
-            }
-        }*/
 
         public override int CheckCancel(string sphere, int power, out bool isCancel)
         {
@@ -78,14 +56,17 @@ namespace com.czeeep.spell.modificator
             }
 
             _element.UpdateInfo(_info.key, _info.power, 1);
-            DoDamage();
+            DoDamage(); 
+            DoUpdatedDamage();
             return incomingPowerleft;
         }
-        public override void DoDamage()
-        {
-            base.DoDamage();
 
-            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
+
+        public override void DoUpdatedDamage()
+        {
+            base.DoUpdatedDamage();
+
+            float slowdown = 1 - (float)((_info.power) * (_info.power) * _filling) / (float)(_maxPower * _maxPower);
 
             slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 
@@ -95,7 +76,12 @@ namespace com.czeeep.spell.modificator
             {
                 _playerInfo.SpeedFraud(_info.key, 1);
             }
-            //_playerInfo.MakeDamage(_damage * _info.power);
+        }
+
+
+        public override void DoDamage()
+        {
+            base.DoDamage();
         }
     }
 

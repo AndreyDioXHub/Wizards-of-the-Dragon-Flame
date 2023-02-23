@@ -8,10 +8,14 @@ public class PlayerInfo : MonoBehaviour
     public UnityEvent OnPlayerKnockout;
     public float MouseSensitivity { get => _mouseSensitivity; }
     public float Speed { get => _speed * _slowdown; }
+    public float HitPointFill { get => _hitPoint / _hitPointMax; }
+    public float ShieldPointFill { get => _shieldPoint / _shieldPointMax; }
 
 
     [SerializeField]
     private int _hitPointMax = 100;
+    [SerializeField]
+    private int _shieldPointMax = 100;
     [SerializeField]
     private float _mouseSensitivityMax = 100f;
     [SerializeField]
@@ -21,6 +25,8 @@ public class PlayerInfo : MonoBehaviour
 
     [SerializeField]
     private int _hitPoint = 100;
+    [SerializeField]
+    private int _shieldPoint = 100;
     [SerializeField]
     private float _mouseSensitivity = 100f;
     [SerializeField]
@@ -32,20 +38,40 @@ public class PlayerInfo : MonoBehaviour
         {"base", 1 }
     };
 
-    public void MakeDamage(int damage)
+    public void MakeShieldPointDamage(int damage, out int damageLeft)
+    {
+        _shieldPoint -= damage;
+        damageLeft = 0;
+
+        if (_shieldPoint < 0)
+        {
+            damageLeft = -_shieldPoint;
+            _shieldPoint = 0;
+        }
+
+    }
+
+    public void MakeHitPointDamage(int damage)
     {
         _hitPoint -= damage;
 
-        if(_hitPoint > _hitPointMax)
+        if (_hitPoint > _hitPointMax)
         {
             _hitPoint = _hitPointMax;
         }
 
-        if(_hitPoint <= 0)
+        if (_hitPoint <= 0)
         {
             OnPlayerKnockout?.Invoke();
         }
+    }
 
+    public void MakeDamage(int damage)
+    {
+        int damageLeft = 0;
+
+        MakeShieldPointDamage(damage, out damageLeft);
+        MakeHitPointDamage(damageLeft);
     }
 
     public void SpeedFraud(string key, float slowdown)
@@ -83,6 +109,7 @@ public class PlayerInfo : MonoBehaviour
     public void KnockoutRevive()
     {
         _hitPoint = _hitPointMax;
+        _shieldPoint = _shieldPointMax;
     }
 
     // Start is called before the first frame update

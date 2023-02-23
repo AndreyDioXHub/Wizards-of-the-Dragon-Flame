@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0512c1fc17b1b7488a11cd26da4c569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInfo: {fileID: 0}
   _info:
     key: water
     power: 1
-    time: 1
+    time: 15
+  _damage: 1
+  _maxPower: 10
   _timeActionCur: 0
   _element: {fileID: 0}
