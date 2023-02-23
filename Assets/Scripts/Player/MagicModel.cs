@@ -38,7 +38,7 @@ namespace com.czeeep.spell.magicmodel
         private int _activeSpheresCount = 5;
 
         [SerializeField]
-        private SphereModificator[] _sphereModificators;
+        private List<SphereModificator> _sphereModificators = new List<SphereModificator>();
         [SerializeField]
         private List<string> _activeSpheres = new List<string>();
         private Dictionary<string, int> _spheres = new Dictionary<string, int>();
@@ -90,7 +90,17 @@ namespace com.czeeep.spell.magicmodel
 
         public void CollectModificators()
         {
-            _sphereModificators = _player.gameObject.GetComponentsInChildren<SphereModificator>();
+            _sphereModificators.Clear();
+            _sphereModificators = new List<SphereModificator>();
+            
+            var sphereModificators = _player.gameObject.GetComponentsInChildren<SphereModificator>();
+
+            foreach(var sm in sphereModificators)
+            {
+                _sphereModificators.Add(sm);
+
+            }
+            //_sphereModificators = _player.gameObject.GetComponentsInChildren<SphereModificator>();
 
             /*_sphereModificators = gameObject.GetComponents<SphereModificator>();
             var sphereModificators = gameObject.GetComponentsInChildren<SphereModificator>();
@@ -303,13 +313,13 @@ namespace com.czeeep.spell.magicmodel
             ShowSphere();
         }
 
-        public bool CheckModificator(string key, int power, out int powerLeft)
+        public bool CheckEatIncomingKeytoModificator(string key, int power, out int powerLeft)
         {
             bool modificatorEatSphere = false;
-            int icount = _sphereModificators.Length;
+            int icount = _sphereModificators.Count;
             powerLeft = 0;
 
-            if (_sphereModificators.Length > 0)
+            if (_sphereModificators.Count > 0)
             {
                 for (int i = 0; i < icount; i++)
                 {
@@ -335,6 +345,7 @@ namespace com.czeeep.spell.magicmodel
 
         public void AddModificator(string key, int power)
         {
+            Debug.Log($"AddModificator {key} ");
             CollectModificators();
 
             /*if (hideSpheres)
@@ -342,7 +353,7 @@ namespace com.czeeep.spell.magicmodel
                 ReturnAllSphereToInventory();
             }*/
 
-            bool modificatorEatModificator = CheckModificator(key, power, out int powerLeft);
+            bool modificatorEatModificator = CheckEatIncomingKeytoModificator(key, power, out int powerLeft);
 
             if (modificatorEatModificator)
             {
@@ -358,41 +369,28 @@ namespace com.czeeep.spell.magicmodel
 
             bool needNew = true;
 
-            string len = _sphereModificators.Length.ToString();
+            string len = _sphereModificators.Count.ToString();
             string eq = "";
 
-            //Debug.Log($"AddModificator {}");
-
-            if (_sphereModificators.Length > 0)
+            foreach(var sm in _sphereModificators)
             {
 
-                if (_sphereModificators.Length == 1)
-                {
-                    eq += $"{_sphereModificators[0].Info.key} {key} {_sphereModificators[0].Info.key.Equals(key)} \n";
+                Debug.Log($"AddModificator {sm.Info.key} == {key} = {sm.Info.key.Equals(key)}");
+            }
 
-                    if (_sphereModificators[0].Info.key.Equals(key))
-                    {
-                        _sphereModificators[0].AddPower(power);
-                        needNew = false;
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < _sphereModificators.Length - 1; i++)
-                    {
-                        eq += $"{_sphereModificators[i].Info.key} {key} {_sphereModificators[i].Info.key.Equals(key)} \n";
+            foreach(var sm in _sphereModificators)
+            {
+                eq += $"{sm.Info.key} {key} {sm.Info.key.Equals(key)} \n";
 
-                        if (_sphereModificators[i].Info.key.Equals(key))
-                        {
-                            _sphereModificators[i].AddPower(power);
-                            //_sphereModificators[i].gameObject.name = $"m:{key}:{_sphereModificators[i].Power}";
-                            needNew = false;
-                            i = _sphereModificators.Length;
-                        }
-                    }
+                if (sm.Info.key.Equals(key))
+                {
+                    sm.AddPower(power);
+                    needNew = false;
+                    break;
                 }
             }
-            Debug.Log($"AddModificator {needNew} \n{len}\n{eq}");
+
+            Debug.Log($"AddModificator needNew: {needNew} \n{len}\n{eq}");
 
             if (needNew)
             {
@@ -426,7 +424,7 @@ namespace com.czeeep.spell.magicmodel
                     _spheres[key] -= _consumptionCount;
 
 
-                    bool modificatorEatSphere = CheckModificator(key, 1, out int powerLeft);
+                    bool modificatorEatSphere = CheckEatIncomingKeytoModificator(key, 1, out int powerLeft);
 
                     if (modificatorEatSphere)
                     {
