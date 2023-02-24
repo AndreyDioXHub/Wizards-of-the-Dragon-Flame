@@ -55,9 +55,15 @@ public class OutMagic : MonoBehaviour
         }
         else
         {
-            UpdateMagics();
+            StartCoroutine(UpdateMagicsCoroutine());
         }
     } 
+
+    public IEnumerator UpdateMagicsCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        UpdateMagics();
+    }
 
     public void UpdateMagics()
     {
