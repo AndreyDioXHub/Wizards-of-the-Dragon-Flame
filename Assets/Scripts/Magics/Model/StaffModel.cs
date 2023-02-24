@@ -32,22 +32,7 @@ namespace com.czeeep.spell.staffmodel
         [SerializeField]
         private bool _isShoot;
         [SerializeField]
-        private bool _magicInited;
-
-        private Dictionary<string, string> _magicsList = new Dictionary<string, string>()
-    {
-        {"life","Magic" },
-        {"fire","Magic" },
-        {"water","Magic" },
-        {"earth","Magic" },
-        {"freze","Magic" },
-        {"razor","Magic" },
-        {"dark","Magic" },
-        {"steam","Magic" },
-        {"poison","Magic" },
-        {"ice","Magic" },
-        {"shield","Magic" },
-    };
+        private bool _magicInited;        
 
 
         private void Awake()
@@ -115,7 +100,7 @@ namespace com.czeeep.spell.staffmodel
                         foreach (var sphC in _spheresCount)
                         {
                             Debug.Log("StaffModel Shoot");
-                            GameObject go = Instantiate(Resources.Load<GameObject>(_magicsList[sphC.Key]), _player.ModelBackPackMagic);
+                            GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MagicsByKey[sphC.Key]), _player.ModelBackPackMagic);
 
                             Magic magic = go.GetComponent<Magic>();
                             magic.UpdateInfo(new MagicInfo(sphC.Key, direction, sphC.Value));

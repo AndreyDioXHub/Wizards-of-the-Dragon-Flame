@@ -34,6 +34,21 @@ public static class MagicConst
         {STUN,"StunModificator" },
     };
 
+    public static readonly Dictionary<string, string> MagicsByKey = new Dictionary<string, string>()
+    {
+        {LIFE,"Magic" },
+        {FIRE,"Magic" },
+        {WATER,"Magic" },
+        {EARTH,"Magic" },
+        {FREZE,"Magic" },
+        {RAZOR,"Magic" },
+        {DARK,"Magic" },
+        {STEAM,"Magic" },
+        {POISON,"Magic" },
+        {ICE,"Magic" },
+        {SHIELD,"Magic" },
+    };
+
     public static readonly Dictionary<string, List<string>> MeltCastSequences = new Dictionary<string, List<string>>()
     {
         {STEAM, new List<string>() { WATER, FIRE } },
@@ -56,4 +71,5 @@ public static class MagicConst
         {0b_00000101000, new MetaSphere("EarthRazor", MetaSphereType.cost)},
         {0b_00010010000, new MetaSphere(WATER, MetaSphereType.element)},
     };
+
 }
