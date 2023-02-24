@@ -132,8 +132,15 @@ public class OutMagic : MonoBehaviour
 
         if (allMagicType.Equals("projectile"))
         {
-            StaffModel.Instance.ShootStop();
+            StartCoroutine(ShootStopCoroutine());
         }
+    }
+
+
+    public IEnumerator ShootStopCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        StaffModel.Instance.ShootStop();
     }
 
     public void StopShoot()
