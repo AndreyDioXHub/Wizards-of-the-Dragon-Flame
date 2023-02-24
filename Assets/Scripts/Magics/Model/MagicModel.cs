@@ -42,10 +42,10 @@ namespace com.czeeep.spell.magicmodel
         [SerializeField]
         private List<string> _activeSpheres = new List<string>();
         private Dictionary<string, int> _spheres = new Dictionary<string, int>();
-        private Dictionary<int, MetaSphere> _metaSpheres = new Dictionary<int, MetaSphere>();
-        private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();
+        /*private Dictionary<int, MetaSphere> _metaSpheres = new Dictionary<int, MetaSphere>();
+        private Dictionary<string, List<string>> _castSequences = new Dictionary<string, List<string>>();*/
 
-        private Dictionary<string, string> _modificatorsLis = new Dictionary<string, string>()
+        /*private Dictionary<string, string> _modificatorsLis = new Dictionary<string, string>()
     {
         {"life","LifeModificator" },
         {"fire","FireModificator" },
@@ -59,7 +59,7 @@ namespace com.czeeep.spell.magicmodel
         {"ice","FireModificator" },
         {"shield","ShieldModificator" },
         {"stun","StunModificator" },
-    };
+    };*/
         //base: water, life, shield, freze, razor, dark, earth, fire
         //meta: steam, poison, ice 
 
@@ -146,7 +146,7 @@ namespace com.czeeep.spell.magicmodel
         [ContextMenu("Fill Dictonaryes")]
         public void FillDictonaryes()
         {
-            _metaSpheres.Clear();
+            /*_metaSpheres.Clear();
             _metaSpheres = new Dictionary<int, MetaSphere>();
 
             _metaSpheres.Add(0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost));
@@ -167,7 +167,7 @@ namespace com.czeeep.spell.magicmodel
 
             _castSequences.Add(SpheresElements.steam.ToString(), new List<string>() { SpheresElements.water.ToString(), SpheresElements.fire.ToString() });
             _castSequences.Add(SpheresElements.ice.ToString(), new List<string>() { SpheresElements.water.ToString(), SpheresElements.freze.ToString() });
-            _castSequences.Add(SpheresElements.poison.ToString(), new List<string>() { SpheresElements.water.ToString(), SpheresElements.dark.ToString() });
+            _castSequences.Add(SpheresElements.poison.ToString(), new List<string>() { SpheresElements.water.ToString(), SpheresElements.dark.ToString() });*/
 
             /*_modificatorsLis.Clear();
             _modificatorsLis = new Dictionary<string, Type>();
@@ -191,7 +191,7 @@ namespace com.czeeep.spell.magicmodel
                     {
                         var resultKey = (elementActiveEnum | elementEnum);
 
-                        if (_metaSpheres.TryGetValue((int)resultKey, out MetaSphere meta))
+                        if (MagicConst.MetaSpheres.TryGetValue((int)resultKey, out MetaSphere meta))
                         {
                             switch (meta.type)
                             {
@@ -247,7 +247,7 @@ namespace com.czeeep.spell.magicmodel
 
         public void ReturnSphereToInventory(string element)
         {
-            if (_castSequences.TryGetValue(element, out List<string> sequence))
+            if (MagicConst.CastSequences.TryGetValue(element, out List<string> sequence))
             {
                 foreach (string sub in sequence)
                 {
@@ -407,7 +407,7 @@ namespace com.czeeep.spell.magicmodel
             {
                 try
                 {
-                    GameObject go = Instantiate(Resources.Load<GameObject>(_modificatorsLis[key]), _player.ModelBackPackModificator);
+                    GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.ModificatorsByKey[key]), _player.ModelBackPackModificator);
                     SphereModificator modificator = go.GetComponent<SphereModificator>();
                     modificator.Init(power);
 
