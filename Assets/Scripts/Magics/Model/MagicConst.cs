@@ -18,7 +18,7 @@ public static class MagicConst
     public static readonly string SHIELD = "shield";
     public static readonly string STUN = "stun";
 
-    public static readonly Dictionary<string, string> ModificatorsByKey = new Dictionary<string, string>()
+    public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
     {
         {LIFE,"LifeModificator" },
         {FIRE,"FireModificator" },
@@ -29,12 +29,12 @@ public static class MagicConst
         {DARK,"DarkModificator" },
         {STEAM,"SteamModificator" },
         {POISON,"PoisonModificator" },
-        {ICE,"FireModificator" },
+        {ICE,"IceModificator" },
         {SHIELD,"ShieldModificator" },
         {STUN,"StunModificator" },
     };
 
-    public static readonly Dictionary<string, string> MagicsByKey = new Dictionary<string, string>()
+    public static readonly Dictionary<string, string> MAGICS_BY_KEY = new Dictionary<string, string>()
     {
         {LIFE,"Magic" },
         {FIRE,"Magic" },
@@ -49,14 +49,14 @@ public static class MagicConst
         {SHIELD,"Magic" },
     };
 
-    public static readonly Dictionary<string, List<string>> MeltCastSequences = new Dictionary<string, List<string>>()
+    public static readonly Dictionary<string, List<string>> MELT_CAST_SEQUENCES = new Dictionary<string, List<string>>()
     {
         {STEAM, new List<string>() { WATER, FIRE } },
         {ICE, new List<string>() { WATER, FREZE } },
         {POISON, new List<string>() { WATER, DARK } },
     };
 
-    public static readonly Dictionary<int, MetaSphere> MetaSpheres = new Dictionary<int, MetaSphere>()
+    public static readonly Dictionary<int, MetaSphere> META_SPHERES = new Dictionary<int, MetaSphere>()
     {
         {0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
         {0b_00100000001, new MetaSphere(WATER, MetaSphereType.element)},

@@ -8,6 +8,12 @@ namespace com.czeeep.spell.modificator
 {
     public class StunModificator : SphereModificator
     {
+        public override void Start()
+        {
+            base.Start();
+            _info.key = MagicConst.STUN;
+        }
+
         public override void Init(int power)
         {
             base.Init(power);
@@ -19,7 +25,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
-            base.DoDamage();
+            //base.DoDamage();
             _playerInfo.SetStun(_info.key, true);
         }
 

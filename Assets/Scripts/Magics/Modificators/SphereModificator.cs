@@ -111,7 +111,7 @@ namespace com.czeeep.spell.modificator
 
         public virtual void DoDamage()
         {
-
+            Debug.Log("DoDamage");
         }
 
         public virtual void DestroyModificator()

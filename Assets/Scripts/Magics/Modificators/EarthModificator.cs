@@ -9,6 +9,12 @@ namespace com.czeeep.spell.modificator
     public class EarthModificator : SphereModificator
     {
 
+        public override void Start()
+        {
+            base.Start();
+            _info.key = MagicConst.EARTH;
+        }
+
         public override void Init(int power)
         {
             base.Init(power);
@@ -48,7 +54,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
-            base.DoDamage();
+            //base.DoDamage();
             _playerInfo.MakeDamage(_damage * _info.power);
         }
     }

@@ -10,6 +10,7 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
+            _info.key = MagicConst.FIRE;
         }
 
         public override void Init(int power)
@@ -48,7 +49,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
-            base.DoDamage();
+            //base.DoDamage();
             _playerInfo.MakeDamage(_damage*_info.power);
         }
         public override void DestroyModificator()

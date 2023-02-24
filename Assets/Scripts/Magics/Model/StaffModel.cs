@@ -100,7 +100,7 @@ namespace com.czeeep.spell.staffmodel
                         foreach (var sphC in _spheresCount)
                         {
                             Debug.Log("StaffModel Shoot");
-                            GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MagicsByKey[sphC.Key]), _player.ModelBackPackMagic);
+                            GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MAGICS_BY_KEY[sphC.Key]), _player.ModelBackPackMagic);
 
                             Magic magic = go.GetComponent<Magic>();
                             magic.UpdateInfo(new MagicInfo(sphC.Key, direction, sphC.Value));

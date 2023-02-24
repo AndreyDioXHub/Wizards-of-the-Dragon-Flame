@@ -12,6 +12,7 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
+            _info.key = MagicConst.WATER;
         }
 
         public override void Init(int power)
@@ -60,7 +61,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoUpdatedDamage()
         {
-            base.DoUpdatedDamage();
+            //base.DoUpdatedDamage();
 
             float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
 
@@ -77,7 +78,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
-            base.DoDamage();
+            //base.DoDamage();
         }
     }
 

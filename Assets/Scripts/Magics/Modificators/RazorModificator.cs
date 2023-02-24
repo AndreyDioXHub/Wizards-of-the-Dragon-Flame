@@ -9,6 +9,12 @@ namespace com.czeeep.spell.modificator
     public class RazorModificator : SphereModificator
     {
 
+        public override void Start()
+        {
+            base.Start();
+            _info.key = MagicConst.RAZOR;
+        }
+
         public override void Update()
         {
             base.Update();
@@ -17,7 +23,7 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
-            base.DoDamage();
+            //base.DoDamage();
             _playerInfo.UnArmor();
             _playerInfo.MakeHitPointDamage(_damage * _info.power);
         }

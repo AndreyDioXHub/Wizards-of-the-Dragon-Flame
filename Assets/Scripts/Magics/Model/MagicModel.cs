@@ -191,7 +191,7 @@ namespace com.czeeep.spell.magicmodel
                     {
                         var resultKey = (elementActiveEnum | elementEnum);
 
-                        if (MagicConst.MetaSpheres.TryGetValue((int)resultKey, out MetaSphere meta))
+                        if (MagicConst.META_SPHERES.TryGetValue((int)resultKey, out MetaSphere meta))
                         {
                             switch (meta.type)
                             {
@@ -247,7 +247,7 @@ namespace com.czeeep.spell.magicmodel
 
         public void ReturnSphereToInventory(string element)
         {
-            if (MagicConst.MeltCastSequences.TryGetValue(element, out List<string> sequence))
+            if (MagicConst.MELT_CAST_SEQUENCES.TryGetValue(element, out List<string> sequence))
             {
                 foreach (string sub in sequence)
                 {
@@ -407,7 +407,7 @@ namespace com.czeeep.spell.magicmodel
             {
                 try
                 {
-                    GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.ModificatorsByKey[key]), _player.ModelBackPackModificator);
+                    GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MODIFICATOR_BY_KEY[key]), _player.ModelBackPackModificator);
                     SphereModificator modificator = go.GetComponent<SphereModificator>();
                     modificator.Init(power);
 
