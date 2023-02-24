@@ -14,7 +14,7 @@ namespace com.czeeep.spell.modificator
         public override void Init(int power)
         {
             base.Init(power);
-            MagicModel.Instance.ReturnAllSphereToInventory("fire");
+            MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.FIRE);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
 

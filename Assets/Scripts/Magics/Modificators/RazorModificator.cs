@@ -25,7 +25,7 @@ namespace com.czeeep.spell.modificator
         public override void Init(int power)
         {
             base.Init(power);
-            MagicModel.Instance.ReturnAllSphereToInventory("water");
+            MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.WATER);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             UpdateInfo(1);
         }

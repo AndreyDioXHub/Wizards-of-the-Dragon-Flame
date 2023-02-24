@@ -247,7 +247,7 @@ namespace com.czeeep.spell.magicmodel
 
         public void ReturnSphereToInventory(string element)
         {
-            if (MagicConst.CastSequences.TryGetValue(element, out List<string> sequence))
+            if (MagicConst.MeltCastSequences.TryGetValue(element, out List<string> sequence))
             {
                 foreach (string sub in sequence)
                 {

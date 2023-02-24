@@ -34,7 +34,7 @@ public static class MagicConst
         {STUN,"StunModificator" },
     };
 
-    public static readonly Dictionary<string, List<string>> CastSequences = new Dictionary<string, List<string>>()
+    public static readonly Dictionary<string, List<string>> MeltCastSequences = new Dictionary<string, List<string>>()
     {
         {STEAM, new List<string>() { WATER, FIRE } },
         {ICE, new List<string>() { WATER, FREZE } },
@@ -43,8 +43,8 @@ public static class MagicConst
 
     public static readonly Dictionary<int, MetaSphere> MetaSpheres = new Dictionary<int, MetaSphere>()
     {
-        { 0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
-        { 0b_00100000001, new MetaSphere(WATER, MetaSphereType.element) },
+        {0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
+        {0b_00100000001, new MetaSphere(WATER, MetaSphereType.element)},
         {0b_00000000110, new MetaSphere(STEAM, MetaSphereType.element)},
         {0b_00000010010, new MetaSphere("FireFreze", MetaSphereType.cost)},
         {0b_00001000010, new MetaSphere("Explosion", MetaSphereType.damage)},
