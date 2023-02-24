@@ -54,7 +54,7 @@ namespace com.czeeep.spell.magicmodel
         {"freze","FrezeModificator" },
         {"razor","RazorModificator" },
         {"dark","DarkModificator" },
-        {"steam","FireModificator" },
+        {"steam","SteamModificator" },
         {"poison","FireModificator" },
         {"ice","FireModificator" },
         {"shield","ShieldModificator" },
