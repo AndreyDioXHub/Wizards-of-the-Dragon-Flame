@@ -53,7 +53,7 @@ namespace com.czeeep.spell.magicmodel
         {"earth","EarthModificator" },
         {"freze","FrezeModificator" },
         {"razor","RazorModificator" },
-        {"dark","FireModificator" },
+        {"dark","DarkModificator" },
         {"steam","FireModificator" },
         {"poison","FireModificator" },
         {"ice","FireModificator" },

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.czeeep.spell.modificator 
+namespace com.czeeep.spell.modificator
 {
-    public class FrezeModificator : SphereModificator
+    public class DarkModificator : SphereModificator
     {
         public override void Start()
         {
@@ -14,7 +14,7 @@ namespace com.czeeep.spell.modificator
         public override void Init(int power)
         {
             base.Init(power);
-            MagicModel.Instance.ReturnAllSphereToInventory("fire");
+            MagicModel.Instance.ReturnAllSphereToInventory("life");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
 
@@ -26,7 +26,7 @@ namespace com.czeeep.spell.modificator
 
             int incomingPowerleft = 0;
 
-            if (sphere == SpheresElements.fire.ToString())
+            if (sphere == SpheresElements.life.ToString())
             {
                 incomingPowerleft = (power - _info.power) <= 0 ? 0 : power - _info.power;
 
