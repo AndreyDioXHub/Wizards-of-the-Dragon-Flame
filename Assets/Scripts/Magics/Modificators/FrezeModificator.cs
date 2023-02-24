@@ -10,7 +10,6 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            //key = "fire";
         }
         public override void Init(int power)
         {
@@ -36,22 +35,11 @@ namespace com.czeeep.spell.modificator
 
                 if (_info.power <= 0)
                 {
-                    //DoDamage();
                     DestroyModificator();
                 }
-            }/*
-            else if (sphere == SpheresElements.razor.ToString())
-            {
-                incomingPowerleft = 0;
-                isCancel = true;
-                //do razor damage
-                Debug.Log($"do razor damage {power}");
-                //DestroyModificator();
-            }*/
+            }
 
             _element.UpdateInfo(_info.key, _info.power, 1);
-            //DoUpdatedDamage();
-            //DoDamage();
             return incomingPowerleft;
         }
 

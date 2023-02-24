@@ -10,16 +10,13 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = "shield";
         }
+
         public override void Init(int power)
         {
             base.Init(power);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-
-            //DoDamage();
-
         }
 
         public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -30,7 +27,6 @@ namespace com.czeeep.spell.modificator
 
             _element.UpdateInfo(_info.key, _info.power, 1);
 
-            //DoDamage();
             return incomingPowerleft;
         }
 

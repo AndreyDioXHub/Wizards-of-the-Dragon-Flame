@@ -19,9 +19,7 @@ namespace com.czeeep.spell.modificator
         {
             base.DoDamage();
             _playerInfo.UnArmor();
-           // _playerInfo.MakeShieldPointDamage(100, out int left);
             _playerInfo.MakeHitPointDamage(_damage * _info.power);
-            //Debug.Log($"do razor damage {_info.power}");
         }
 
         public override void Init(int power)
@@ -30,8 +28,6 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("water");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             UpdateInfo(1);
-            //DoDamage();
-            //_element.UpdateInfo(_info.key, _info.power, 1);
         }
 
         public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -46,7 +42,8 @@ namespace com.czeeep.spell.modificator
                 isCancel = true;
                 //do razor damage
                 DoDamage();
-                AddPower(1);
+                _timeActionCur = 0;
+                //AddPower(1);
                 //Debug.Log($"do razor damage {power}");
             }
 

@@ -10,16 +10,14 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = "life";
         }
+
         public override void Init(int power)
         {
             base.Init(power);
             MagicModel.Instance.ReturnAllSphereToInventory("dark");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-
-            //DoDamage();
 
         }
 
@@ -44,7 +42,6 @@ namespace com.czeeep.spell.modificator
 
             _element.UpdateInfo(_info.key, _info.power, 1);
 
-            //DoDamage();
             return incomingPowerleft;
         }
 

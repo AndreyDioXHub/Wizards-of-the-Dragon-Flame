@@ -32,23 +32,18 @@ namespace com.czeeep.spell.modificator
 
         public virtual void Init(int power)
         {
-            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
             Named();
             _timeActionCur = 0;
             _info.power = power;
             _playerInfo = PlayerNetwork.Info;
-            DoUpdatedDamage();
             DoDamage();
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
         {
-            //gameObject.name = $"m{_info.key}:{_info.power}:{_info.time}";
-
             Named();
             isCancel = false;
 
-            //DoDamage();
             return 1;
         }
 
@@ -65,8 +60,8 @@ namespace com.czeeep.spell.modificator
 
             UpdateInfo(1);
             Named();
-            DoUpdatedDamage();
-            DoDamage();
+            /*DoUpdatedDamage();
+            DoDamage();*/
         }
 
         public void UpdateInfo(float fill)
@@ -104,7 +99,6 @@ namespace com.czeeep.spell.modificator
 
                 if (_info.power <= 0)
                 {
-                    DoDamage();
                     DestroyModificator();
                 }
             }
@@ -122,7 +116,6 @@ namespace com.czeeep.spell.modificator
 
         public virtual void DestroyModificator()
         {
-            DoDamage();
             Destroy(_element.gameObject);
             Destroy(gameObject);
         }

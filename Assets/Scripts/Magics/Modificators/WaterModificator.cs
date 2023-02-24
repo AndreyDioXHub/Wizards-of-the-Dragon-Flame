@@ -12,8 +12,8 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            //key = "fire";
         }
+
         public override void Init(int power)
         {
             base.Init(power);
@@ -22,9 +22,6 @@ namespace com.czeeep.spell.modificator
             MagicModel.Instance.ReturnAllSphereToInventory("razor");
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
-            //DoUpdatedDamage();
-            //DoDamage();
-
         }
 
         public override int CheckCancel(string sphere, int power, out bool isCancel)
@@ -42,7 +39,6 @@ namespace com.czeeep.spell.modificator
 
                 if (_info.power <= 0)
                 {
-                    //DoDamage();
                     DestroyModificator();
                 }
             }
@@ -54,13 +50,10 @@ namespace com.czeeep.spell.modificator
                 Debug.Log($"do razor damage {power}");
                 _playerInfo.UnArmor();
                 _playerInfo.MakeHitPointDamage(power);
-                //MagicModel.Instance.AddModificator(SpheresElements.razor.ToString(), power);
-                //DestroyModificator();
             }
 
             _element.UpdateInfo(_info.key, _info.power, 1);
-            //DoDamage(); 
-            //DoUpdatedDamage();
+
             return incomingPowerleft;
         }
 
