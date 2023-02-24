@@ -153,10 +153,10 @@ public class PlayerInfo : MonoBehaviour
         {
             _slowdownDictionary[key] = slowdown;
 
-            if(slowdown == 1)
+            /*if(slowdown == 1)
             {
                 _slowdownDictionary.Remove(key);
-            }
+            }*/
         }
         else
         {
