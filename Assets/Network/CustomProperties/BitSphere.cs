@@ -13,6 +13,8 @@ namespace com.czeeep.network {
         /// BIT MASK : ID (2x byte) | TYPE (byte) | AMOUNT (byte) | XPOS (2x byte) | YPOS (2x byte)
         /// TOTAL: 8 bytes length
         /// </summary>
+        
+        public string LongID { get; set; }
 
         [SerializeField]
         public ushort xposition;

@@ -1,5 +1,6 @@
 using com.czeeep.network;
 using com.czeeep.spell.magicmodel;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,11 +67,15 @@ public class SphereWorld : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            //var inventory = other.GetComponent<MagicModel>();
+            //Network variant
+            if(PhotonNetwork.IsConnected) {
 
-            MagicModel.Instance.AddSphere(_element.ToString(), _count);
-            //Debug.Log($"SphereWorld: Added {_element}: {_count}");
-            Destroy(gameObject);
+            } else {
+                MagicModel.Instance.AddSphere(_element.ToString(), _count);
+                //Debug.Log($"SphereWorld: Added {_element}: {_count}");
+                Destroy(gameObject);
+            }
+
         }
     }
 

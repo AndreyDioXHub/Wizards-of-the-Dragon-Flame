@@ -93,15 +93,27 @@ namespace com.czeeep.network {
             }
         }
 
-        internal void WillDestroyed(int m_index) {
-            Debug.Log("<color=red>Destroy sphere local</color>");
+        internal void WillDestroyed(int m_index, string hashkey = "") {
+            int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
-                photonView.RPC(DestroySphereAction, RpcTarget.Others, m_index);
+                //Exist in hash?
+                var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+                if (hashtable.ContainsKey(hashkey)) {
+                    PhotonNetwork.CurrentRoom.CustomProperties.Remove(hashkey);
+                }
+
+                photonView.RPC(DestroySphereAction, RpcTarget.Others, m_index, caller, hashkey);
+            } else {
+                Debug.Log($"<color=red>Not connected. Work locally</color>");
+                RemovedExtenral(m_index, caller, hashkey);
             }
         }
 
         [PunRPC]
-        public void RemovedExtenral(int m_index) {
+        public void RemovedExtenral(int m_index, int caller, string hashkey) {
+            //Read
+
+            //OLD Variant
             if(m_index > -1 && m_index < _spheres.Count) {
                 GameObject _go = _spheres[m_index];
                 if(_go != null) {
@@ -195,7 +207,8 @@ namespace com.czeeep.network {
                     if (itm != null && itm.Length > 0) {
                         BitSphere bsphere = BitSphere.ConvertToSphere(itm);
                         //TODO Add INDEX
-                        CreateSphere(bsphere.GetPosition(), Quaternion.identity, bsphere.GetIntSphereType());
+                        SphereWorld bs = CreateSphere(bsphere.GetPosition(), Quaternion.identity, bsphere.GetIntSphereType(),i);
+                        bs.SetIndex(SPHERE_PREFIX + i.ToString());
                     }
                 }
             }
