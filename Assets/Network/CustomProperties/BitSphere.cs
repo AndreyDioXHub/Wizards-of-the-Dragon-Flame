@@ -1,3 +1,4 @@
+using com.czeeep.spell.magicmodel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,15 +6,15 @@ using UnityEngine;
 
 
 namespace com.czeeep.network {
+
+    /// <summary>
+    /// BIT MASK : ID (2x byte) | TYPE (byte) | AMOUNT (byte) | XPOS (2x byte) | YPOS (2x byte)
+    /// TOTAL: 8 bytes length
+    /// </summary>
     public class BitSphere {
 
         static readonly int MAGIC_SCALE = 20;
 
-        /// <summary>
-        /// BIT MASK : ID (2x byte) | TYPE (byte) | AMOUNT (byte) | XPOS (2x byte) | YPOS (2x byte)
-        /// TOTAL: 8 bytes length
-        /// </summary>
-        
         public string LongID { get; set; }
 
         [SerializeField]
@@ -28,27 +29,27 @@ namespace com.czeeep.network {
         public byte amount;
 
         static Dictionary<byte, int> ByteToSphereComparison = new Dictionary<byte, int>() {
-            {0, 0 }, //None
-            {1, 1 }, //life
-            {2, 2 }, //fire
-            {3, 4 }, //water
-            {4, 8 }, //earth
-            {5, 16 }, //freeze
-            {6, 32 }, //razor
-            {7, 64 }, //dark
-            {8, 1024 }  //shield
+            {0, (int)SpheresElements.none }, //None
+            {1, (int)SpheresElements.life }, //life
+            {2, (int)SpheresElements.fire }, //fire
+            {3, (int)SpheresElements.water }, //water
+            {4, (int)SpheresElements.earth }, //earth
+            {5, (int)SpheresElements.freze }, //freeze
+            {6, (int)SpheresElements.razor }, //razor
+            {7, (int)SpheresElements.dark }, //dark
+            {8, (int)SpheresElements.shield }  //shield
         };
 
         static Dictionary<int, byte> SphereToByteComparison = new Dictionary<int, byte>() {
-            {0, 0 }, //None
-            {1, 1 }, //life
-            {2, 2 }, //fire
-            {4, 3 }, //water
-            {8, 4 }, //earth
-            {16, 5 }, //freeze
-            {32, 6 }, //razor
-            {64, 7 }, //dark
-            {1024, 8 }  //shield
+            {(int)SpheresElements.none, 0 }, //None
+            {(int)SpheresElements.life, 1 }, //life
+            {(int)SpheresElements.fire, 2 }, //fire
+            {(int)SpheresElements.water, 3 }, //water
+            {(int)SpheresElements.earth, 4 }, //earth
+            {(int)SpheresElements.freze, 5 }, //freeze
+            {(int)SpheresElements.razor, 6 }, //razor
+            {(int)SpheresElements.dark, 7 }, //dark
+            {(int)SpheresElements.shield, 8 }  //shield
         };
 
         #region CONSTRUCTOR
