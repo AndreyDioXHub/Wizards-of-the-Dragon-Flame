@@ -42,6 +42,7 @@ MonoBehaviour:
   - CreateSphere
   - MasterUpdateSpheres
   - RemovedExtenral
+  - RemoveSphereFromWorld
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
