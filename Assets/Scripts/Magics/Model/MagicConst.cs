@@ -1,4 +1,5 @@
 using com.czeeep.spell.magicmodel;
+using com.czeeep.spell.modificator;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,6 +57,38 @@ public static class MagicConst
     public static readonly string ENERGYBLAST = "energyblast";
     public static readonly string ICEBLAST = "iceblast";
 
+    //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,
+    //List<string> additionalEffects, type, List<string> meltCastSequences
+    public static readonly Dictionary<string, ModificatorInfo> MAGICS_MODIFICATOR_BY_KEY = new Dictionary<string, ModificatorInfo>()
+    {
+        {LIFE, new  ModificatorInfo(1, TYPE_LAZER, LIFE, 5f, 5, -50f, 1, 0, 0, false, new List<string>(),  new List<string>(){ LIFE})},
+        {FIRE, new  ModificatorInfo(1, TYPE_SPRAY, FIRE, 5f, 5, 50f, 1, 1, 0, false, new List<string>(), new List<string>(){ FIRE})},
+        {WATER, new  ModificatorInfo(1, TYPE_SPRAY, WATER, 20f, 5, 0, 0, 0, 1, false, new List<string>(), new List<string>(){ WATER})},
+        {EARTH, new  ModificatorInfo(1, TYPE_PROJECTILE, EARTH, 1f, 5, 50f, 1, 1, 0, false, new List<string>(){STUN}, new List<string>(){ EARTH})},
+        {FREEZE, new  ModificatorInfo(1, TYPE_SPRAY, FREEZE, 10f, 5, 50f, 1, 1, 1, false, new List<string>(), new List<string>(){ FREEZE})},
+        {RAZOR, new  ModificatorInfo(1, TYPE_LAZER, RAZOR, 5f, 5, 50f, 1, 2, 0, false, new List<string>(), new List<string>(){ RAZOR})},
+        {DARK, new  ModificatorInfo(1, TYPE_LAZER, DARK, 10f, 5, 50f, 1, 0, 0, false, new List<string>(), new List<string>(){ DARK})},
+        {SHIELD, new  ModificatorInfo(1, TYPE_LAZER, SHIELD, 5f, 5, -50f, 0, 1, 0, false, new List<string>(), new List<string>(){ SHIELD})},
+        {STEAM, new  ModificatorInfo(2, TYPE_SPRAY, STEAM, 20f, 5, 0, 0, 0, 2, false, new List<string>(), new List<string>(){ WATER, FIRE})},
+        {POISON, new  ModificatorInfo(2, TYPE_SPRAY, POISON, 10f, 5, 60, 1, 0, 2, false, new List<string>(), new List<string>(){ WATER, DARK})},
+        {ICE, new  ModificatorInfo(2, TYPE_PROJECTILE, ICE, 1f, 5, 60, 2, 1, 0, false, new List<string>(){STUN, FREEZE}, new List<string>(){ WATER, FREEZE})},
+        {FIREBALL1, new  ModificatorInfo(2, TYPE_PROJECTILE, FIREBALL1, 1f, 5, 60, 1, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, FIRE})},
+        {DARKBALL, new  ModificatorInfo(2, TYPE_PROJECTILE, DARKBALL, 1f, 5, 60, 2, 1, 0, false, new List<string>(){STUN, DARK}, new List<string>(){ EARTH, DARK})},
+        {SPEEDUP, new  ModificatorInfo(2, TYPE_LAZER, SPEEDUP, 20f, 5, -60, 1, 0, -1, false, new List<string>(), new List<string>(){ LIFE, RAZOR})},
+        {MINEFIRE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFIRE, 1f, 1, 60, 1, 1, 0, false, new List<string>(){STUN, FIRE, FORCE1}, new List<string>(){ SHIELD, FIRE})},
+        {MINEWATER, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEWATER, 1f, 1, 60, 1, 1, 0, false, new List<string>(){STUN, WATER, FORCE1}, new List<string>(){ SHIELD, WATER})},
+        {MINEFREEZE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFREEZE, 1f, 1, 60, 2, 1, 0, false, new List<string>(){STUN, FREEZE, FORCE1}, new List<string>(){ SHIELD, FREEZE})},
+        {MINERAZOR, new  ModificatorInfo(2, TYPE_PROJECTILE, MINERAZOR, 1f, 1, 60, 1, 2, 0, true, new List<string>(){STUN, RAZOR, FORCE1}, new List<string>(){ SHIELD, RAZOR})},
+        {MINEDARK, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEDARK, 1f, 1, 60, 2, 1, 0, false, new List<string>(){STUN, DARK, FORCE1}, new List<string>(){ SHIELD, DARK})},
+        {FORCE1, new  ModificatorInfo(3, TYPE_LAZER, FORCE1, 1f, 25, 0, 0, 0, 0, false, new List<string>(), new List<string>(){ WATER, FIRE, RAZOR})},
+        {ICICLE1, new  ModificatorInfo(3, TYPE_PROJECTILE, ICICLE1, 1f, 5, 72, 2, 1, 0, false, new List<string>(){STUN, FREEZE}, new List<string>(){ WATER, WATER, FREEZE})},
+        {FIREBALL2, new  ModificatorInfo(3, TYPE_PROJECTILE, FIREBALL2, 1f, 5, 72, 1, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, FIRE, FIRE})},
+        {DARKFIREBALL, new  ModificatorInfo(3, TYPE_PROJECTILE, DARKFIREBALL, 1f, 5, 72, 2, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, DARK, FIRE})},
+        {MINEPOISON, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEPOISON, 1f, 1, 72, 2, 1, 0, false, new List<string>(){STUN, POISON, FORCE1}, new List<string>(){ SHIELD, WATER, DARK })},
+        {MINEICE, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEICE, 1f, 1, 72, 1, 1, 0, false, new List<string>(){STUN, ICE, FORCE1}, new List<string>(){ SHIELD, WATER, FREEZE })},
+        {FIREBALL3, new  ModificatorInfo(4, TYPE_PROJECTILE, FIREBALL3, 1f, 5, 90, 1, 1, 0, false, new List<string>(){STUN, FIRE, FIRE}, new List<string>(){ EARTH, FIRE, FIRE, FIRE})},
+    };
+
     public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
     {
         {LIFE,"LifeModificator" },
@@ -69,7 +102,7 @@ public static class MagicConst
         {POISON,"PoisonModificator" },
         {ICE,"IceModificator" },
         {SHIELD,"ShieldModificator" },
-        {STUN,"StunModificator" },
+        {STUN,"StunModificator" }
     };
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()
@@ -84,7 +117,7 @@ public static class MagicConst
         {STEAM,TYPE_SPRAY },
         {POISON,TYPE_SPRAY },
         {ICE,TYPE_PROJECTILE },
-        {SHIELD,TYPE_LAZER },
+        {SHIELD,TYPE_LAZER }
     };
 
     public static readonly Dictionary<int, string> TYPE_MAGIC = new Dictionary<int, string>()
@@ -106,14 +139,14 @@ public static class MagicConst
         {STEAM,"Magic" },
         {POISON,"Magic" },
         {ICE,"Magic" },
-        {SHIELD,"Magic" },
+        {SHIELD,"Magic" }
     };
 
     public static readonly Dictionary<string, List<string>> MELT_CAST_SEQUENCES = new Dictionary<string, List<string>>()
     {
         {STEAM, new List<string>() { WATER, FIRE } },
         {ICE, new List<string>() { WATER, FREEZE } },
-        {POISON, new List<string>() { WATER, DARK } },
+        {POISON, new List<string>() { WATER, DARK } }
     };
 
     public static readonly Dictionary<int, MetaSphere> META_SPHERES = new Dictionary<int, MetaSphere>()
@@ -160,18 +193,6 @@ public static class MagicConst
         {0b_100000000000000000000000010, new MetaSphere(FIREBLAST, MetaSphereType.element)},
         {0b_100000000000100000000000000, new MetaSphere(ENERGYBLAST, MetaSphereType.element)},
         {0b_100000000010000000000000000, new MetaSphere(ICEBLAST, MetaSphereType.element)}
-        /*{0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
-        {0b_00100000001, new MetaSphere(WATER, MetaSphereType.element)},
-        {0b_00000000110, new MetaSphere(STEAM, MetaSphereType.element)},
-        {0b_00000010010, new MetaSphere("FireFreeze", MetaSphereType.cost)},
-        {0b_00001000010, new MetaSphere("Explosion", MetaSphereType.damage)},
-        {0b_00100000010, new MetaSphere(DARK, MetaSphereType.element)},
-        {0b_01000000010, new MetaSphere(WATER, MetaSphereType.element)},
-        {0b_00000010100, new MetaSphere(ICE, MetaSphereType.element)},
-        {0b_00000100100, new MetaSphere(RAZOR, MetaSphereType.damage)},//Electro
-        {0b_00001000100, new MetaSphere(POISON, MetaSphereType.element)},
-        {0b_00000101000, new MetaSphere("EarthRazor", MetaSphereType.cost)},
-        {0b_00010010000, new MetaSphere(WATER, MetaSphereType.element)},*/
     };
 
 }

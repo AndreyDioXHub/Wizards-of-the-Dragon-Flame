@@ -124,10 +124,41 @@ namespace com.czeeep.spell.modificator
     [Serializable]
     public class ModificatorInfo
     {
+        public int tir;
+        public string type;
         public string key;
-        public int power;
         public float time;
+        public int power;
+        public int maxPower;
+        public float damageFull;
+        public float damage;
+        public float multiplierHitPoint;
+        public float multiplierShieldPoint;
+        public float slowdown;
+        public bool unArmor;
+        public List<string> additionalEffects = new List<string>();
+        public List<string> meltCastSequences = new List<string>();
 
+        public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
+            float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
+            bool unArmor, List<string> additionalEffects, List<string> meltCastSequences)
+        {
+            this.tir = tir;
+            this.type = type;
+            this.key = key;
+            this.time = time;
+            this.power = 1;
+            this.maxPower = maxPower;
+            this.damageFull = damageFull;
+            this.damage = (damageFull/ maxPower)/ time;
+            this.multiplierHitPoint = multiplierHitPoint;
+            this.multiplierShieldPoint = multiplierShieldPoint;
+            this.slowdown = slowdown;
+            this.unArmor = unArmor;
+            this.additionalEffects = additionalEffects;
+            this.meltCastSequences = meltCastSequences;
+        }
     }
-
+    //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,
+    //List<string> additionalEffects, type, List<string> meltCastSequences
 }
