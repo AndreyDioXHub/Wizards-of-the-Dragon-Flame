@@ -82,12 +82,12 @@ public class SphereWorld : MonoBehaviour
     internal byte[] GetHashData() {
         byte[] bmask = BitSphere.ConvertSphere6((int)_element, _count, transform.position);
         bit_sphere = BitSphere.ConvertToSphere(bmask);
-        UpdatepositionByBitSphere();
+        UpdatePositionByBitSphere();
         return bmask;
 
     }
 
-    private void UpdatepositionByBitSphere() {
+    internal void UpdatePositionByBitSphere() {
         if(bit_sphere != null) {
             Vector3 pos = transform.position;
             Vector3 bpos = bit_sphere.GetPosition();

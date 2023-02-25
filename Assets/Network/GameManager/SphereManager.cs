@@ -119,7 +119,8 @@ namespace com.czeeep.network {
                 var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
                 if (hashtable.ContainsKey(hashkey)) {
                     //Записать владельцу добавление данных из сферы
-                    BitSphere _bs = (BitSphere)hashtable[hashkey];
+                    byte[] _bsbyte = (byte[])hashtable[hashkey];
+                    BitSphere _bs = BitSphere.ConvertToSphere(_bsbyte);
                     _bs.sphereID = (ushort)caller;
                     //Удалить сферу из общего списка
                     PhotonNetwork.CurrentRoom.CustomProperties.Remove(hashkey);
@@ -237,6 +238,8 @@ namespace com.czeeep.network {
                         //TODO Add INDEX
                         SphereWorld bs = CreateSphere(bsphere.GetPosition(), Quaternion.identity, bsphere.GetIntSphereType(),i);
                         bs.SetIndex(SPHERE_PREFIX + i.ToString());
+                        //Update position for sphere
+                        bs.UpdatePositionByBitSphere();
                     }
                 }
             }
