@@ -1,4 +1,5 @@
 using com.czeeep.network.player;
+using com.czeeep.spell.biom;
 using com.czeeep.spell.magic;
 using com.czeeep.spell.staffmodel;
 using Photon.Pun;
