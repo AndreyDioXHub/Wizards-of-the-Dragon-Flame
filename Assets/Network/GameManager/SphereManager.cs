@@ -97,9 +97,11 @@ namespace com.czeeep.network {
         }/**/
 
         internal void WillDestroyed(int m_index) {
+            Debug.Log($"SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}");
+
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
-                photonView.RPC(DESTROY_SPHERE_ACTION, RpcTarget.All, m_index, caller);
+                photonView.RPC(DESTROY_SPHERE_ACTION, RpcTarget.MasterClient, m_index, caller);
             } else {
                 Debug.Log($"<color=red>Not connected. Work locally</color>");
                 RemovedExtenral(m_index, caller);
@@ -108,9 +110,9 @@ namespace com.czeeep.network {
 
         [PunRPC]
         public void RemovedExtenral(int m_index, int caller) {
+            Debug.Log($"SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}");
 
             #region Only MASTER client actions
-
             if (PhotonNetwork.IsMasterClient) {
                 //Exist in hash?
                 string hashkey = SPHERE_PREFIX + m_index.ToString();
@@ -135,10 +137,12 @@ namespace com.czeeep.network {
         /// <param name="m_index"></param>
         [PunRPC]
         public void RemoveSphereFromWorld(int m_index, byte[] updated) {
+            Debug.Log($"SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}");
             //Удалить всех вместе GO со сферой
             if (m_index > -1 && m_index < _spheres.Count) {
                 GameObject _go = _spheres[m_index];
                 if (_go != null) {
+                    Debug.Log($"SphereManager: <b>Exist. Try destroy sphere</b> . {m_index}");
                     _go.GetComponent<SphereWorld>().SilentDestroy = true;
                     Destroy(_go);
                 }
