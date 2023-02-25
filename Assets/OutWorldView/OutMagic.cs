@@ -23,7 +23,7 @@ public class OutMagic : MonoBehaviour
 
     private Dictionary<string, ModificatorZone> _activeMagics = new Dictionary<string, ModificatorZone>();
 
-    private Dictionary<string, string> _typeMagicByKey = new Dictionary<string, string>()
+    /*private Dictionary<string, string> _typeMagicByKey = new Dictionary<string, string>()
     {
         {"life","lazer" },
         {"fire","spray" },
@@ -36,14 +36,14 @@ public class OutMagic : MonoBehaviour
         {"poison","spray" },
         {"ice","projectile" },
         {"shield","lazer" },
-    };
+    };*/
     
-    private Dictionary<int, string> _typeMagic = new Dictionary<int, string>()
+    /*private Dictionary<int, string> _typeMagic = new Dictionary<int, string>()
     {
         {0b_0001,"spray" },
         {0b_0011,"lazer" },
         {0b_0111,"projectile" }
-    };
+    };*/
 
 
     public void Init(List<MagicInfo> magics, bool ismine)
@@ -161,7 +161,7 @@ public class OutMagic : MonoBehaviour
 
         foreach (var magic in _magics)
         {
-            switch (_typeMagicByKey[magic.key])
+            switch (MagicConst.TYPE_MAGIC_BY_KEY[magic.key])
             {
                 case "spray":
                     result = (result | 0b_0001);
@@ -175,11 +175,11 @@ public class OutMagic : MonoBehaviour
                 default:
                     break;
             }
-            Debug.Log($"MagicType {_typeMagicByKey[magic.key]} {result}");
+            Debug.Log($"MagicType {MagicConst.TYPE_MAGIC_BY_KEY[magic.key]} {result}");
         }
 
 
-        return _typeMagic[result];
+        return MagicConst.TYPE_MAGIC[result];
     }
 
     // Start is called before the first frame update

@@ -5,6 +5,10 @@ using UnityEngine;
 
 public static class MagicConst
 {
+    public static readonly string TYPE_SPRAY = "spray";
+    public static readonly string TYPE_LAZER = "lazer";
+    public static readonly string TYPE_PROJECTILE = "projectile";
+
     public static readonly string LIFE = "life";
     public static readonly string FIRE = "fire";
     public static readonly string WATER = "water";
@@ -66,6 +70,28 @@ public static class MagicConst
         {ICE,"IceModificator" },
         {SHIELD,"ShieldModificator" },
         {STUN,"StunModificator" },
+    };
+
+    public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()
+    {
+        {LIFE,TYPE_LAZER },
+        {FIRE,TYPE_SPRAY },
+        {WATER,TYPE_SPRAY },
+        {EARTH,TYPE_PROJECTILE },
+        {FREEZE,TYPE_SPRAY },
+        {RAZOR,TYPE_LAZER },
+        {DARK,TYPE_LAZER},
+        {STEAM,TYPE_SPRAY },
+        {POISON,TYPE_SPRAY },
+        {ICE,TYPE_PROJECTILE },
+        {SHIELD,TYPE_LAZER },
+    };
+
+    public static readonly Dictionary<int, string> TYPE_MAGIC = new Dictionary<int, string>()
+    {
+        {0b_0001, TYPE_SPRAY },
+        {0b_0011, TYPE_LAZER },
+        {0b_0111, TYPE_PROJECTILE }
     };
 
     public static readonly Dictionary<string, string> MAGICS_BY_KEY = new Dictionary<string, string>()
