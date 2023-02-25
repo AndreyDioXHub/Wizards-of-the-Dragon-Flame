@@ -34,7 +34,7 @@ namespace com.czeeep.network {
             {2, (int)SpheresElements.fire }, //fire
             {3, (int)SpheresElements.water }, //water
             {4, (int)SpheresElements.earth }, //earth
-            {5, (int)SpheresElements.freze }, //freeze
+            {5, (int)SpheresElements.freeze }, //freeze
             {6, (int)SpheresElements.razor }, //razor
             {7, (int)SpheresElements.dark }, //dark
             {8, (int)SpheresElements.shield }  //shield
@@ -46,7 +46,7 @@ namespace com.czeeep.network {
             {(int)SpheresElements.fire, 2 }, //fire
             {(int)SpheresElements.water, 3 }, //water
             {(int)SpheresElements.earth, 4 }, //earth
-            {(int)SpheresElements.freze, 5 }, //freeze
+            {(int)SpheresElements.freeze, 5 }, //freeze
             {(int)SpheresElements.razor, 6 }, //razor
             {(int)SpheresElements.dark, 7 }, //dark
             {(int)SpheresElements.shield, 8 }  //shield

@@ -44,7 +44,7 @@ public class SpheresView : MonoBehaviour
         {
             _countTextShield.text = $"x0";
         }
-        if (spheres.TryGetValue(SpheresElements.freze.ToString(), out value))
+        if (spheres.TryGetValue(SpheresElements.freeze.ToString(), out value))
         {
             _countTextFreze.text = $"x{value}";
         }

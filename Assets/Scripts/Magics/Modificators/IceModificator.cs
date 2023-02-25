@@ -23,7 +23,7 @@ namespace com.czeeep.spell.modificator
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
             MagicModel.Instance.AddModificator(MagicConst.STUN, _info.power);
-            MagicModel.Instance.AddModificator(MagicConst.FREZE, _info.power);
+            MagicModel.Instance.AddModificator(MagicConst.FREEZE, _info.power);
 
         }
         public override int CheckCancel(string sphere, int power, out bool isCancel)

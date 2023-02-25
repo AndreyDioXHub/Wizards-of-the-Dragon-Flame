@@ -161,7 +161,7 @@ namespace com.czeeep.network {
 
         [Serializable]
         public class SphereConfig {
-            static int base_spheres = (int)SpheresElements.life | (int)SpheresElements.fire | (int)SpheresElements.water | (int)SpheresElements.earth | (int)SpheresElements.freze | (int)SpheresElements.razor | (int)SpheresElements.dark | (int)SpheresElements.shield;
+            static int base_spheres = (int)SpheresElements.life | (int)SpheresElements.fire | (int)SpheresElements.water | (int)SpheresElements.earth | (int)SpheresElements.freeze | (int)SpheresElements.razor | (int)SpheresElements.dark | (int)SpheresElements.shield;
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Количество сфер в группе")]

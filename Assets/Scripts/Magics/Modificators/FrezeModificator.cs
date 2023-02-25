@@ -10,7 +10,7 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = MagicConst.FREZE;
+            _info.key = MagicConst.FREEZE;
         }
         public override void Init(int power)
         {
