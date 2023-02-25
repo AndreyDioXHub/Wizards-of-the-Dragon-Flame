@@ -40,9 +40,9 @@ public class OutMagic : MonoBehaviour
     
     private Dictionary<int, string> _typeMagic = new Dictionary<int, string>()
     {
-        {0b_001,"spray" },
-        {0b_011,"lazer" },
-        {0b_111,"projectile" }
+        {0b_0001,"spray" },
+        {0b_0011,"lazer" },
+        {0b_0111,"projectile" }
     };
 
 
@@ -55,14 +55,31 @@ public class OutMagic : MonoBehaviour
         }
         else
         {
-            UpdateMagics();
+            StartCoroutine(UpdateMagicsCoroutine());
         }
     } 
+
+    public IEnumerator UpdateMagicsCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        UpdateMagics();
+    }
 
     public void UpdateMagics()
     {
         string allMagicType = MagicType();
+        CastDirection direction = CastDirection.forward;
 
+        foreach (var magic in _magics)
+        {
+            if(magic.direction == CastDirection.self)
+            {
+                direction = CastDirection.self;
+            }
+        }
+
+
+        
         foreach (var magic in _magics)
         {
             if (_activeMagics.TryGetValue(magic.key, out ModificatorZone zone))
@@ -72,46 +89,58 @@ public class OutMagic : MonoBehaviour
             }
             else
             {
-                //string type = "";
-                switch (allMagicType)
+                switch (direction)
                 {
-                    case "lazer":
-                        GameObject gol = Instantiate(Resources.Load<GameObject>(_laserPrefab.name), _content);
-                        ModificatorZone mzl = gol.GetComponentInChildren<ModificatorZone>();
-                        mzl.UpdateInfo(magic.key, magic.power);
-                        _activeMagics.Add(magic.key, mzl);
+                    case CastDirection.forward:
+                        switch (allMagicType)
+                        {
+                            case "lazer":
+                                GameObject gol = Instantiate(Resources.Load<GameObject>(_laserPrefab.name), _content);
+                                ModificatorZone mzl = gol.GetComponentInChildren<ModificatorZone>();
+                                mzl.UpdateInfo(magic.key, magic.power);
+                                _activeMagics.Add(magic.key, mzl);
+                                break;
+                            case "spray":
+                                GameObject gos = Instantiate(Resources.Load<GameObject>(_sprayPrefab.name), _content);
+                                ModificatorZone mzs = gos.GetComponentInChildren<ModificatorZone>();
+                                mzs.UpdateInfo(magic.key, magic.power);
+                                _activeMagics.Add(magic.key, mzs);
+                                break;
+                            case "projectile":
+                                Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
+                                Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.2f;
+                                GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
+                                Projectile mzp = gop.GetComponent<Projectile>();
+                                mzp.UpdateInfo(magic.key, magic.power);
+                                break;
+                            default:
+                                break;
+                        }
                         break;
-                    case "spray":
-                        GameObject gos = Instantiate(Resources.Load<GameObject>(_sprayPrefab.name), _content);
-                        ModificatorZone mzs = gos.GetComponentInChildren<ModificatorZone>();
-                        mzs.UpdateInfo(magic.key, magic.power);
-                        _activeMagics.Add(magic.key, mzs);
-                        break;
-                    case "projectile":
-                        Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
-                        Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.2f;
-                        //GameObject gop = PhotonNetwork.Instantiate(Resources.Load<GameObject>(_projectilePrefab.name), _content);
-                        GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
-                        //gop.transform.localPosition = new Vector3(0, 0, 1.2f);
-                        Projectile mzp = gop.GetComponent<Projectile>();
-                        mzp.UpdateInfo(magic.key, magic.power);
-                        //gop.transform.SetParent(null);
-                        //if()
-                        //Photon.
+                    case CastDirection.self:
+                        GameObject goself= Instantiate(Resources.Load<GameObject>(_selfMagicPrefab.name), _content);
+                        ModificatorZone mzself = goself.GetComponentInChildren<ModificatorZone>();
+                        mzself.UpdateInfo(magic.key, magic.power);
+                        _activeMagics.Add(magic.key, mzself);
                         break;
                     default:
                         break;
-                }
 
-                //GameObject go = Instantiate()
-                //_spheresCount.Add(actSph, 1);
+                }
             }
         }
 
         if (allMagicType.Equals("projectile"))
         {
-            StaffModel.Instance.ShootStop();
+            StartCoroutine(ShootStopCoroutine());
         }
+    }
+
+
+    public IEnumerator ShootStopCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        StaffModel.Instance.ShootStop();
     }
 
     public void StopShoot()
@@ -128,20 +157,20 @@ public class OutMagic : MonoBehaviour
     public string MagicType()
     {
         //string result = "";
-        int result = 0b_001;
+        int result = 0b_0001;
 
         foreach (var magic in _magics)
         {
             switch (_typeMagicByKey[magic.key])
             {
                 case "spray":
-                    result = (result | 0b_001);
+                    result = (result | 0b_0001);
                     break;
                 case "lazer":
-                    result = (result | 0b_011);
+                    result = (result | 0b_0011);
                     break;
                 case "projectile":
-                    result = (result | 0b_111);
+                    result = (result | 0b_0111);
                     break;
                 default:
                     break;
