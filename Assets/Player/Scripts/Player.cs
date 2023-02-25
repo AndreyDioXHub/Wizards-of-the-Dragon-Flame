@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             _staff.ShootStop();
-            MagicModel.Instance.AddSpheretoActive(SpheresElements.freze.ToString());
+            MagicModel.Instance.AddSpheretoActive(SpheresElements.freeze.ToString());
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

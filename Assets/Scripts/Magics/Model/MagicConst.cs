@@ -9,7 +9,7 @@ public static class MagicConst
     public static readonly string FIRE = "fire";
     public static readonly string WATER = "water";
     public static readonly string EARTH = "earth";
-    public static readonly string FREZE = "freze";
+    public static readonly string FREEZE = "freeze";
     public static readonly string RAZOR = "razor";
     public static readonly string DARK = "dark";
     public static readonly string STEAM = "steam";
@@ -24,7 +24,7 @@ public static class MagicConst
         {FIRE,"FireModificator" },
         {WATER,"WaterModificator" },
         {EARTH,"EarthModificator" },
-        {FREZE,"FrezeModificator" },
+        {FREEZE,"FrezeModificator" },
         {RAZOR,"RazorModificator" },
         {DARK,"DarkModificator" },
         {STEAM,"SteamModificator" },
@@ -40,7 +40,7 @@ public static class MagicConst
         {FIRE,"Magic" },
         {WATER,"Magic" },
         {EARTH,"Magic" },
-        {FREZE,"Magic" },
+        {FREEZE,"Magic" },
         {RAZOR,"Magic" },
         {DARK,"Magic" },
         {STEAM,"Magic" },
@@ -52,7 +52,7 @@ public static class MagicConst
     public static readonly Dictionary<string, List<string>> MELT_CAST_SEQUENCES = new Dictionary<string, List<string>>()
     {
         {STEAM, new List<string>() { WATER, FIRE } },
-        {ICE, new List<string>() { WATER, FREZE } },
+        {ICE, new List<string>() { WATER, FREEZE } },
         {POISON, new List<string>() { WATER, DARK } },
     };
 
@@ -61,7 +61,7 @@ public static class MagicConst
         {0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
         {0b_00100000001, new MetaSphere(WATER, MetaSphereType.element)},
         {0b_00000000110, new MetaSphere(STEAM, MetaSphereType.element)},
-        {0b_00000010010, new MetaSphere("FireFreze", MetaSphereType.cost)},
+        {0b_00000010010, new MetaSphere("FireFreeze", MetaSphereType.cost)},
         {0b_00001000010, new MetaSphere("Explosion", MetaSphereType.damage)},
         {0b_00100000010, new MetaSphere(DARK, MetaSphereType.element)},
         {0b_01000000010, new MetaSphere(WATER, MetaSphereType.element)},

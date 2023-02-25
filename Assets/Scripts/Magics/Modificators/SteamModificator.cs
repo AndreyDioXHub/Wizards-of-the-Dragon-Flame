@@ -30,7 +30,7 @@ namespace com.czeeep.spell.modificator
 
             int incomingPowerleft = 0;
 
-            if (sphere == SpheresElements.fire.ToString() || sphere == SpheresElements.freze.ToString())
+            if (sphere == SpheresElements.fire.ToString() || sphere == SpheresElements.freeze.ToString())
             {
                 incomingPowerleft = (power - _info.power) <= 0 ? 0 : power - _info.power;
 

@@ -501,17 +501,33 @@ namespace com.czeeep.spell.magicmodel
 
     public enum SpheresElements {
         none = 0,             //unknown
-        life = 0b_00000000001,//life
-        fire = 0b_00000000010,//fire
-        water = 0b_00000000100,//water
-        earth = 0b_00000001000,//earth
-        freze = 0b_00000010000,//freze
-        razor = 0b_00000100000,//razor
-        dark = 0b_00001000000,//dark
-        steam = 0b_00010000000,//steam
-        poison = 0b_00100000000,//poison
-        ice = 0b_01000000000,//ice
-        shield = 0b_10000000000//shield
+        life = 0b_1,//life
+        fire = 0b_10,//fire
+        water = 0b_100,//water
+        earth = 0b_1000,//earth
+        freeze = 0b_10000,//freeze
+        razor = 0b_100000,//razor
+        dark = 0b_1000000,//dark
+        shield = 0b_10000000,//shield
+        steam = 0b_100000000,//steam
+        poison = 0b_1000000000,//poison
+        ice = 0b_10000000000,//ice
+        fireball1 = 0b_100000000000,
+        darkball = 0b_1000000000000,
+        force1 = 0b_10000000000000,
+        speedup = 0b_100000000000000,
+        minedark = 0b_1000000000000000,
+        icicle1 = 0b_10000000000000000,
+        fireball2 = 0b_100000000000000000,
+        darkfireball = 0b_1000000000000000000,
+        mineice = 0b_10000000000000000000,
+        fireball3 = 0b_100000000000000000000,
+        unmodificator = 0b_1000000000000000000000,
+        fireball4 = 0b_10000000000000000000000,
+        force2 = 0b_100000000000000000000000,
+        icicle2 = 0b_1000000000000000000000000,
+        icicle3 = 0b_10000000000000000000000000,
+        blast = 0b_100000000000000000000000000,
     }
 
     [Serializable]

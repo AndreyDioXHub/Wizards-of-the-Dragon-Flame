@@ -46,7 +46,7 @@ public class SphereWorld : MonoBehaviour
             case SpheresElements.earth:
                 _image.color = new Color(0.54f, 1, 0.38f, 1);
                 break;
-            case SpheresElements.freze:
+            case SpheresElements.freeze:
                 _image.color = new Color(0.85f, 1, 0.9f, 1);
                 break;
             case SpheresElements.razor:

@@ -231,7 +231,7 @@ namespace com.czeeep.network.player
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     //StaffModel.Instance.ShootStop();
-                    MagicModel.Instance.AddSpheretoActive(SpheresElements.freze.ToString());
+                    MagicModel.Instance.AddSpheretoActive(SpheresElements.freeze.ToString());
                 }
                 if (Input.GetKeyDown(KeyCode.C))
                 {
