@@ -22,7 +22,7 @@ namespace com.czeeep.network {
         [SerializeField]
         public ushort zposition;
         [SerializeField]
-        public ushort sphereID;
+        public ushort sphereID;     //Will use for set player owner
         [SerializeField]
         public byte sphereType;
         [SerializeField]
@@ -101,6 +101,14 @@ namespace com.czeeep.network {
                 _type = 0;
             }
             return _type;
+        }
+
+        public byte[] GetBytes8() {
+            return ConvertSphere8(sphereID, sphereType, amount, GetPosition());
+        }
+
+        public byte[] GetBytes6() {
+            return ConvertSphere6(sphereType, amount, GetPosition());
         }
 
         #endregion

@@ -10,10 +10,12 @@ namespace com.czeeep.network {
     public class SphereManager : MonoBehaviour {
         #region Constants
 
-        public const string CreateSphereAction = "CreateSphere";
-        public const string DestroySphereAction = "RemovedExtenral";
+        public const string CREATE_SPHERE_ACTION = "CreateSphere";
+        public const string DESTROY_SPHERE_ACTION = "RemovedExtenral";
+        public const string REMOVE_SPHERE_FROM_WORLD = "RemoveSphereFromWorld";
         const string TOTAL_SPHERE_COUNTS = "scount";
         const string SPHERE_PREFIX = "s";
+        const string PLAYER_PREFIX = "p";
 
         #endregion
 
@@ -80,7 +82,8 @@ namespace com.czeeep.network {
             return sworld;
         }
 
-        public void SyncSpheres() {
+        //TODO Will remove
+        /*public void SyncSpheres() {
             if (PhotonNetwork.IsMasterClient) {
                 Debug.Log("Start sync");
                 for (int i = 0; i < _spheres.Count; i++) {
@@ -91,53 +94,74 @@ namespace com.czeeep.network {
                     }
                 }
             }
-        }
+        }/**/
 
-        internal void WillDestroyed(int m_index, string hashkey = "") {
+        internal void WillDestroyed(int m_index) {
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
-                //Exist in hash?
-                var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
-                if (hashtable.ContainsKey(hashkey)) {
-                    PhotonNetwork.CurrentRoom.CustomProperties.Remove(hashkey);
-                }
-
-                photonView.RPC(DestroySphereAction, RpcTarget.Others, m_index, caller, hashkey);
+                photonView.RPC(DESTROY_SPHERE_ACTION, RpcTarget.All, m_index, caller);
             } else {
                 Debug.Log($"<color=red>Not connected. Work locally</color>");
-                RemovedExtenral(m_index, caller, hashkey);
+                RemovedExtenral(m_index, caller);
             }
         }
 
         [PunRPC]
-        public void RemovedExtenral(int m_index, int caller, string hashkey) {
-            //Read
+        public void RemovedExtenral(int m_index, int caller) {
 
-            //OLD Variant
-            if(m_index > -1 && m_index < _spheres.Count) {
+            #region Only MASTER client actions
+
+            if (PhotonNetwork.IsMasterClient) {
+                //Exist in hash?
+                string hashkey = SPHERE_PREFIX + m_index.ToString();
+                var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+                if (hashtable.ContainsKey(hashkey)) {
+                    //Записать владельцу добавление данных из сферы
+                    BitSphere _bs = (BitSphere)hashtable[hashkey];
+                    _bs.sphereID = (ushort)caller;
+                    //Удалить сферу из общего списка
+                    PhotonNetwork.CurrentRoom.CustomProperties.Remove(hashkey);
+                    //Destroy GO - отдельный RPC для всех?
+                    photonView.RPC(REMOVE_SPHERE_FROM_WORLD, RpcTarget.All,  m_index, _bs.GetBytes8());
+                }
+            }
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Удаление GO 
+        /// </summary>
+        /// <param name="m_index"></param>
+        [PunRPC]
+        public void RemoveSphereFromWorld(int m_index, byte[] updated) {
+            //Удалить всех вместе GO со сферой
+            if (m_index > -1 && m_index < _spheres.Count) {
                 GameObject _go = _spheres[m_index];
-                if(_go != null) {
+                if (_go != null) {
                     _go.GetComponent<SphereWorld>().SilentDestroy = true;
                     Destroy(_go);
                 }
             } else {
                 Debug.LogWarning($"Sphere {m_index} not exist.");
             }
+            //Add removed to his owner player
+            BitSphere _bs = BitSphere.ConvertToSphere(updated);
+            if(PhotonNetwork.LocalPlayer.ActorNumber == (int)_bs.sphereID) {
+                MagicModel.Instance.AddSphere(((SpheresElements)_bs.GetIntSphereType()).ToString(), _bs.amount);
+            }
         }
-
-
 
         #endregion
 
         [Serializable]
         public class SphereConfig {
             static int base_spheres = (int)SpheresElements.life | (int)SpheresElements.fire | (int)SpheresElements.water | (int)SpheresElements.earth | (int)SpheresElements.freze | (int)SpheresElements.razor | (int)SpheresElements.dark | (int)SpheresElements.shield;
-            static readonly int MAX_SPHERE_ID = (int)SpheresElements.shield; //0b_10000000000
-            static readonly int BASE_SPHERE_COUNT = 8;
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
-            [Tooltip("Максимальное количество сфер")]
+            [Tooltip("Количество сфер в группе")]
             public int MaxSpheresInGroup = 20;
+            [Tooltip("Общее начальное количество сфер на игру")]
             public int MaxSpheresTotal = 160;
 
             List<SpheresElements> baseSpheres;

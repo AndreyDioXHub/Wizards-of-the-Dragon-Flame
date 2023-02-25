@@ -106,20 +106,12 @@ namespace com.czeeep.network {
             if(PhotonNetwork.IsMasterClient) {
                 sphereManager.CreateSpheres();
             } else {
-                //TODO Load from customProperties
+                // Load from customProperties
                 var hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
                 sphereManager.CreateSpheres(hashtable);
-                //var photonView = PhotonView.Get(this);
-                //photonView.RPC("MasterUpdateSpheres", RpcTarget.MasterClient);
             }
             
         }
-
-        [PunRPC]
-        public void MasterUpdateSpheres() {
-            sphereManager.SyncSpheres();
-        }
-
 
         // Update is called once per frame
         void Update() {

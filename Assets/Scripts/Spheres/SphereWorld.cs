@@ -69,7 +69,7 @@ public class SphereWorld : MonoBehaviour
         {
             //Network variant
             if(PhotonNetwork.IsConnected) {
-
+                GameManager.Instance.sphereManager.WillDestroyed(m_index);
             } else {
                 MagicModel.Instance.AddSphere(_element.ToString(), _count);
                 //Debug.Log($"SphereWorld: Added {_element}: {_count}");
@@ -106,7 +106,7 @@ public class SphereWorld : MonoBehaviour
 
     void OnDestroy() {
         if(!SilentDestroy) {
-            GameManager.Instance.sphereManager.WillDestroyed(m_index);
+            //GameManager.Instance.sphereManager.WillDestroyed(m_index);
         }
     }
 
