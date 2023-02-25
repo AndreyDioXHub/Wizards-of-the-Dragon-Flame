@@ -159,7 +159,7 @@ public static class MagicConst
         {0b_10100000000000000000000000, new MetaSphere(BLAST, MetaSphereType.element)},
         {0b_100000000000000000000000010, new MetaSphere(FIREBLAST, MetaSphereType.element)},
         {0b_100000000000100000000000000, new MetaSphere(ENERGYBLAST, MetaSphereType.element)},
-        {0b_100000000010000000000000000, new MetaSphere(ICEBLAST, MetaSphereType.element)},
+        {0b_100000000010000000000000000, new MetaSphere(ICEBLAST, MetaSphereType.element)}
         /*{0b_00001000001, new MetaSphere("LifeDark", MetaSphereType.cost)},
         {0b_00100000001, new MetaSphere(WATER, MetaSphereType.element)},
         {0b_00000000110, new MetaSphere(STEAM, MetaSphereType.element)},
