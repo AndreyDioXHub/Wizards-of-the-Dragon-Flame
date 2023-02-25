@@ -1,4 +1,5 @@
 using com.czeeep.network;
+using com.czeeep.spell.biom;
 using com.czeeep.spell.magicmodel;
 using Photon.Pun;
 using System;
@@ -16,24 +17,98 @@ public class SphereWorld : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _image;
 
+    [Header("Config:")]
+    [SerializeField]
+    float startHeight = 120;
+    [SerializeField]
+    float rayDistance = 500;
+    [SerializeField]
+    float adjustHeight = 1.4f;
+
     int m_index = -1;
     string hashKey = string.Empty;
     BitSphere bit_sphere;
 
     public bool SilentDestroy { get; internal set; } = false;
+    #region MonoBehaviour callbacks
 
-    private void Start()
+    
+    private void Awake()
     {
+        //SetStartPosition();
+    }
+
+    private void Start() {
+        //GetBiomUnderSphere();
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            //Network variant
+            if(PhotonNetwork.IsConnected) {
+                GameManager.Instance.sphereManager.WillDestroyed(m_index);
+            } else {
+                MagicModel.Instance.AddSphere(_element.ToString(), _count);
+                //Debug.Log($"SphereWorld: Added {_element}: {_count}");
+                Destroy(gameObject);
+            }
+
+        }
+    }
+
+    void OnDestroy() {
         
     }
 
-    public void Init(SpheresElements element, int count, int _index = -1)
-    {
+    void Update() {
+
+    }
+
+    #endregion
+
+    #region Private Methods
+    public void GetBiomUnderSphere() {
+        SetStartPosition();
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, Vector3.down);
+
+        Physics.Raycast(ray, out hit, rayDistance);
+
+        if (hit.collider != null) {
+            
+            //If biom
+            if(hit.collider.tag == ModificatorZone.Tag) {
+                
+                //Detect count state
+                ModificatorZone mz = hit.collider.gameObject.GetComponent<ModificatorZone>();
+                //mz.ZoneBiom
+                Debug.Log($"<b>Found biom {mz.ZoneBiom}</b>");
+            }
+            //Then get height
+            Vector3 pos = transform.position;
+            Debug.Log($"Exist collider point height = {hit.point}, current Y: {transform.position.y}");
+            pos.y = hit.point.y + adjustHeight;
+            transform.position = pos;
+        }
+    }
+
+    private void SetStartPosition() {
+        Vector3 pos = transform.position;
+        pos.y = startHeight;
+        transform.position = pos;
+    }
+    #endregion
+
+    #region Public Methods
+
+    public void Init(SpheresElements element, int count, int _index = -1) {
         m_index = _index;
         _element = element;
         _count = count;
-        switch (element)
-        {
+        switch (element) {
             case SpheresElements.life:
                 _image.color = new Color(0, 1, 0, 1);
                 break;
@@ -62,23 +137,6 @@ public class SphereWorld : MonoBehaviour
                 break;
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            //Network variant
-            if(PhotonNetwork.IsConnected) {
-                GameManager.Instance.sphereManager.WillDestroyed(m_index);
-            } else {
-                MagicModel.Instance.AddSphere(_element.ToString(), _count);
-                //Debug.Log($"SphereWorld: Added {_element}: {_count}");
-                Destroy(gameObject);
-            }
-
-        }
-    }
-
     internal byte[] GetHashData() {
         byte[] bmask = BitSphere.ConvertSphere6((int)_element, _count, transform.position);
         bit_sphere = BitSphere.ConvertToSphere(bmask);
@@ -104,14 +162,7 @@ public class SphereWorld : MonoBehaviour
         return (int)_element;
     }
 
-    void OnDestroy() {
-        if(!SilentDestroy) {
-            //GameManager.Instance.sphereManager.WillDestroyed(m_index);
-        }
-    }
+    #endregion
 
-    void Update()
-    {
-        
-    }
+    
 }

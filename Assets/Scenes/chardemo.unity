@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 165801429}
   m_Layer: 0
   m_Name: disable fire
-  m_TagString: Untagged
+  m_TagString: biom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 165801429}
-  _element: fire
+  biomType: 2
   _power: 1
   _other: {fileID: 0}
 --- !u!1 &198001848
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 564626557}
   m_Layer: 0
   m_Name: disable life
-  m_TagString: Untagged
+  m_TagString: biom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 564626557}
-  _element: life
+  biomType: 1
   _power: 1
   _other: {fileID: 0}
 --- !u!65 &564626559
@@ -4452,7 +4452,7 @@ GameObject:
   - component: {fileID: 1578516035}
   m_Layer: 0
   m_Name: disable water
-  m_TagString: Untagged
+  m_TagString: biom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4501,7 +4501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1578516035}
-  _element: water
+  biomType: 4
   _power: 1
   _other: {fileID: 0}
 --- !u!65 &1578516037
@@ -5621,8 +5621,8 @@ GameObject:
   - component: {fileID: 1864928945}
   - component: {fileID: 1864928944}
   m_Layer: 0
-  m_Name: disable shield
-  m_TagString: Untagged
+  m_Name: disable dark
+  m_TagString: biom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5671,7 +5671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1864928944}
-  _element: shield
+  biomType: 64
   _power: 1
   _other: {fileID: 0}
 --- !u!65 &1864928946
@@ -6246,7 +6246,7 @@ GameObject:
   - component: {fileID: 1911483315}
   m_Layer: 0
   m_Name: disable freze
-  m_TagString: Untagged
+  m_TagString: biom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6295,7 +6295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1911483315}
-  _element: freze
+  biomType: 16
   _power: 1
   _other: {fileID: 0}
 --- !u!65 &1911483317

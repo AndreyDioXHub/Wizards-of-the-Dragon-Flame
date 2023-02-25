@@ -79,6 +79,7 @@ namespace com.czeeep.network {
             _spheres.Add(_sphere);
             var sworld = _sphere.GetComponent<SphereWorld>();
             sworld.Init((SpheresElements)elementType, _config.DefaultAmount, _spheres.Count-1);
+            sworld.GetBiomUnderSphere();
             return sworld;
         }
 
