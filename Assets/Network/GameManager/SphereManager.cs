@@ -97,7 +97,7 @@ namespace com.czeeep.network {
         }/**/
 
         internal void WillDestroyed(int m_index) {
-            Debug.Log($"SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}");
+            //Debug.Log($"SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}");
 
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
@@ -110,7 +110,7 @@ namespace com.czeeep.network {
 
         [PunRPC]
         public void RemovedExtenral(int m_index, int caller) {
-            Debug.Log($"SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}");
+            //Debug.Log($"SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}");
 
             #region Only MASTER client actions
             if (PhotonNetwork.IsMasterClient) {
@@ -138,12 +138,12 @@ namespace com.czeeep.network {
         /// <param name="m_index"></param>
         [PunRPC]
         public void RemoveSphereFromWorld(int m_index, byte[] updated) {
-            Debug.Log($"SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}");
+            //Debug.Log($"SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}");
             //Удалить всех вместе GO со сферой
             if (m_index > -1 && m_index < _spheres.Count) {
                 GameObject _go = _spheres[m_index];
                 if (_go != null) {
-                    Debug.Log($"SphereManager: <b>Exist. Try destroy sphere</b> . {m_index}");
+                    //Debug.Log($"SphereManager: <b>Exist. Try destroy sphere</b> . {m_index}");
                     _go.GetComponent<SphereWorld>().SilentDestroy = true;
                     Destroy(_go);
                 }
@@ -153,6 +153,10 @@ namespace com.czeeep.network {
             //Add removed to his owner player
             BitSphere _bs = BitSphere.ConvertToSphere(updated);
             if(PhotonNetwork.LocalPlayer.ActorNumber == (int)_bs.sphereID) {
+               // Debug.Log($"SphereManager: <b>byte count: </b> {updated.Length}");
+                if(_bs.sphereType == 0) {
+                    Debug.Log($"SphereManager: <b>Add empty sphere to user {_bs.sphereID}</b>. Sphere index: {m_index}, type: {_bs.sphereType}, amount: {_bs.amount}");
+                }
                 MagicModel.Instance.AddSphere(((SpheresElements)_bs.GetIntSphereType()).ToString(), _bs.amount);
             }
         }
@@ -207,9 +211,8 @@ namespace com.czeeep.network {
             /// </summary>
             /// <returns>Vector3, где по Y стоит статическая высота</returns>
             public static Vector3 GenerateRandomPosition() {
-                
                 Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
-                Debug.Log($"x: {pos.x}, z: {pos.z}");
+                //Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
 

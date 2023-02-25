@@ -57,10 +57,10 @@ namespace com.czeeep.network {
         public BitSphere() {
         }
 
-        public BitSphere(int sphereId, int sphereType, int amount, Vector3 position) {
+        public BitSphere(int sphereId, int sphere_Type, int amount, Vector3 position) {
             this.sphereID = (ushort)sphereId;
             this.sphereType = 0;
-            SphereToByteComparison.TryGetValue(sphereType, out this.sphereType);
+            SphereToByteComparison.TryGetValue(sphere_Type, out this.sphereType);
             this.amount = (byte)amount;
             xposition = (ushort)(position.x * MAGIC_SCALE);
             zposition = (ushort)(position.z * MAGIC_SCALE);
@@ -97,6 +97,7 @@ namespace com.czeeep.network {
 
         public int GetIntSphereType() {
             int _type;
+            //Debug.Log($"BitSphere: internal type: {sphereType}");
             if(!ByteToSphereComparison.TryGetValue(sphereType, out _type)) {
                 _type = 0;
             }
@@ -104,7 +105,7 @@ namespace com.czeeep.network {
         }
 
         public byte[] GetBytes8() {
-            return ConvertSphere8(sphereID, sphereType, amount, GetPosition());
+            return ConvertSphere8(sphereID, GetIntSphereType(), amount, GetPosition());
         }
 
         public byte[] GetBytes6() {
@@ -118,16 +119,17 @@ namespace com.czeeep.network {
         public static byte[] ConvertSphere8(int sphereId, int sphereType, int amount, Vector3 position) {
             List<byte> total = new List<byte>();
             //Sphere ID
-            total.AddRange(BitConverter.GetBytes(sphereId));                    //2     ID
+            total.AddRange(BitConverter.GetBytes((ushort)sphereId));                    //2     ID
             //Sphere Type to byte type
             byte spid;
             if(SphereToByteComparison.TryGetValue(sphereType, out spid)) {      //1     TYPE
                 total.Add(spid);
             } else {
+                Debug.Log($"BitSphere: type not found: {sphereType}");
                 total.Add(0);
             }
             //Amount in sphere
-            total.AddRange(BitConverter.GetBytes((byte)amount));                //1     AMOUNT
+            total.Add((byte)amount);                                            //1     AMOUNT
 
             //Position
             total.AddRange(GetPositionToByte(position, 0));                     //2     X
