@@ -37,7 +37,7 @@ namespace com.czeeep.spell.modificator
             _info = new ModificatorInfo(key, power);
             //_info.power = power;
             _playerInfo = PlayerNetwork.Info;
-            DoDamage();
+            //DoDamage();
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
@@ -192,7 +192,15 @@ namespace com.czeeep.spell.modificator
             this.power = 1;
             this.maxPower = maxPower;
             this.damageFull = damageFull;
-            this.damage = (damageFull/ maxPower)/ time;
+
+            int powerFactarial = 0;
+
+            for(int i = 1; i< maxPower + 1; i++)
+            {
+                powerFactarial += i;
+            }
+
+            this.damage = (damageFull/ powerFactarial) / time;
             this.multiplierHitPoint = multiplierHitPoint;
             this.multiplierShieldPoint = multiplierShieldPoint;
             this.slowdown = slowdown;
