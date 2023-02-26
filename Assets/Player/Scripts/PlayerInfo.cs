@@ -137,6 +137,11 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
+    public void MakeDamage(float damage, int hpMultyplier = 1, int spMultyplier = 1)
+    {
+        //if()
+    } 
+
     public void MakeDamage(float damage)
     {
         float damageLeft = 0;
