@@ -409,7 +409,7 @@ namespace com.czeeep.spell.magicmodel
                 {
                     GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MODIFICATOR_BY_KEY[key]), _player.ModelBackPackModificator);
                     SphereModificator modificator = go.GetComponent<SphereModificator>();
-                    modificator.Init(power);
+                    modificator.Init(key, power);
 
                 }
                 catch (KeyNotFoundException e)
@@ -473,6 +473,15 @@ namespace com.czeeep.spell.magicmodel
                 Debug.Log($"GetSphereByKey: {key}: empty");
             }
 
+            bool resultAfterAdding = false;
+            string resultElementAfterAdding = CalculateElement(_activeSpheres[_activeSpheres.Count - 1], out resultAfterAdding);
+
+            if (resultAfterAdding)
+            {
+                _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding;
+            }
+            //Debug.Log($"resultElement1 {result1} {resultElement1} ");
+
             ShowSphere();
         }
         public void AddSphere(string key, int value)
@@ -498,7 +507,38 @@ namespace com.czeeep.spell.magicmodel
 
 
     }
-
+    public enum SpheresElements
+    {
+        none = 0, //none
+        life = 1, //life
+        fire = 2, //fire
+        water = 4, //water
+        earth = 8, //earth
+        freeze = 16, //freeze
+        razor = 32, //razor
+        dark = 64, //dark
+        shield = 128, //shield
+        steam = 256, //steam
+        poison = 512, //poison
+        ice = 1024, //ice
+        fireball1 = 2048, //fireball1
+        darkball = 4096, //darkball
+        speedup = 8192, //speedup
+        minerazor = 16384, //minerazor
+        minedark = 32768, //minedark
+        force1 = 65536, //force1
+        icicle1 = 131072, //icicle1
+        fireball2 = 262144, //fireball2
+        mineice = 524288, //mineice
+        fireball3 = 1048576, //fireball3
+        unmodificator = 2097152, //unmodificator
+        fireball4 = 4194304, //fireball4
+        force2 = 8388608, //force2
+        icicle2 = 16777216, //icicle2
+        icicle3 = 33554432, //icicle3
+        blast = 67108864 //blast
+    }
+    /*
     public enum SpheresElements {
         none = 0,             //unknown
         life = 0b_1,//life
@@ -528,7 +568,7 @@ namespace com.czeeep.spell.magicmodel
         icicle2 = 0b_1000000000000000000000000,
         icicle3 = 0b_10000000000000000000000000,
         blast = 0b_100000000000000000000000000,
-    }
+    }*/
 
     [Serializable]
     public class MetaSphere

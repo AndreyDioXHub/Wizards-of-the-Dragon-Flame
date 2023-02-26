@@ -10,11 +10,10 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = MagicConst.FREEZE;
         }
-        public override void Init(int power)
+        public override void Init(string key, int power)
         {
-            base.Init(power);
+            base.Init(key, power);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.FIRE);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             _element.UpdateInfo(_info.key, _info.power, 1);
@@ -49,7 +48,7 @@ namespace com.czeeep.spell.modificator
             base.DoUpdatedDamage();
 
 
-            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
+            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_info.maxPower * _info.maxPower);
 
             slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 
@@ -65,7 +64,7 @@ namespace com.czeeep.spell.modificator
         {
             //base.DoDamage();
 
-            _playerInfo.MakeHitPointDamage(_damage * (int)_info.power);
+            _playerInfo.MakeHitPointDamage(_info.damage * (int)_info.power);
         }
     }
 }

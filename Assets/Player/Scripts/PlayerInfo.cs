@@ -18,9 +18,9 @@ public class PlayerInfo : MonoBehaviour
     private HitPointView _hpView;
 
     [SerializeField]
-    private int _hitPointMax = 100;
+    private float _hitPointMax = 500;
     [SerializeField]
-    private int _shieldPointMax = 100;
+    private float _shieldPointMax = 500;
     [SerializeField]
     private float _mouseSensitivityMax = 1f;
     [SerializeField]
@@ -29,9 +29,9 @@ public class PlayerInfo : MonoBehaviour
     private float _slowdownMax = 1;
 
     [SerializeField]
-    private int _hitPoint = 100;
+    private float _hitPoint = 500;
     [SerializeField]
-    private int _shieldPoint = 0;
+    private float _shieldPoint = 0;
     [SerializeField]
     private float _mouseSensitivity = 1f;
     [SerializeField]
@@ -94,7 +94,7 @@ public class PlayerInfo : MonoBehaviour
         _shieldPoint = 0;
     }
 
-    public void MakeShieldPointDamage(int damage, out int damageLeft)
+    public void MakeShieldPointDamage(float damage, out float damageLeft)
     {
         _shieldPoint -= damage;
         damageLeft = 0;
@@ -117,7 +117,7 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
-    public void MakeHitPointDamage(int damage)
+    public void MakeHitPointDamage(float damage)
     {
         _hitPoint -= damage;
 
@@ -137,9 +137,9 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
-    public void MakeDamage(int damage)
+    public void MakeDamage(float damage)
     {
-        int damageLeft = 0;
+        float damageLeft = 0;
 
         MakeShieldPointDamage(damage, out damageLeft);
         MakeHitPointDamage(damageLeft);

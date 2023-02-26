@@ -12,12 +12,11 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = MagicConst.WATER;
         }
 
-        public override void Init(int power)
+        public override void Init(string key, int power)
         {
-            base.Init(power);
+            base.Init(key, power);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.FIRE);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.STEAM);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.RAZOR);
@@ -63,7 +62,7 @@ namespace com.czeeep.spell.modificator
         {
             //base.DoUpdatedDamage();
 
-            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_maxPower * _maxPower);
+            float slowdown = 1 - (float)((_info.power) * (_info.power)) / (float)(_info.maxPower * _info.maxPower);
 
             slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public static class MagicConst
 {
+    public static readonly string ERROR_KEY = "error key";
     public static readonly string TYPE_SPRAY = "spray";
     public static readonly string TYPE_LAZER = "lazer";
     public static readonly string TYPE_PROJECTILE = "projectile";
@@ -56,37 +57,54 @@ public static class MagicConst
     public static readonly string FIREBLAST = "fireblast";
     public static readonly string ENERGYBLAST = "energyblast";
     public static readonly string ICEBLAST = "iceblast";
+    public static readonly string UNARMOR = "unarmor";
 
     //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,
     //List<string> additionalEffects, type, List<string> meltCastSequences
     public static readonly Dictionary<string, ModificatorInfo> MAGICS_MODIFICATOR_BY_KEY = new Dictionary<string, ModificatorInfo>()
     {
-        {LIFE, new  ModificatorInfo(1, TYPE_LAZER, LIFE, 5f, 5, -50f, 1, 0, 0, false, new List<string>(),  new List<string>(){ LIFE})},
-        {FIRE, new  ModificatorInfo(1, TYPE_SPRAY, FIRE, 5f, 5, 50f, 1, 1, 0, false, new List<string>(), new List<string>(){ FIRE})},
-        {WATER, new  ModificatorInfo(1, TYPE_SPRAY, WATER, 20f, 5, 0, 0, 0, 1, false, new List<string>(), new List<string>(){ WATER})},
-        {EARTH, new  ModificatorInfo(1, TYPE_PROJECTILE, EARTH, 1f, 5, 50f, 1, 1, 0, false, new List<string>(){STUN}, new List<string>(){ EARTH})},
-        {FREEZE, new  ModificatorInfo(1, TYPE_SPRAY, FREEZE, 10f, 5, 50f, 1, 1, 1, false, new List<string>(), new List<string>(){ FREEZE})},
-        {RAZOR, new  ModificatorInfo(1, TYPE_LAZER, RAZOR, 5f, 5, 50f, 1, 2, 0, false, new List<string>(), new List<string>(){ RAZOR})},
-        {DARK, new  ModificatorInfo(1, TYPE_LAZER, DARK, 10f, 5, 50f, 1, 0, 0, false, new List<string>(), new List<string>(){ DARK})},
-        {SHIELD, new  ModificatorInfo(1, TYPE_LAZER, SHIELD, 5f, 5, -50f, 0, 1, 0, false, new List<string>(), new List<string>(){ SHIELD})},
-        {STEAM, new  ModificatorInfo(2, TYPE_SPRAY, STEAM, 20f, 5, 0, 0, 0, 2, false, new List<string>(), new List<string>(){ WATER, FIRE})},
-        {POISON, new  ModificatorInfo(2, TYPE_SPRAY, POISON, 10f, 5, 60, 1, 0, 2, false, new List<string>(), new List<string>(){ WATER, DARK})},
-        {ICE, new  ModificatorInfo(2, TYPE_PROJECTILE, ICE, 1f, 5, 60, 2, 1, 0, false, new List<string>(){STUN, FREEZE}, new List<string>(){ WATER, FREEZE})},
-        {FIREBALL1, new  ModificatorInfo(2, TYPE_PROJECTILE, FIREBALL1, 1f, 5, 60, 1, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, FIRE})},
-        {DARKBALL, new  ModificatorInfo(2, TYPE_PROJECTILE, DARKBALL, 1f, 5, 60, 2, 1, 0, false, new List<string>(){STUN, DARK}, new List<string>(){ EARTH, DARK})},
-        {SPEEDUP, new  ModificatorInfo(2, TYPE_LAZER, SPEEDUP, 20f, 5, -60, 1, 0, -1, false, new List<string>(), new List<string>(){ LIFE, RAZOR})},
-        {MINEFIRE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFIRE, 1f, 1, 60, 1, 1, 0, false, new List<string>(){STUN, FIRE, FORCE1}, new List<string>(){ SHIELD, FIRE})},
-        {MINEWATER, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEWATER, 1f, 1, 60, 1, 1, 0, false, new List<string>(){STUN, WATER, FORCE1}, new List<string>(){ SHIELD, WATER})},
-        {MINEFREEZE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFREEZE, 1f, 1, 60, 2, 1, 0, false, new List<string>(){STUN, FREEZE, FORCE1}, new List<string>(){ SHIELD, FREEZE})},
-        {MINERAZOR, new  ModificatorInfo(2, TYPE_PROJECTILE, MINERAZOR, 1f, 1, 60, 1, 2, 0, true, new List<string>(){STUN, RAZOR, FORCE1}, new List<string>(){ SHIELD, RAZOR})},
-        {MINEDARK, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEDARK, 1f, 1, 60, 2, 1, 0, false, new List<string>(){STUN, DARK, FORCE1}, new List<string>(){ SHIELD, DARK})},
-        {FORCE1, new  ModificatorInfo(3, TYPE_LAZER, FORCE1, 1f, 25, 0, 0, 0, 0, false, new List<string>(), new List<string>(){ WATER, FIRE, RAZOR})},
-        {ICICLE1, new  ModificatorInfo(3, TYPE_PROJECTILE, ICICLE1, 1f, 5, 72, 2, 1, 0, false, new List<string>(){STUN, FREEZE}, new List<string>(){ WATER, WATER, FREEZE})},
-        {FIREBALL2, new  ModificatorInfo(3, TYPE_PROJECTILE, FIREBALL2, 1f, 5, 72, 1, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, FIRE, FIRE})},
-        {DARKFIREBALL, new  ModificatorInfo(3, TYPE_PROJECTILE, DARKFIREBALL, 1f, 5, 72, 2, 1, 0, false, new List<string>(){STUN, FIRE}, new List<string>(){ EARTH, DARK, FIRE})},
-        {MINEPOISON, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEPOISON, 1f, 1, 72, 2, 1, 0, false, new List<string>(){STUN, POISON, FORCE1}, new List<string>(){ SHIELD, WATER, DARK })},
-        {MINEICE, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEICE, 1f, 1, 72, 1, 1, 0, false, new List<string>(){STUN, ICE, FORCE1}, new List<string>(){ SHIELD, WATER, FREEZE })},
-        {FIREBALL3, new  ModificatorInfo(4, TYPE_PROJECTILE, FIREBALL3, 1f, 5, 90, 1, 1, 0, false, new List<string>(){STUN, FIRE, FIRE}, new List<string>(){ EARTH, FIRE, FIRE, FIRE})},
+        {LIFE, new  ModificatorInfo(1, TYPE_LAZER, LIFE, 5f, 5, 50f, 1, 0, 0, new List<string>())},
+        {FIRE, new  ModificatorInfo(1, TYPE_SPRAY, FIRE, 5f, 5, 50f, 1, 1, 0, new List<string>())},
+        {WATER, new  ModificatorInfo(1, TYPE_SPRAY, WATER, 20f, 5, 0f, 0, 0, 1, new List<string>())},
+        {EARTH, new  ModificatorInfo(1, TYPE_PROJECTILE, EARTH, 1f, 5, 50f, 1, 1, 0, new List<string>(){STUN})},
+        {FREEZE, new  ModificatorInfo(1, TYPE_SPRAY, FREEZE, 10f, 5, 50f, 1, 0, 1, new List<string>())},
+        {RAZOR, new  ModificatorInfo(1, TYPE_LAZER, RAZOR, 5f, 5, 50f, 1, 2, 0, new List<string>())},
+        {DARK, new  ModificatorInfo(1, TYPE_LAZER, DARK, 10f, 5, 50f, 1, 0, 1, new List<string>())},
+        {SHIELD, new  ModificatorInfo(1, TYPE_LAZER, SHIELD, 5f, 5, 50f, 0, 1, 0, new List<string>())},
+        {STEAM, new  ModificatorInfo(2, TYPE_SPRAY, STEAM, 20f, 5, 0f, 0, 0, 2, new List<string>())},
+        {POISON, new  ModificatorInfo(2, TYPE_SPRAY, POISON, 10f, 5, 60f, 1, 0, 2, new List<string>())},
+        {ICE, new  ModificatorInfo(2, TYPE_PROJECTILE, ICE, 1f, 5, 60f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
+        {FIREBALL1, new  ModificatorInfo(2, TYPE_PROJECTILE, FIREBALL1, 1f, 5, 60f, 1, 1, 0, new List<string>(){FIRE, STUN})},
+        {DARKBALL, new  ModificatorInfo(2, TYPE_PROJECTILE, DARKBALL, 1f, 5, 60f, 2, 1, 0, new List<string>(){DARK, STUN})},
+        {SPEEDUP, new  ModificatorInfo(2, TYPE_LAZER, SPEEDUP, 20f, 5, 60f, 1, 0, -2, new List<string>())},
+        {MINEFIRE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFIRE, 1f, 1, 60f, 1, 1, 0, new List<string>(){FIRE, FORCE1, STUN})},
+        {MINEWATER, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEWATER, 1f, 1, 60f, 1, 1, 1, new List<string>(){WATER, FORCE1, STUN})},
+        {MINEFREEZE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFREEZE, 1f, 1, 60f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, STUN})},
+        {MINERAZOR, new  ModificatorInfo(2, TYPE_PROJECTILE, MINERAZOR, 1f, 1, 60f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, STUN, UNARMOR})},
+        {MINEDARK, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEDARK, 1f, 1, 60f, 2, 1, 0, new List<string>(){DARK, FORCE1, STUN})},
+        {FORCE1, new  ModificatorInfo(3, TYPE_LAZER, FORCE1, 1f, 25, 0f, 0, 0, 0, new List<string>())},
+        {ICICLE1, new  ModificatorInfo(3, TYPE_PROJECTILE, ICICLE1, 1f, 5, 72f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
+        {FIREBALL2, new  ModificatorInfo(3, TYPE_PROJECTILE, FIREBALL2, 1f, 5, 72f, 1, 1, 0, new List<string>(){FIRE, STUN})},
+        {DARKFIREBALL, new  ModificatorInfo(3, TYPE_PROJECTILE, DARKFIREBALL, 1f, 5, 72f, 2, 1, 0, new List<string>(){DARK, FIRE, STUN})},
+        {MINEPOISON, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEPOISON, 1f, 1, 72f, 2, 1, 0, new List<string>(){POISON, FORCE1, STUN})},
+        {MINEICE, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEICE, 1f, 1, 72f, 2, 1, 0, new List<string>(){ICE, FORCE1, STUN})},
+        {UNARMOR, new  ModificatorInfo(3, TYPE_LAZER, UNARMOR, 1f, 1, 0f, 0, 0, 0, new List<string>())},
+        {FIREBALL3, new  ModificatorInfo(4, TYPE_PROJECTILE, FIREBALL3, 1f, 5, 90f, 1, 1, 0, new List<string>(){FIRE, FIRE, STUN})},
+        {TAUREL, new  ModificatorInfo(4, TYPE_PROJECTILE, TAUREL, 1f, 5, 90f, 1, 2, 0, new List<string>(){RAZOR, RAZOR, UNARMOR})},
+        {GHOSTING, new  ModificatorInfo(5, TYPE_LAZER, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
+        {UNMODIFICATOR, new  ModificatorInfo(5, TYPE_LAZER, UNMODIFICATOR, 1f, 1, 110f, 1, 1, -2, new List<string>(){})},
+        {FIREBALL4, new  ModificatorInfo(5, TYPE_PROJECTILE, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
+        {FORCE2, new  ModificatorInfo(5, TYPE_LAZER, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
+        {ICICLE2, new  ModificatorInfo(5, TYPE_PROJECTILE, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
+        {ICICLE3, new  ModificatorInfo(7, TYPE_PROJECTILE, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
+        {TORNADO, new  ModificatorInfo(8, TYPE_LAZER, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
+        {REVIVAL, new  ModificatorInfo(10, TYPE_PROJECTILE, REVIVAL, 1f, 5, 0f, 0, 0, 0, new List<string>())},
+        {METEOR, new  ModificatorInfo(10, TYPE_PROJECTILE, METEOR, 5f, 1, 280f, 1, 1, 0, new List<string>(){FIRE, FIRE, FIRE, FIRE, FIRE, STUN, STUN, STUN})},
+        {BLAST, new  ModificatorInfo(12, TYPE_SPRAY, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {FIREBLAST, new  ModificatorInfo(13, TYPE_SPRAY, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ENERGYBLAST, new  ModificatorInfo(14, TYPE_SPRAY, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ICEBLAST, new  ModificatorInfo(15, TYPE_SPRAY, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {STUN, new  ModificatorInfo(1, TYPE_SPRAY, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
     };
 
     public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
@@ -144,55 +162,126 @@ public static class MagicConst
 
     public static readonly Dictionary<string, List<string>> MELT_CAST_SEQUENCES = new Dictionary<string, List<string>>()
     {
-        {STEAM, new List<string>() { WATER, FIRE } },
-        {ICE, new List<string>() { WATER, FREEZE } },
-        {POISON, new List<string>() { WATER, DARK } }
+        {LIFE, new List<string>(){LIFE}},
+        {FIRE, new List<string>(){FIRE}},
+        {WATER, new List<string>(){WATER}},
+        {EARTH, new List<string>(){EARTH}},
+        {FREEZE, new List<string>(){FREEZE}},
+        {RAZOR, new List<string>(){RAZOR}},
+        {DARK, new List<string>(){DARK}},
+        {SHIELD, new List<string>(){SHIELD}},
+        {STEAM, new List<string>(){WATER, FIRE}},
+        {POISON, new List<string>(){ WATER, DARK}},
+        {ICE, new List<string>(){WATER, FREEZE}},
+        {FIREBALL1, new List<string>(){EARTH, FIRE}},
+        {DARKBALL, new List<string>(){EARTH, DARK}},
+        {SPEEDUP, new List<string>(){LIFE, RAZOR}},
+        {MINEFIRE, new List<string>(){SHIELD, FIRE}},
+        {MINEWATER, new List<string>(){SHIELD, WATER}},
+        {MINEFREEZE, new List<string>(){SHIELD, FREEZE}},
+        {MINERAZOR, new List<string>(){SHIELD, RAZOR}},
+        {MINEDARK, new List<string>(){SHIELD, DARK}},
+        {FORCE1, new List<string>(){WATER, FIRE, RAZOR}},
+        {ICICLE1, new List<string>(){WATER, WATER, FREEZE}},
+        {FIREBALL2, new List<string>(){EARTH, FIRE, FIRE}},
+        {DARKFIREBALL, new List<string>(){EARTH, DARK, FIRE}},
+        {MINEPOISON, new List<string>(){SHIELD, WATER, DARK}},
+        {MINEICE, new List<string>(){SHIELD, WATER, FREEZE}},
+        {UNARMOR, new List<string>(){SHIELD, RAZOR, RAZOR}},
+        {FIREBALL3, new List<string>(){EARTH, FIRE, FIRE, FIRE}},
+        {TAUREL, new List<string>(){SHIELD, WATER, FREEZE, RAZOR}},
+        {GHOSTING, new List<string>(){WATER, FIRE, RAZOR, DARK, SHIELD}},
+        {UNMODIFICATOR, new List<string>(){WATER, FIRE, RAZOR, LIFE, RAZOR}},
+        {FIREBALL4, new List<string>(){EARTH, FIRE, FIRE, FIRE, FIRE}},
+        {FORCE2, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR}},
+        {ICICLE2, new List<string>(){WATER, WATER, WATER, FREEZE, FREEZE}},
+        {ICICLE3, new List<string>(){WATER, WATER, WATER, WATER, FREEZE, FREEZE, FREEZE}},
+        {TORNADO, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR, WATER, FIRE, RAZOR}},
+        {REVIVAL, new List<string>(){WATER, FIRE, RAZOR, LIFE, RAZOR, WATER, WATER, FIRE, FIRE, RAZOR}},
+        {METEOR, new List<string>(){WATER, WATER, EARTH, FIRE, FIRE, FIRE, FIRE, FIRE, FIRE, RAZOR}},
+        {BLAST, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR, WATER, WATER, WATER, WATER, FREEZE, FREEZE, FREEZE}},
+        {FIREBLAST, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR, WATER, WATER, WATER, WATER, FREEZE, FREEZE, FREEZE, FIRE}},
+        {ENERGYBLAST, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR, WATER, WATER, WATER, WATER, FREEZE, FREEZE, FREEZE, LIFE, RAZOR}},
+        {ICEBLAST, new List<string>(){WATER, WATER, FIRE, FIRE, RAZOR, WATER, WATER, WATER, WATER, FREEZE, FREEZE, FREEZE, WATER, WATER, FREEZE}}
     };
 
     public static readonly Dictionary<int, MetaSphere> META_SPHERES = new Dictionary<int, MetaSphere>()
     {
 
-        {0b_110, new MetaSphere(STEAM, MetaSphereType.element)},
-        {0b_1010, new MetaSphere(FIREBALL1, MetaSphereType.element)},
-        {0b_10010, new MetaSphere(COSTFIREFREZE, MetaSphereType.cost)},
-        {0b_10100, new MetaSphere(ICE, MetaSphereType.element)},
-        {0b_100001, new MetaSphere(SPEEDUP, MetaSphereType.element)},
-        {0b_100100, new MetaSphere(DAMAGEELECTRO, MetaSphereType.damage)},
-        {0b_101000, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
-        {0b_1000001, new MetaSphere(COSTLIFEDARK, MetaSphereType.cost)},
-        {0b_1000010, new MetaSphere(DAMAGEEXPLOSION, MetaSphereType.damage)},
-        {0b_1000100, new MetaSphere(POISON, MetaSphereType.element)},
-        {0b_1001000, new MetaSphere(DARKBALL, MetaSphereType.element)},
-        {0b_10000010, new MetaSphere(MINEFIRE, MetaSphereType.element)},
-        {0b_10000100, new MetaSphere(MINEWATER, MetaSphereType.element)},
-        {0b_10010000, new MetaSphere(MINEFREEZE, MetaSphereType.element)},
-        {0b_10100000, new MetaSphere(MINERAZOR, MetaSphereType.element)},
-        {0b_11000000, new MetaSphere(MINEDARK, MetaSphereType.element)},
-        {0b_100010000, new MetaSphere(WATER, MetaSphereType.element)},
-        {0b_100100000, new MetaSphere(FORCE1, MetaSphereType.element)},
-        {0b_1000000001, new MetaSphere(WATER, MetaSphereType.element)},
-        {0b_1000000010, new MetaSphere(DARK, MetaSphereType.element)},
-        {0b_1010000000, new MetaSphere(MINEPOISON, MetaSphereType.element)},
-        {0b_10000000010, new MetaSphere(WATER, MetaSphereType.element)},
-        {0b_10000000100, new MetaSphere(ICICLE1, MetaSphereType.element)},
-        {0b_10010000000, new MetaSphere(MINEICE, MetaSphereType.element)},
-        {0b_100000000010, new MetaSphere(FIREBALL2, MetaSphereType.element)},
-        {0b_1000000000010, new MetaSphere(DARKFIREBALL, MetaSphereType.element)},
-        {0b_10000100000000, new MetaSphere(FORCE2, MetaSphereType.element)},
-        {0b_110000000000000, new MetaSphere(UNMODIFICATOR, MetaSphereType.element)},
-        {0b_1010000000000000, new MetaSphere(GHOSTING, MetaSphereType.element)},
-        {0b_10000010000000000, new MetaSphere(ICICLE2, MetaSphereType.element)},
-        {0b_100000000000000010, new MetaSphere(FIREBALL3, MetaSphereType.element)},
-        {0b_10000000000000100000, new MetaSphere(TAUREL, MetaSphereType.element)},
-        {0b_100000000000000000010, new MetaSphere(FIREBALL4, MetaSphereType.element)},
-        {0b_100000000010000000000000, new MetaSphere(TORNADO, MetaSphereType.element)},
-        {0b_101000000000000000000000, new MetaSphere(REVIVAL, MetaSphereType.element)},
-        {0b_110000000000000000000000, new MetaSphere(METEOR, MetaSphereType.element)},
-        {0b_1000000000000010000000000, new MetaSphere(ICICLE3, MetaSphereType.element)},
-        {0b_10100000000000000000000000, new MetaSphere(BLAST, MetaSphereType.element)},
-        {0b_100000000000000000000000010, new MetaSphere(FIREBLAST, MetaSphereType.element)},
-        {0b_100000000000100000000000000, new MetaSphere(ENERGYBLAST, MetaSphereType.element)},
-        {0b_100000000010000000000000000, new MetaSphere(ICEBLAST, MetaSphereType.element)}
+        {6, new MetaSphere(STEAM, MetaSphereType.element)},
+        {10, new MetaSphere(FIREBALL1, MetaSphereType.element)},
+        {18, new MetaSphere(COSTFIREFREZE, MetaSphereType.cost)},
+        {20, new MetaSphere(ICE, MetaSphereType.element)},
+        {33, new MetaSphere(SPEEDUP, MetaSphereType.element)},
+        {36, new MetaSphere(DAMAGEELECTRO, MetaSphereType.damage)},
+        {40, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
+        {65, new MetaSphere(COSTLIFEDARK, MetaSphereType.cost)},
+        {68, new MetaSphere(POISON, MetaSphereType.element)},
+        {72, new MetaSphere(DARKBALL, MetaSphereType.element)},
+        {130, new MetaSphere(MINEFIRE, MetaSphereType.element)},
+        {132, new MetaSphere(MINEWATER, MetaSphereType.element)},
+        {144, new MetaSphere(MINEFREEZE, MetaSphereType.element)},
+        {160, new MetaSphere(MINERAZOR, MetaSphereType.element)},
+        {192, new MetaSphere(MINEDARK, MetaSphereType.element)},
+        {272, new MetaSphere(WATER, MetaSphereType.element)},
+        {288, new MetaSphere(FORCE1, MetaSphereType.element)},
+        {513, new MetaSphere(WATER, MetaSphereType.element)},
+        {514, new MetaSphere(DARK, MetaSphereType.element)},
+        {640, new MetaSphere(MINEPOISON, MetaSphereType.element)},
+        {1026, new MetaSphere(WATER, MetaSphereType.element)},
+        {1028, new MetaSphere(ICICLE1, MetaSphereType.element)},
+        {1152, new MetaSphere(MINEICE, MetaSphereType.element)},
+        {2050, new MetaSphere(FIREBALL2, MetaSphereType.element)},
+        {2112, new MetaSphere(DARKFIREBALL, MetaSphereType.element)},
+        {4098, new MetaSphere(DARKFIREBALL, MetaSphereType.element)},
+        {16416, new MetaSphere(UNARMOR, MetaSphereType.element)},
+        {65792, new MetaSphere(FORCE2, MetaSphereType.element)},
+        {73728, new MetaSphere(UNMODIFICATOR, MetaSphereType.element)},
+        {98304, new MetaSphere(GHOSTING, MetaSphereType.element)},
+        {132096, new MetaSphere(ICICLE2, MetaSphereType.element)},
+        {262146, new MetaSphere(FIREBALL3, MetaSphereType.element)},
+        {524320, new MetaSphere(TAUREL, MetaSphereType.element)},
+        {1048578, new MetaSphere(FIREBALL4, MetaSphereType.element)},
+        {8454144, new MetaSphere(TORNADO, MetaSphereType.element)},
+        {10485760, new MetaSphere(REVIVAL, MetaSphereType.element)},
+        {12582912, new MetaSphere(METEOR, MetaSphereType.element)},
+        {16778240, new MetaSphere(ICICLE3, MetaSphereType.element)},
+        {41943040, new MetaSphere(BLAST, MetaSphereType.element)},
+        {67108866, new MetaSphere(FIREBLAST, MetaSphereType.element)},
+        {67117056, new MetaSphere(ENERGYBLAST, MetaSphereType.element)},
+        {67239936, new MetaSphere(ICEBLAST, MetaSphereType.element)}
     };
 
+    /*
+    public enum Spheres
+    {
+        none = 0, //none
+        life = 1, //life
+        fire = 2, //fire
+        water = 4, //water
+        earth = 8, //earth
+        freeze = 16, //freeze
+        razor = 32, //razor
+        dark = 64, //dark
+        shield = 128, //shield
+        steam = 256, //steam
+        poison = 512, //poison
+        ice = 1024, //ice
+        fireball1 = 2048, //fireball1
+        darkball = 4096, //darkball
+        speedup = 8192, //speedup
+        minerazor = 16384, //minerazor
+        minedark = 32768, //minedark
+        force1 = 65536, //force1
+        icicle1 = 131072, //icicle1
+        fireball2 = 262144, //fireball2
+        mineice = 524288, //mineice
+        fireball3 = 1048576, //fireball3
+        unmodificator = 2097152, //unmodificator
+        fireball4 = 4194304, //fireball4
+        force2 = 8388608, //force2
+        icicle2 = 16777216, //icicle2
+        icicle3 = 33554432, //icicle3
+        blast = 67108864 //blast
+    }*/
 }

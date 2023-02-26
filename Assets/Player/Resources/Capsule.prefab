@@ -222,12 +222,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _hpView: {fileID: 0}
-  _hitPointMax: 100
-  _shieldPointMax: 100
+  _hitPointMax: 500
+  _shieldPointMax: 500
   _mouseSensitivityMax: 100
   _speedMax: 5
   _slowdownMax: 1
-  _hitPoint: 100
+  _hitPoint: 500
   _shieldPoint: 0
   _mouseSensitivity: 100
   _speed: 5

@@ -10,12 +10,11 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = MagicConst.FIRE;
         }
 
-        public override void Init(int power)
+        public override void Init(string key, int power)
         {
-            base.Init(power);
+            base.Init(key, power);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.WATER);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.STEAM);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
@@ -50,7 +49,7 @@ namespace com.czeeep.spell.modificator
         public override void DoDamage()
         {
             //base.DoDamage();
-            _playerInfo.MakeDamage(_damage*_info.power);
+            _playerInfo.MakeDamage(_info.damage *_info.power);
         }
         public override void DestroyModificator()
         {

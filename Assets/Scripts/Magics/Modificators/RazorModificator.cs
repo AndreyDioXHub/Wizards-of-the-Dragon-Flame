@@ -12,7 +12,6 @@ namespace com.czeeep.spell.modificator
         public override void Start()
         {
             base.Start();
-            _info.key = MagicConst.RAZOR;
         }
 
         public override void Update()
@@ -25,12 +24,12 @@ namespace com.czeeep.spell.modificator
         {
             //base.DoDamage();
             _playerInfo.UnArmor();
-            _playerInfo.MakeHitPointDamage(_damage * _info.power);
+            _playerInfo.MakeHitPointDamage(_info.damage * _info.power);
         }
 
-        public override void Init(int power)
+        public override void Init(string key, int power)
         {
-            base.Init(power);
+            base.Init(key, power);
             MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.WATER);
             ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
             UpdateInfo(1);

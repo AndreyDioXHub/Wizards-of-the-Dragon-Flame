@@ -13,10 +13,10 @@ namespace com.czeeep.spell.modificator
         protected PlayerInfo _playerInfo;
         [SerializeField]
         protected ModificatorInfo _info = new ModificatorInfo();
-        [SerializeField]
-        protected int _damage = 1;
-        [SerializeField]
-        protected int _maxPower = 10;
+       /* [SerializeField]
+        protected int _damage = 1;*/
+        /*[SerializeField]
+        protected int _maxPower = 10;*/
         /*protected string _key;
         [SerializeField]
         protected int _power = 1;
@@ -30,11 +30,12 @@ namespace com.czeeep.spell.modificator
         [SerializeField]
         protected ModificatorElementView _element;
 
-        public virtual void Init(int power)
+        public virtual void Init(string key, int power)
         {
             Named();
             _timeActionCur = 0;
-            _info.power = power;
+            _info = new ModificatorInfo(key, power);
+            //_info.power = power;
             _playerInfo = PlayerNetwork.Info;
             DoDamage();
         }
@@ -53,9 +54,9 @@ namespace com.czeeep.spell.modificator
             _timeActionCur = 0;
             _info.power += power;
 
-            if (_info.power > _maxPower)
+            if (_info.power > _info.maxPower)
             {
-                _info.power = _maxPower;
+                _info.power = _info.maxPower;
             }
 
             UpdateInfo(1);
@@ -128,20 +129,61 @@ namespace com.czeeep.spell.modificator
         public string type;
         public string key;
         public float time;
-        public int power;
         public int maxPower;
+        public int power;/*{ 
+            get { return power; }
+            set { 
+                if (value > maxPower) 
+                {
+                    value = maxPower; 
+                } } 
+        }*/
         public float damageFull;
         public float damage;
         public float multiplierHitPoint;
         public float multiplierShieldPoint;
         public float slowdown;
-        public bool unArmor;
         public List<string> additionalEffects = new List<string>();
-        public List<string> meltCastSequences = new List<string>();
+
+        public ModificatorInfo()
+        {
+
+        }
+
+        public ModificatorInfo(string key, int power)
+        {
+
+            if(MagicConst.MAGICS_MODIFICATOR_BY_KEY.TryGetValue(key, out ModificatorInfo info))
+            {
+                /*if (power > info.maxPower)
+                {
+                    power = info.maxPower;
+                }*/
+
+                this.tir = info.tir;
+                this.type = info.type;
+                this.key = key;
+                this.time = info.time;
+                this.maxPower = info.maxPower;
+                this.power = power;
+                this.damageFull = info.damageFull;
+                this.damage = info.damage;
+                this.multiplierHitPoint = info.multiplierHitPoint;
+                this.multiplierShieldPoint = info.multiplierShieldPoint;
+                this.slowdown = info.slowdown;
+                this.additionalEffects = info.additionalEffects;
+                
+            }
+            else
+            {
+                this.key = MagicConst.ERROR_KEY;
+                this.power = 0;
+            }
+        }
 
         public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
             float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
-            bool unArmor, List<string> additionalEffects, List<string> meltCastSequences)
+            List<string> additionalEffects)
         {
             this.tir = tir;
             this.type = type;
@@ -154,9 +196,7 @@ namespace com.czeeep.spell.modificator
             this.multiplierHitPoint = multiplierHitPoint;
             this.multiplierShieldPoint = multiplierShieldPoint;
             this.slowdown = slowdown;
-            this.unArmor = unArmor;
             this.additionalEffects = additionalEffects;
-            this.meltCastSequences = meltCastSequences;
         }
     }
     //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,
