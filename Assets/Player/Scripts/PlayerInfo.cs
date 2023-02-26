@@ -94,6 +94,7 @@ public class PlayerInfo : MonoBehaviour
         _shieldPoint = 0;
     }
 
+    //must be private
     public void MakeShieldPointDamage(float damage, out float damageLeft)
     {
         _shieldPoint -= damage;
@@ -117,6 +118,7 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
+    //must be private
     public void MakeHitPointDamage(float damage)
     {
         _hitPoint -= damage;
