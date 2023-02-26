@@ -95,7 +95,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //must be private
-    public void MakeShieldPointDamage(float damage, out float damageLeft)
+    private void MakeShieldPointDamage(float damage, out float damageLeft)
     {
         _shieldPoint -= damage;
         damageLeft = 0;
@@ -119,7 +119,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //must be private
-    public void MakeHitPointDamage(float damage)
+    private void MakeHitPointDamage(float damage)
     {
         _hitPoint -= damage;
 
@@ -139,18 +139,30 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
-    public void MakeDamage(float damage, int hpMultyplier = 1, int spMultyplier = 1)
+    public void MakeDamage(float damage, float hpMultyplier = 1, float spMultyplier = 1)
     {
-        //if()
+        if(spMultyplier != 0)
+        {
+
+            float damageLeft = 0;
+
+            MakeShieldPointDamage(damage, out damageLeft);
+            MakeHitPointDamage(hpMultyplier * (damageLeft / spMultyplier));
+        }
+        else
+        {
+            MakeHitPointDamage(hpMultyplier * damage);
+        }
     } 
 
+    /*
     public void MakeDamage(float damage)
     {
         float damageLeft = 0;
 
         MakeShieldPointDamage(damage, out damageLeft);
         MakeHitPointDamage(damageLeft);
-    }
+    }*/
 
     public void SpeedFraud(string key, float slowdown)
     {

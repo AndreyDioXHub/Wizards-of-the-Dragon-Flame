@@ -22,9 +22,10 @@ namespace com.czeeep.spell.modificator
 
         public override void DoDamage()
         {
+            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
             //base.DoDamage();
-            _playerInfo.UnArmor();
-            _playerInfo.MakeHitPointDamage(_info.damage * _info.power);
+            //_playerInfo.UnArmor();
+            //_playerInfo.MakeHitPointDamage(_info.damage * _info.power);
         }
 
         public override void Init(string key, int power)

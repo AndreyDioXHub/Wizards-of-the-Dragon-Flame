@@ -48,8 +48,8 @@ namespace com.czeeep.spell.modificator
                 isCancel = true;
                 //do razor damage
                 Debug.Log($"do razor damage {power}");
-                _playerInfo.UnArmor();
-                _playerInfo.MakeHitPointDamage(power);
+                //_playerInfo.UnArmor();
+                //_playerInfo.MakeHitPointDamage(power);
             }
 
             _element.UpdateInfo(_info.key, _info.power, 1);

@@ -49,7 +49,9 @@ namespace com.czeeep.spell.modificator
         public override void DoDamage()
         {
             //base.DoDamage();
-            _playerInfo.MakeDamage(_info.damage *_info.power);
+            //_playerInfo.MakeDamage(_info.damage *_info.power);
+
+            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
         }
         public override void DestroyModificator()
         {

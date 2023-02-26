@@ -65,7 +65,8 @@ namespace com.czeeep.spell.modificator
         {
             //base.DoDamage();
 
-            _playerInfo.MakeHitPointDamage(_info.damage * (int)_info.power);
+            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
+           // _playerInfo.MakeHitPointDamage(_info.damage * (int)_info.power);
         }
     }
 }
