@@ -473,12 +473,16 @@ namespace com.czeeep.spell.magicmodel
                 Debug.Log($"GetSphereByKey: {key}: empty");
             }
 
-            bool resultAfterAdding = false;
-            string resultElementAfterAdding = CalculateElement(_activeSpheres[_activeSpheres.Count - 1], out resultAfterAdding);
-
-            if (resultAfterAdding)
+            if (_activeSpheres.Count >= 2)
             {
-                _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding;
+                bool resultAfterAdding = false;
+                string resultElementAfterAdding = CalculateElement(_activeSpheres[_activeSpheres.Count - 1], out resultAfterAdding);
+
+                if (resultAfterAdding)
+                {
+                    _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding;
+                }
+
             }
             //Debug.Log($"resultElement1 {result1} {resultElement1} ");
 
