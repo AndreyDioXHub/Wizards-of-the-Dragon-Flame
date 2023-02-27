@@ -72,26 +72,28 @@ public class SphereWorld : MonoBehaviour
     #region Private Methods
     public void GetBiomUnderSphere() {
         SetStartPosition();
-        RaycastHit hit;
+        RaycastHit hit_unused;
         Ray ray = new Ray(transform.position, Vector3.down);
 
-        Physics.Raycast(ray, out hit, rayDistance);
 
-        if (hit.collider != null) {
-            
-            //If biom
-            if(hit.collider.tag == ModificatorZone.Tag) {
-                
-                //Detect count state
-                ModificatorZone mz = hit.collider.gameObject.GetComponent<ModificatorZone>();
-                //mz.ZoneBiom
-                Debug.Log($"<b>Found biom {mz.ZoneBiom}</b>");
+        //Physics.Raycast(ray, out hit, rayDistance);
+        RaycastHit[] hits = Physics.RaycastAll(ray, rayDistance);
+
+        if(hits != null && hits.Length > 0) {
+            foreach (var hit in hits) {
+                if(hit.collider != null) {
+                    if(hit.transform.tag == ModificatorZone.Tag) {
+                        ModificatorZone mz = hit.collider.gameObject.GetComponent<ModificatorZone>();
+                        _count = mz.GetSphereCountByType(_element, _count);
+                    }
+                    if(hit.collider is TerrainCollider) {
+                        Vector3 pos = transform.position;
+                        Debug.Log($"Exist collider point height = {hit.point}, current Y: {transform.position.y}");
+                        pos.y = hit.point.y + adjustHeight;
+                        transform.position = pos;
+                    }
+                }
             }
-            //Then get height
-            Vector3 pos = transform.position;
-            Debug.Log($"Exist collider point height = {hit.point}, current Y: {transform.position.y}");
-            pos.y = hit.point.y + adjustHeight;
-            transform.position = pos;
         }
     }
 
