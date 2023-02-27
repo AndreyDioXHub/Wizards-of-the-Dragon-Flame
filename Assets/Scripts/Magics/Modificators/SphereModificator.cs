@@ -28,9 +28,7 @@ namespace com.czeeep.spell.modificator
 
         private void Awake()
         {
-
-            gameObject.AddComponent<Tick>();
-            _tick = GetComponent<Tick>();
+            
         }
 
         public virtual void Init(string key, int power)
@@ -40,6 +38,11 @@ namespace com.czeeep.spell.modificator
             _timeActionCur = 0;
             _info = new ModificatorInfo(key, power);
             _playerInfo = PlayerNetwork.Info;
+
+            if (_info.power > _info.maxPower)
+            {
+                _info.power = _info.maxPower;
+            }
 
             foreach (var hiding in _info.hidingSpheres)
             {
@@ -55,7 +58,8 @@ namespace com.czeeep.spell.modificator
             }
 
             DoDamage();
-            Debug.Log($"SphereModificator {_tick.OnTickPassed == null}");
+
+            _tick = gameObject.AddComponent<Tick>();
             _tick.OnTickPassed.AddListener(DoDamage);
         }
 

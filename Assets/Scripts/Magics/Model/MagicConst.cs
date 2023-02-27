@@ -93,7 +93,7 @@ public static class MagicConst
         {FIREBALL3, new  ModificatorInfo(4, TYPE_PROJECTILE, FIREBALL3, 1f, 5, 90f, 1, 1, 0, new List<string>(){FIRE, FIRE, STUN})},
         {TAUREL, new  ModificatorInfo(4, TYPE_PROJECTILE, TAUREL, 1f, 5, 90f, 1, 2, 0, new List<string>(){RAZOR, RAZOR, UNARMOR})},
         {GHOSTING, new  ModificatorInfo(5, TYPE_LAZER, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
-        {UNMODIFICATOR, new  ModificatorInfo(5, TYPE_LAZER, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -2, new List<string>(){})},
+        {UNMODIFICATOR, new  ModificatorInfo(5, TYPE_LAZER, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
         {FIREBALL4, new  ModificatorInfo(5, TYPE_PROJECTILE, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
         {FORCE2, new  ModificatorInfo(5, TYPE_LAZER, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
         {ICICLE2, new  ModificatorInfo(5, TYPE_PROJECTILE, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
@@ -126,7 +126,7 @@ public static class MagicConst
         {DARKBALL,"DarkBallModificator" },
         {SPEEDUP,"SpeedUpModificator" },
         {MINEFIRE,"MineFireModificator" },
-        {MINEWATER,"MineWaterModificator " },//
+        {MINEWATER,"MineWaterModificator " },
         {MINEFREEZE,"MineFreezeModificator" },
         {MINERAZOR,"MineRazorModificator" },
         {MINEDARK,"MineDarkModificator" },
@@ -137,19 +137,19 @@ public static class MagicConst
         {MINEPOISON,"MinePoisonModificator" },
         {MINEICE,"MineIceModificator" },
         {UNARMOR,"UnArmorModificator" },
-        {FIREBALL3,"FireBall3Modificator" },//
-        {TAUREL,"TaurelModificator" },//
-        {GHOSTING,"GhostingModificator" },//
-        {UNMODIFICATOR,"UnModificatorModificator" },//
-        {FIREBALL4,"FireBall4Modificator" },//
-        {FORCE2,"Force2Modificator" },//
-        {ICICLE2,"Icicle2Modificator" },//
-        {ICICLE3,"Icicle3Modificator" },//
-        {TORNADO,"TornadoModificator" },//
-        {REVIVAL,"RevivalModificator" },//
-        {METEOR,"MeteorModificator" },//
-        {BLAST,"BlastModificator" },//
-        {FIREBLAST,"FireBlastModificator" },//
+        {FIREBALL3,"FireBall3Modificator" },
+        {TAUREL,"TaurelModificator" },
+        {GHOSTING,"GhostingModificator" },
+        {UNMODIFICATOR,"UnModificatorModificator" },
+        {FIREBALL4,"FireBall4Modificator" },
+        {FORCE2,"Force2Modificator" },
+        {ICICLE2,"Icicle2Modificator" },
+        {ICICLE3,"Icicle3Modificator" },
+        {TORNADO,"TornadoModificator" },
+        {REVIVAL,"RevivalModificator" },
+        {METEOR,"MeteorModificator" },
+        {BLAST,"BlastModificator" },
+        {FIREBLAST,"FireBlastModificator" },
         {ENERGYBLAST,"EnergyBlastModificator" },
         {ICEBLAST,"IceBlastModificator" }
     };

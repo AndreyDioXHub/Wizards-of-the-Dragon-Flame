@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace com.czeeep.spell.modificator
 {
-    public class BlastModificator : SphereModificator
+    public class FireBlastModificator : SphereModificator
     {
 
     }
