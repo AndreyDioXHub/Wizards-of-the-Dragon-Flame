@@ -1,3 +1,4 @@
+using com.czeeep.spell.biom;
 using com.czeeep.spell.magicmodel;
 using com.czeeep.spell.modificator;
 using System.Collections;
@@ -252,6 +253,21 @@ public static class MagicConst
         {67239936, new MetaSphere(ICEBLAST, MetaSphereType.element)}
     };
 
+    public static readonly Dictionary<Bioms, int> IncreaseSphereCount = new Dictionary<Bioms, int>() {
+        {Bioms.dark, (int)SpheresElements.dark},
+        {Bioms.life, (int)SpheresElements.life},
+        {Bioms.fire, (int)SpheresElements.fire},
+        {Bioms.water, (int)SpheresElements.water},
+        {Bioms.freeze, (int)SpheresElements.freeze}
+    };
+
+    public static readonly Dictionary<Bioms, int> DecreaseSphereCount = new Dictionary<Bioms, int>() {
+        {Bioms.dark, (int)SpheresElements.life},
+        {Bioms.life, (int)SpheresElements.dark},
+        {Bioms.fire, (int)(SpheresElements.freeze| SpheresElements.water)},
+        {Bioms.water, (int)SpheresElements.fire},
+        {Bioms.freeze, (int)SpheresElements.fire}
+    };
     /*
     public enum Spheres
     {
