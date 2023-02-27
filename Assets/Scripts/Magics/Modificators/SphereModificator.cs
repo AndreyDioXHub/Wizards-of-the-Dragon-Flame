@@ -1,4 +1,5 @@
 using com.czeeep.network.player;
+using com.czeeep.spell.magicmodel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,15 +14,6 @@ namespace com.czeeep.spell.modificator
         protected PlayerInfo _playerInfo;
         [SerializeField]
         protected ModificatorInfo _info = new ModificatorInfo();
-       /* [SerializeField]
-        protected int _damage = 1;*/
-        /*[SerializeField]
-        protected int _maxPower = 10;*/
-        /*protected string _key;
-        [SerializeField]
-        protected int _power = 1;
-        [SerializeField]
-        protected float _timeAction = 1;*/
         [SerializeField]
         protected float _timeActionCur;
         [SerializeField]
@@ -33,19 +25,47 @@ namespace com.czeeep.spell.modificator
         public virtual void Init(string key, int power)
         {
             Named();
+
             _timeActionCur = 0;
             _info = new ModificatorInfo(key, power);
-            //_info.power = power;
             _playerInfo = PlayerNetwork.Info;
-            //DoDamage();
+
+            foreach (var hiding in _info.hidingSpheres)
+            {
+                MagicModel.Instance.ReturnAllSphereToInventory(hiding);
+            }
+
+            ModificatorView.Instance.AddNewModificator(_info.key, _info.power, out _element);
+            _element.UpdateInfo(_info.key, _info.power, 1);
+
+            foreach(var addMod in _info.additionalEffects)
+            {
+                MagicModel.Instance.AddModificator(addMod, _info.power);
+            }
+            DoDamage();
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)
         {
-            Named();
             isCancel = false;
 
-            return 1;
+            int incomingPowerleft = power;
+
+            if (sphere == SpheresElements.none.ToString())
+            {
+                incomingPowerleft = (power - _info.power) <= 0 ? 0 : power - _info.power;
+
+                _info.power -= power;
+                isCancel = true;
+
+                if (_info.power <= 0)
+                {
+                    DestroyModificator();
+                }
+            }
+
+            _element.UpdateInfo(_info.key, _info.power, 1);
+            return incomingPowerleft;
         }
 
         public virtual void AddPower(int power)
@@ -91,7 +111,7 @@ namespace com.czeeep.spell.modificator
             _filling = 1 - _timeActionCur / _info.time;
             UpdateInfo(_filling);
 
-            DoUpdatedDamage();
+            DoSlowDown();
 
             if (_timeActionCur >= _info.time)
             {
@@ -105,18 +125,34 @@ namespace com.czeeep.spell.modificator
             }
         }
 
-        public virtual void DoUpdatedDamage()
+        public virtual void DoSlowDown()
         {
+            if(_info.slowdown != 0)
+            {
 
+                float slowdown = 1 - _info.slowdown * (float)((_info.power) * (_info.power) / (float)(_info.maxPower * _info.maxPower));
+
+                slowdown = slowdown < 0.1f ? 0.1f : slowdown;
+
+                _playerInfo.SpeedFraud(_info.key, slowdown);
+
+                if (_info.power <= 0)
+                {
+                    _playerInfo.SpeedFraud(_info.key, 1);
+                }
+            }
         }
 
         public virtual void DoDamage()
         {
             Debug.Log("DoDamage");
+
+            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
         }
 
         public virtual void DestroyModificator()
         {
+            DoSlowDown();
             Destroy(_element.gameObject);
             Destroy(gameObject);
         }
@@ -130,20 +166,14 @@ namespace com.czeeep.spell.modificator
         public string key;
         public float time;
         public int maxPower;
-        public int power;/*{ 
-            get { return power; }
-            set { 
-                if (value > maxPower) 
-                {
-                    value = maxPower; 
-                } } 
-        }*/
+        public int power;
         public float damageFull;
         public float damage;
         public float multiplierHitPoint;
         public float multiplierShieldPoint;
         public float slowdown;
         public List<string> additionalEffects = new List<string>();
+        public List<string> hidingSpheres = new List<string>();
 
         public ModificatorInfo()
         {
@@ -172,6 +202,7 @@ namespace com.czeeep.spell.modificator
                 this.multiplierShieldPoint = info.multiplierShieldPoint;
                 this.slowdown = info.slowdown;
                 this.additionalEffects = info.additionalEffects;
+                this.hidingSpheres = info.hidingSpheres;
                 
             }
             else
@@ -183,7 +214,7 @@ namespace com.czeeep.spell.modificator
 
         public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
             float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
-            List<string> additionalEffects)
+            List<string> additionalEffects, List<string> hidingSpheres)
         {
             this.tir = tir;
             this.type = type;
@@ -205,6 +236,33 @@ namespace com.czeeep.spell.modificator
             this.multiplierShieldPoint = multiplierShieldPoint;
             this.slowdown = slowdown;
             this.additionalEffects = additionalEffects;
+            this.hidingSpheres = hidingSpheres;
+        }
+        public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
+            float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
+            List<string> additionalEffects)
+        {
+            this.tir = tir;
+            this.type = type;
+            this.key = key;
+            this.time = time;
+            this.power = 1;
+            this.maxPower = maxPower;
+            this.damageFull = damageFull;
+
+            int powerFactarial = 0;
+
+            for (int i = 1; i < maxPower + 1; i++)
+            {
+                powerFactarial += i;
+            }
+
+            this.damage = (damageFull / powerFactarial) / time;
+            this.multiplierHitPoint = multiplierHitPoint;
+            this.multiplierShieldPoint = multiplierShieldPoint;
+            this.slowdown = slowdown;
+            this.additionalEffects = additionalEffects;
+            this.hidingSpheres = new List<string>();
         }
     }
     //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,

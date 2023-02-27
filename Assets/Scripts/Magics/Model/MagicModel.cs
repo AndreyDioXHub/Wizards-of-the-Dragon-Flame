@@ -473,6 +473,9 @@ namespace com.czeeep.spell.magicmodel
                 Debug.Log($"GetSphereByKey: {key}: empty");
             }
 
+            AfterWelding();
+
+            /*
             if (_activeSpheres.Count >= 2)
             {
                 bool resultAfterAdding = false;
@@ -483,11 +486,40 @@ namespace com.czeeep.spell.magicmodel
                     _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding;
                 }
 
-            }
+            }*/
             //Debug.Log($"resultElement1 {result1} {resultElement1} ");
 
             ShowSphere();
         }
+
+        public void AfterWelding()
+        {
+            if (_activeSpheres.Count >= 2)
+            {
+                bool resultAfterAdding = false;
+                string resultElementAfterAdding = CalculateElement(_activeSpheres[_activeSpheres.Count - 1], out resultAfterAdding);
+
+                if (resultAfterAdding)
+                {
+                    _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding;
+
+                    if (_activeSpheres.Count >= 2)
+                    {
+                        bool resultAfterAdding2 = false;
+                        string resultElementAfterAdding2 = CalculateElement(_activeSpheres[_activeSpheres.Count - 1], out resultAfterAdding2);
+
+                        if (resultAfterAdding2)
+                        {
+                            _activeSpheres[_activeSpheres.Count - 1] = resultElementAfterAdding2;
+                            //AfterWelding();
+                        }
+                    }
+
+                    //AfterWelding();
+                }
+            }
+        }
+
         public void AddSphere(string key, int value)
         {
             if (_spheres.TryGetValue(key, out int valuecur))

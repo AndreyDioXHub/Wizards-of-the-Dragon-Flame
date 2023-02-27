@@ -58,11 +58,6 @@ public class PlayerInfo : MonoBehaviour
         if (_isStunedDictionary.TryGetValue(key, out bool value))
         {
             _isStunedDictionary[key] = isStuned;
-
-            if (isStuned == false)
-            {
-                _isStunedDictionary.Remove(key);
-            }
         }
         else
         {

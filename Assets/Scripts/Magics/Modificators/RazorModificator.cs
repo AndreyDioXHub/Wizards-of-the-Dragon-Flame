@@ -8,34 +8,6 @@ namespace com.czeeep.spell.modificator
 {
     public class RazorModificator : SphereModificator
     {
-
-        public override void Start()
-        {
-            base.Start();
-        }
-
-        public override void Update()
-        {
-            base.Update();
-
-        }
-
-        public override void DoDamage()
-        {
-            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
-            //base.DoDamage();
-            //_playerInfo.UnArmor();
-            //_playerInfo.MakeHitPointDamage(_info.damage * _info.power);
-        }
-
-        public override void Init(string key, int power)
-        {
-            base.Init(key, power);
-            MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.WATER);
-            ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-            UpdateInfo(1);
-        }
-
         public override int CheckCancel(string sphere, int power, out bool isCancel)
         {
             base.CheckCancel(sphere, power, out isCancel);

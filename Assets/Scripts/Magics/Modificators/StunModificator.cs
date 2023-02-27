@@ -1,3 +1,4 @@
+using com.czeeep.network.player;
 using com.czeeep.spell.magicmodel;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,18 +9,10 @@ namespace com.czeeep.spell.modificator
 {
     public class StunModificator : SphereModificator
     {
-        public override void Start()
-        {
-            base.Start();
-        }
-
         public override void Init(string key, int power)
         {
             base.Init(key, power);
-            MagicModel.Instance.ReturnAllSphereToInventory();
-            ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-            _element.UpdateInfo(_info.key, _info.power, 1);
-
+            MagicModel.Instance.ReturnAllSphereToInventory(); 
         }
 
         public override void DoDamage()

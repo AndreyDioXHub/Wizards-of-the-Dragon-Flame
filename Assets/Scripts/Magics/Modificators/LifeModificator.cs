@@ -7,20 +7,6 @@ namespace com.czeeep.spell.modificator
 {
     public class LifeModificator : SphereModificator
     {
-        public override void Start()
-        {
-            base.Start();
-        }
-
-        public override void Init(string key, int power)
-        {
-            base.Init(key, power);
-            MagicModel.Instance.ReturnAllSphereToInventory(MagicConst.DARK);
-            ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-            _element.UpdateInfo(_info.key, _info.power, 1);
-
-        }
-
         public override int CheckCancel(string sphere, int power, out bool isCancel)
         {
             base.CheckCancel(sphere, power, out isCancel);
@@ -43,14 +29,6 @@ namespace com.czeeep.spell.modificator
             _element.UpdateInfo(_info.key, _info.power, 1);
 
             return incomingPowerleft;
-        }
-
-        public override void DoDamage()
-        {
-            //base.DoDamage();
-
-            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
-            //_playerInfo.MakeHitPointDamage(_info.damage * _info.power);
         }
     }
 

@@ -8,24 +8,6 @@ namespace com.czeeep.spell.modificator
 {
     public class IceModificator : SphereModificator
     {
-
-
-        public override void Start()
-        {
-            base.Start();
-            _info.key = MagicConst.ICE;
-        }
-
-        public override void Init(string key, int power)
-        {
-            base.Init(key, power);
-            MagicModel.Instance.ReturnAllSphereToInventory();
-            ModificatorView.Instance.AddNewModificator(_info.key, power, out _element);
-            _element.UpdateInfo(_info.key, _info.power, 1);
-            MagicModel.Instance.AddModificator(MagicConst.STUN, _info.power);
-            MagicModel.Instance.AddModificator(MagicConst.FREEZE, _info.power);
-
-        }
         public override int CheckCancel(string sphere, int power, out bool isCancel)
         {
             base.CheckCancel(sphere, power, out isCancel);
@@ -47,14 +29,6 @@ namespace com.czeeep.spell.modificator
 
             _element.UpdateInfo(_info.key, _info.power, 1);
             return incomingPowerleft;
-        }
-
-        public override void DoDamage()
-        {
-            //base.DoDamage();
-            //_playerInfo.MakeDamage(_info.damage * _info.power);
-
-            _playerInfo.MakeDamage(_info.damage * _info.power, _info.multiplierHitPoint, _info.multiplierShieldPoint);
         }
     }
 }
