@@ -1,3 +1,4 @@
+using com.czeeep.spell.biom;
 using com.czeeep.spell.magicmodel;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,4 +175,19 @@ public static class MagicConst
         {0b_00010010000, new MetaSphere(WATER, MetaSphereType.element)},*/
     };
 
+    public static readonly Dictionary<Bioms, int> IncreaseSphereCount = new Dictionary<Bioms, int>() {
+        {Bioms.dark, (int)SpheresElements.dark},
+        {Bioms.life, (int)SpheresElements.life},
+        {Bioms.fire, (int)SpheresElements.fire},
+        {Bioms.water, (int)SpheresElements.water},
+        {Bioms.freeze, (int)SpheresElements.freeze}
+    };
+
+    public static readonly Dictionary<Bioms, int> DecreaseSphereCount = new Dictionary<Bioms, int>() {
+        {Bioms.dark, (int)SpheresElements.life},
+        {Bioms.life, (int)SpheresElements.dark},
+        {Bioms.fire, (int)(SpheresElements.freeze| SpheresElements.water)},
+        {Bioms.water, (int)SpheresElements.fire},
+        {Bioms.freeze, (int)SpheresElements.fire}
+    };
 }
