@@ -7,11 +7,15 @@ using UnityEngine;
 
 namespace com.czeeep.spell.modificator
 {
+    //[RequireComponent(typeof(Tick))]
     public class SphereModificator : MonoBehaviour
     {
+
         public ModificatorInfo Info { get => _info; }
         [SerializeField]
         protected PlayerInfo _playerInfo;
+        [SerializeField]
+        protected Tick _tick;
         [SerializeField]
         protected ModificatorInfo _info = new ModificatorInfo();
         [SerializeField]
@@ -21,6 +25,13 @@ namespace com.czeeep.spell.modificator
 
         [SerializeField]
         protected ModificatorElementView _element;
+
+        private void Awake()
+        {
+
+            gameObject.AddComponent<Tick>();
+            _tick = GetComponent<Tick>();
+        }
 
         public virtual void Init(string key, int power)
         {
@@ -42,7 +53,10 @@ namespace com.czeeep.spell.modificator
             {
                 MagicModel.Instance.AddModificator(addMod, _info.power);
             }
+
             DoDamage();
+            Debug.Log($"SphereModificator {_tick.OnTickPassed == null}");
+            _tick.OnTickPassed.AddListener(DoDamage);
         }
 
         public virtual int CheckCancel(string sphere, int power, out bool isCancel)

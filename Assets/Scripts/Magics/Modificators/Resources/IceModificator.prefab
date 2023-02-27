@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7570615776162807021}
   - component: {fileID: 855807877218409706}
-  - component: {fileID: 6630041531914114412}
   m_Layer: 0
   m_Name: IceModificator
   m_TagString: Untagged
@@ -46,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInfo: {fileID: 0}
+  _tick: {fileID: 0}
   _info:
     tir: 0
     type: 
@@ -63,35 +63,3 @@ MonoBehaviour:
   _timeActionCur: 0
   _filling: 0
   _element: {fileID: 0}
---- !u!114 &6630041531914114412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992419353317761040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnTickPassed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 855807877218409706}
-        m_TargetAssemblyTypeName: com.czeeep.spell.modificator.SphereModificator,
-          Assembly-CSharp
-        m_MethodName: DoDamage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _tickTime: 1
-  _tickTimeCur: 0
-  _mayUpdateTick: 1
-  _passTick: 0

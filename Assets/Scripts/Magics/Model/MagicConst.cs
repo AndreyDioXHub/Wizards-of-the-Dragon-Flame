@@ -121,7 +121,37 @@ public static class MagicConst
         {POISON,"PoisonModificator" },
         {ICE,"IceModificator" },
         {SHIELD,"ShieldModificator" },
-        {STUN,"StunModificator" }
+        {STUN,"StunModificator" },
+        {FIREBALL1,"FireBall1Modificator" },
+        {DARKBALL,"DarkBallModificator" },
+        {SPEEDUP,"SpeedUpModificator" },
+        {MINEFIRE,"MineFireModificator" },
+        {MINEWATER,"MineWaterModificator " },//
+        {MINEFREEZE,"MineFreezeModificator" },
+        {MINERAZOR,"MineRazorModificator" },
+        {MINEDARK,"MineDarkModificator" },
+        {FORCE1,"Force1Modificator" },
+        {ICICLE1,"Icicle1Modificator" },
+        {FIREBALL2,"FireBall2Modificator" },
+        {DARKFIREBALL,"DarkFireBallModificator" },
+        {MINEPOISON,"MinePoisonModificator" },
+        {MINEICE,"MineIceModificator" },
+        {UNARMOR,"UnArmorModificator" },
+        {FIREBALL3,"FireBall3Modificator" },//
+        {TAUREL,"TaurelModificator" },//
+        {GHOSTING,"GhostingModificator" },//
+        {UNMODIFICATOR,"UnModificatorModificator" },//
+        {FIREBALL4,"FireBall4Modificator" },//
+        {FORCE2,"Force2Modificator" },//
+        {ICICLE2,"Icicle2Modificator" },//
+        {ICICLE3,"Icicle3Modificator" },//
+        {TORNADO,"TornadoModificator" },//
+        {REVIVAL,"RevivalModificator" },//
+        {METEOR,"MeteorModificator" },//
+        {BLAST,"BlastModificator" },//
+        {FIREBLAST,"FireBlastModificator" },//
+        {ENERGYBLAST,"EnergyBlastModificator" },
+        {ICEBLAST,"IceBlastModificator" }
     };
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()
@@ -136,7 +166,37 @@ public static class MagicConst
         {STEAM,TYPE_SPRAY },
         {POISON,TYPE_SPRAY },
         {ICE,TYPE_PROJECTILE },
-        {SHIELD,TYPE_LAZER }
+        {SHIELD,TYPE_LAZER },
+        {FIREBALL1,TYPE_PROJECTILE },
+        {DARKBALL,TYPE_PROJECTILE },
+        {SPEEDUP,TYPE_LAZER },
+        {MINEFIRE,TYPE_PROJECTILE },
+        {MINEWATER,TYPE_PROJECTILE },
+        {MINEFREEZE,TYPE_PROJECTILE },
+        {MINERAZOR,TYPE_PROJECTILE },
+        {MINEDARK,TYPE_PROJECTILE },
+        {FORCE1,TYPE_LAZER },
+        {ICICLE1,TYPE_PROJECTILE },
+        {FIREBALL2,TYPE_PROJECTILE },
+        {DARKFIREBALL,TYPE_PROJECTILE },
+        {MINEPOISON,TYPE_PROJECTILE },
+        {MINEICE,TYPE_PROJECTILE },
+        {UNARMOR,TYPE_LAZER },
+        {FIREBALL3,TYPE_PROJECTILE },
+        {TAUREL,TYPE_PROJECTILE },
+        {GHOSTING,TYPE_LAZER },
+        {UNMODIFICATOR,TYPE_LAZER },
+        {FIREBALL4,TYPE_PROJECTILE },
+        {FORCE2,TYPE_LAZER },
+        {ICICLE2,TYPE_PROJECTILE },
+        {ICICLE3,TYPE_PROJECTILE },
+        {TORNADO,TYPE_LAZER },
+        {REVIVAL,TYPE_PROJECTILE },
+        {METEOR,TYPE_PROJECTILE },
+        {BLAST,TYPE_SPRAY },
+        {FIREBLAST,TYPE_SPRAY },
+        {ENERGYBLAST,TYPE_SPRAY },
+        {ICEBLAST,TYPE_SPRAY }
     };
 
     public static readonly Dictionary<int, string> TYPE_MAGIC = new Dictionary<int, string>()
@@ -158,7 +218,37 @@ public static class MagicConst
         {STEAM,"Magic" },
         {POISON,"Magic" },
         {ICE,"Magic" },
-        {SHIELD,"Magic" }
+        {SHIELD,"Magic" },
+        {FIREBALL1,"Magic" },
+        {DARKBALL,"Magic" },
+        {SPEEDUP,"Magic" },
+        {MINEFIRE,"Magic" },
+        {MINEWATER,"Magic" },
+        {MINEFREEZE,"Magic" },
+        {MINERAZOR,"Magic" },
+        {MINEDARK,"Magic" },
+        {FORCE1,"Magic" },
+        {ICICLE1,"Magic" },
+        {FIREBALL2,"Magic" },
+        {DARKFIREBALL,"Magic" },
+        {MINEPOISON,"Magic" },
+        {MINEICE,"Magic" },
+        {UNARMOR,"Magic" },
+        {FIREBALL3,"Magic" },
+        {TAUREL,"Magic" },
+        {GHOSTING,"Magic" },
+        {UNMODIFICATOR,"Magic" },
+        {FIREBALL4,"Magic" },
+        {FORCE2,"Magic" },
+        {ICICLE2,"Magic" },
+        {ICICLE3,"Magic" },
+        {TORNADO,"Magic" },
+        {REVIVAL,"Magic" },
+        {METEOR,"Magic" },
+        {BLAST,"Magic" },
+        {FIREBLAST,"Magic" },
+        {ENERGYBLAST,"Magic" },
+        {ICEBLAST,"Magic" }
     };
 
     public static readonly Dictionary<string, List<string>> MELT_CAST_SEQUENCES = new Dictionary<string, List<string>>()

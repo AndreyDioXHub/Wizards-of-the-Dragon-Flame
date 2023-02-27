@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 public class Tick : MonoBehaviour
 {
-    public UnityEvent OnTickPassed;
+    public UnityEvent OnTickPassed = new UnityEvent();
 
     public float TickFill { get => (1 - _tickTimeCur/ _tickTime); }
 
     [SerializeField]
-    private float _tickTime = 2;
+    private float _tickTime = 1;
     [SerializeField]
     private float _tickTimeCur;
 
@@ -25,8 +25,16 @@ public class Tick : MonoBehaviour
         
     }
 
+    public void Init(float tickTime = 1, float tickTimeCur = 0, bool mayUpdateTick = true, bool passTick = false)
+    {
+        _tickTime = tickTime;
+        _tickTimeCur = tickTimeCur;
+        _mayUpdateTick = mayUpdateTick;
+        _passTick = passTick;
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _tickTimeCur += Time.deltaTime;
 

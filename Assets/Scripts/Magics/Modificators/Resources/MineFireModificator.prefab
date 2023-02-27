@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570615776162807021}
-  - component: {fileID: 5893635165606398776}
+  - component: {fileID: 858427893478823253}
   m_Layer: 0
-  m_Name: EarthModificator
+  m_Name: MineFireModificator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5893635165606398776
+--- !u!114 &858427893478823253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992419353317761040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6658208c8f976d043bb7d5e862681560, type: 3}
+  m_Script: {fileID: 11500000, guid: d6c8066212d4e2f4a90fe81b4c479660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInfo: {fileID: 0}
@@ -49,10 +49,10 @@ MonoBehaviour:
   _info:
     tir: 0
     type: 
-    key: earth
-    time: 1
+    key: 
+    time: 0
     maxPower: 0
-    power: 1
+    power: 0
     damageFull: 0
     damage: 0
     multiplierHitPoint: 0

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9044201275405783422}
   - component: {fileID: 1599782244325931130}
-  - component: {fileID: -3419975662608217004}
   m_Layer: 0
   m_Name: LifeModificator
   m_TagString: Untagged
@@ -46,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInfo: {fileID: 0}
+  _tick: {fileID: 0}
   _info:
     tir: 0
     type: 
@@ -59,37 +59,7 @@ MonoBehaviour:
     multiplierShieldPoint: 0
     slowdown: 0
     additionalEffects: []
+    hidingSpheres: []
   _timeActionCur: 0
   _filling: 0
   _element: {fileID: 0}
---- !u!114 &-3419975662608217004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095836012926127491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnTickPassed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1599782244325931130}
-        m_TargetAssemblyTypeName: com.czeeep.spell.modificator.ModificatorLife, Assembly-CSharp
-        m_MethodName: DoDamage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _tickTime: 1
-  _tickTimeCur: 0
-  _mayUpdateTick: 1
-  _passTick: 0
