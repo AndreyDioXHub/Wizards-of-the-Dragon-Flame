@@ -204,7 +204,7 @@ namespace com.czeeep.spell.magicmodel
                                     //do cost here
                                     break;
                                 case MetaSphereType.damage:
-                                    AddModificator(meta.name, 1);
+                                    AddModificator(meta.name, 1, PlayerNetwork.LocalPlayerInstance.transform.forward);
                                     break;
                                 default:
                                     break;
@@ -350,11 +350,11 @@ namespace com.czeeep.spell.magicmodel
         [ContextMenu("Add Modificator")]
         public void AddModificator()
         {
-            AddModificator(MagicConst.FREEZE, 7);
+            AddModificator(MagicConst.FORCE1, 7, PlayerNetwork.LocalPlayerInstance.transform.forward);
         }
 
 
-        public void AddModificator(string key, int power)
+        public void AddModificator(string key, int power, Vector3 direction)
         {
             Debug.Log($"AddModificator {key} ");
             CollectModificators();
@@ -409,7 +409,7 @@ namespace com.czeeep.spell.magicmodel
                 {
                     GameObject go = Instantiate(Resources.Load<GameObject>(MagicConst.MODIFICATOR_BY_KEY[key]), _player.ModelBackPackModificator);
                     SphereModificator modificator = go.GetComponent<SphereModificator>();
-                    modificator.Init(key, power);
+                    modificator.Init(key, power, direction);
 
                 }
                 catch (KeyNotFoundException e)

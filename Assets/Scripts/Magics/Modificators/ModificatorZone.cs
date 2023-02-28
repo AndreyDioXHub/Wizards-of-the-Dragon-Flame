@@ -13,6 +13,10 @@ namespace com.czeeep.spell.biom {
 
         [SerializeField]
         private Tick _tick;
+        [SerializeField]
+        private Transform _centerZone;
+        [SerializeField]
+        private Vector3 _dirToPlayer;
 
         [SerializeField, Tooltip("Config type for this biom")]
         private Bioms biomType = Bioms.none;
@@ -57,7 +61,8 @@ namespace com.czeeep.spell.biom {
             Destroy(gameObject.transform.parent.gameObject);
         }
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter(Collider other) 
+        {
             _tick.UpdateTick();
             _other = other;
             AddModificator();
@@ -67,15 +72,22 @@ namespace com.czeeep.spell.biom {
                 DestroyZone();
             }
         }
-        private void OnTriggerExit(Collider other) {
+
+        private void OnTriggerExit(Collider other) 
+        {
             _other = null;
         }
 
-        public void AddModificator() {
-            if (_other != null) {
-                if (_other.tag == "Player") {
+        public void AddModificator() 
+        {
+            if (_other != null) 
+            {
+                if (_other.tag == "Player") 
+                {
+                    _dirToPlayer = _other.transform.position - _centerZone.position;
+                    _dirToPlayer = _dirToPlayer.normalized;
                     //Debug.Log("UpdateTick AddModificator ");
-                    MagicModel.Instance.AddModificator(_element, _power);
+                    MagicModel.Instance.AddModificator(_element, _power, _dirToPlayer);
                 }
             }
         }

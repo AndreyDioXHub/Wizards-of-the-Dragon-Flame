@@ -126,7 +126,7 @@ public static class MagicConst
         {DARKBALL,"DarkBallModificator" },
         {SPEEDUP,"SpeedUpModificator" },
         {MINEFIRE,"MineFireModificator" },
-        {MINEWATER,"MineWaterModificator " },
+        {MINEWATER,"MineWaterModificator" },
         {MINEFREEZE,"MineFreezeModificator" },
         {MINERAZOR,"MineRazorModificator" },
         {MINEDARK,"MineDarkModificator" },
@@ -163,7 +163,11 @@ public static class MagicConst
         {MINEDARK, new ProjectileInfo(20, 120, -9.8f, false) },
         {MINEPOISON, new ProjectileInfo(20, 120, -9.8f, false)  },
         {MINEICE, new ProjectileInfo(20, 120, -9.8f, false)  },
-        {TAUREL, new ProjectileInfo(20, 120, -9.8f, false) }
+        {TAUREL, new ProjectileInfo(20, 120, -9.8f, false) },
+        {BLAST, new ProjectileInfo(20, 5, 0, false) },
+        {FIREBLAST, new ProjectileInfo(20, 5, 0, false) },
+        {ENERGYBLAST, new ProjectileInfo(20, 5, 0, false) },
+        {ICEBLAST, new ProjectileInfo(20, 5, 0, false) }
     };
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()

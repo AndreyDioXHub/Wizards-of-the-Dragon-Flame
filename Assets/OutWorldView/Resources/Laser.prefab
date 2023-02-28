@@ -144,9 +144,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 8900010919748196679}
-  _element: 0
+  _centerZone: {fileID: 3791706573347126314}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
+  biomType: 0
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!114 &8900010919748196679
 MonoBehaviour:
   m_ObjectHideFlags: 0

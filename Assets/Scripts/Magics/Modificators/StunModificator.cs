@@ -9,9 +9,9 @@ namespace com.czeeep.spell.modificator
 {
     public class StunModificator : SphereModificator
     {
-        public override void Init(string key, int power)
+        public override void Init(string key, int power, Vector3 fromHitWhereDirection)
         {
-            base.Init(key, power);
+            base.Init(key, power, fromHitWhereDirection);
             MagicModel.Instance.ReturnAllSphereToInventory(); 
         }
 

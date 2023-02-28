@@ -22,6 +22,8 @@ namespace com.czeeep.spell.modificator
         protected float _timeActionCur;
         [SerializeField]
         protected float _filling;
+        [SerializeField]
+        protected Vector3 _fromHitWhereDirection;
 
         [SerializeField]
         protected ModificatorElementView _element;
@@ -31,14 +33,15 @@ namespace com.czeeep.spell.modificator
             
         }
 
-        public virtual void Init(string key, int power)
+        public virtual void Init(string key, int power, Vector3 fromHitWhereDirection)
         {
             Named();
 
             _timeActionCur = 0;
             _info = new ModificatorInfo(key, power);
             _playerInfo = PlayerNetwork.Info;
-
+            _fromHitWhereDirection = fromHitWhereDirection;
+            Debug.Log($"fromHitWhereDirection {fromHitWhereDirection}" );
             if (_info.power > _info.maxPower)
             {
                 _info.power = _info.maxPower;
@@ -54,7 +57,7 @@ namespace com.czeeep.spell.modificator
 
             foreach(var addMod in _info.additionalEffects)
             {
-                MagicModel.Instance.AddModificator(addMod, _info.power);
+                MagicModel.Instance.AddModificator(addMod, _info.power, PlayerNetwork.LocalPlayerInstance.transform.forward);
             }
 
             DoDamage();

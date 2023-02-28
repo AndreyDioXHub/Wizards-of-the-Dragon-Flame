@@ -266,9 +266,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 165801429}
+  _centerZone: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 2
+  _element: 
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!1 &198001848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,9 +1361,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 564626557}
+  _centerZone: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 1
+  _element: 
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!65 &564626559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2674,6 +2682,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010404151}
   m_CullTransparentMesh: 1
+--- !u!1001 &1033084826
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 703004426172594163, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_Name
+      value: ForceLaser
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266909777529532619, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: _element
+      value: force1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
 --- !u!1 &1040638447
 GameObject:
   m_ObjectHideFlags: 0
@@ -4513,9 +4582,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1578516035}
+  _centerZone: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 4
+  _element: 
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!65 &1578516037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5686,9 +5759,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1864928944}
+  _centerZone: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 64
+  _element: 
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!65 &1864928946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6310,9 +6387,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tick: {fileID: 1911483315}
+  _centerZone: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 16
+  _element: 
   _power: 1
   _other: {fileID: 0}
+  _destroyAfterColliding: 0
 --- !u!65 &1911483317
 BoxCollider:
   m_ObjectHideFlags: 0

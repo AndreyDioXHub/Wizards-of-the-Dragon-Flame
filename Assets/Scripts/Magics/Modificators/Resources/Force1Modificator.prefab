@@ -62,4 +62,7 @@ MonoBehaviour:
     hidingSpheres: []
   _timeActionCur: 0
   _filling: 0
+  _fromHitWhereDirection: {x: 0, y: 0, z: 0}
   _element: {fileID: 0}
+  _character: {fileID: 0}
+  _speed: 10
