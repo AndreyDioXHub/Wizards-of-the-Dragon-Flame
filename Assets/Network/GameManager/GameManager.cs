@@ -19,6 +19,7 @@ namespace com.czeeep.network {
         const string UpdateMethodCall = "MasterUpdateSpheres";
 
         public static GameManager Instance;
+        public static bool LikeABot = false;
         public GameObject playerPrefab;
 
         public Joystick joystick;
@@ -95,8 +96,10 @@ namespace com.czeeep.network {
                 if(PlayerNetwork.LocalPlayerInstance == null) {
                     Debug.LogFormat("We are Instantinating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
                     var GO = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.one * Random.Range(5,10), Quaternion.identity, 0);
+
                     //GO.GetComponent<PlayerAnimationManager>().SetControl(joystick);
-                    //GO.GetComponent<PlayerManager>().SetFireButton(fireButton);
+                    var pj = GO.GetComponent<PlayerJoystick>();
+                    if (LikeABot) Destroy(pj);
                 } else {
                     //PlayerManager.LocalPlayerInstance.GetComponent<PlayerAnimationManager>().SetControl(joystick);
                     //PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().SetFireButton(fireButton);
