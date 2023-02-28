@@ -101,30 +101,21 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
                 Debug.Log("!string.IsNullOrEmpty(_elementFromFunction)");
                 _element = _elementFromFunction;
                 _power = _powerFromFunction;
-                //_zone.UpdateInfo(_element, _power);
+                Init();
                 _initFromFunction = false;
                 _init = true;
             }
         }
         else
         {
-            
-        }
-
-        if (_init)
-        {
-            if (MagicConst.TYPE_PROJECTILE_BY_KEY.TryGetValue(_element, out ProjectileInfo value))
+            if (_init)
             {
-                _info = value;
+                Init();
+
+                _init = false;
             }
-
-            _info.speed = _info.speed / _power;
-            _tick.UpdateInfo(_info.timeToDestroy);
-
-            _zone.UpdateInfo(_element, _power);
-
-            _init = false;
         }
+        
 
         if (_info.destroyAfterGrounding && _isGrounded)
         {
@@ -132,6 +123,19 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         }
         
 
+    }
+
+    public void Init() 
+    {
+        if (MagicConst.TYPE_PROJECTILE_BY_KEY.TryGetValue(_element, out ProjectileInfo value))
+        {
+            _info = value;
+        }
+
+        _info.speed = _info.speed / _power;
+        _tick.UpdateInfo(_info.timeToDestroy);
+
+        _zone.UpdateInfo(_element, _power);
     }
 
     public void UpdateInfo(string element, int power) 
