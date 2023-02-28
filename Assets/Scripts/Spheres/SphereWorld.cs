@@ -121,7 +121,7 @@ public class SphereWorld : MonoBehaviour
                 _image.color = new Color(0.56f, 0.62f, 1, 1);
                 break;
             case SpheresElements.earth:
-                _image.color = new Color(0.54f, 1, 0.38f, 1);
+                _image.color = new Color(0.54f, 0.38f, 0.18f, 1);
                 break;
             case SpheresElements.freeze:
                 _image.color = new Color(0.85f, 1, 0.9f, 1);
@@ -138,6 +138,7 @@ public class SphereWorld : MonoBehaviour
             default:
                 break;
         }
+        Debug.Log($"Set color for sphere: {element.ToString()} as {ColorUtility.ToHtmlStringRGB(_image.color)}");
     }
     internal byte[] GetHashData() {
         byte[] bmask = BitSphere.ConvertSphere6((int)_element, _count, transform.position);
