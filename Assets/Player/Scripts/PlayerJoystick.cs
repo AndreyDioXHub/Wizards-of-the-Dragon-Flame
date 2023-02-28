@@ -37,4 +37,8 @@ public class PlayerJoystick : MonoBehaviour
         _pointMain.position = transform.position + _mousePosWorld;
         //_pointMain.position = Vector3.MoveTowards(_pointMain.position, _pointJoystick.position, Vector3.Distance(_pointJoystick.position, _pointMain.position)* _info.MouseSensitivity);
     }
+
+    private void OnDestroy() {
+        _pointMain.localPosition = Vector3.zero;
+    }
 }

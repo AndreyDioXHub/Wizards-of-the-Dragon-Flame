@@ -85,6 +85,10 @@ namespace com.cyraxchel.pun {
             }
         }
 
+        public void SetBotState(bool isBot) {
+            com.czeeep.network.GameManager.LikeABot = isBot;
+        }
+
         // Update is called once per frame
         void Update() {
 
