@@ -350,7 +350,7 @@ namespace com.czeeep.spell.magicmodel
         [ContextMenu("Add Modificator")]
         public void AddModificator()
         {
-            AddModificator("freze", 7);
+            AddModificator(MagicConst.FREEZE, 7);
         }
 
 

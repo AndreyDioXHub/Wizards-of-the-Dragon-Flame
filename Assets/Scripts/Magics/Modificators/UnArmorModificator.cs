@@ -9,5 +9,10 @@ namespace com.czeeep.spell.modificator
     public class UnArmorModificator : SphereModificator
     {
 
+        public override void DoDamage()
+        {
+            //base.DoDamage();
+            _playerInfo.UnArmor();
+        }
     }
 }

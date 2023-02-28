@@ -40,6 +40,8 @@ public class PlayerInfo : MonoBehaviour
     private float _slowdown = 1;
     [SerializeField]
     private bool _isStuned = false;
+    [SerializeField]
+    private bool _isGhost = false;
     //сделать мув поинт с замедлом вращения
 
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
@@ -48,6 +50,10 @@ public class PlayerInfo : MonoBehaviour
     };
     
     private Dictionary<string, bool> _isStunedDictionary = new Dictionary<string, bool>()
+    {
+        {"base", false }
+    };
+    private Dictionary<string, bool> _isGhostDictionary = new Dictionary<string, bool>()
     {
         {"base", false }
     };
@@ -77,6 +83,33 @@ public class PlayerInfo : MonoBehaviour
         {
             StaffModel.Instance.ShootStop();
         }
+    }
+    public void SetGhost(string key, bool isGhost)
+    {
+
+        if (_isGhostDictionary.TryGetValue(key, out bool value))
+        {
+            _isGhostDictionary[key] = isGhost;
+        }
+        else
+        {
+            _isGhostDictionary.Add(key, isGhost);
+        }
+
+        bool isGhostTotal = false;
+
+        foreach (var issh in _isGhostDictionary)
+        {
+            isGhostTotal = isGhostTotal || issh.Value;
+        }
+
+        _isGhost = isGhostTotal;
+
+        /*
+        if (_isStuned)
+        {
+            StaffModel.Instance.ShootStop();
+        }*/
     }
 
     public void SetHPView(HitPointView hpView)
@@ -136,17 +169,23 @@ public class PlayerInfo : MonoBehaviour
 
     public void MakeDamage(float damage, float hpMultyplier = 1, float spMultyplier = 1)
     {
-        if(spMultyplier != 0)
+        if (_isGhost)
         {
 
-            float damageLeft = 0;
-
-            MakeShieldPointDamage(damage, out damageLeft);
-            MakeHitPointDamage(hpMultyplier * (damageLeft / spMultyplier));
         }
         else
         {
-            MakeHitPointDamage(hpMultyplier * damage);
+            if (spMultyplier != 0)
+            {
+                float damageLeft = 0;
+
+                MakeShieldPointDamage(damage, out damageLeft);
+                MakeHitPointDamage(hpMultyplier * (damageLeft / spMultyplier));
+            }
+            else
+            {
+                MakeHitPointDamage(hpMultyplier * damage);
+            }
         }
     } 
 
