@@ -101,11 +101,11 @@ public static class MagicConst
         {TORNADO, new  ModificatorInfo(8, TYPE_LAZER, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
         {REVIVAL, new  ModificatorInfo(10, TYPE_PROJECTILE, REVIVAL, 1f, 5, 0f, 0, 0, 0, new List<string>())},
         {METEOR, new  ModificatorInfo(10, TYPE_PROJECTILE, METEOR, 5f, 1, 280f, 1, 1, 0, new List<string>(){FIRE, FIRE, FIRE, FIRE, FIRE, STUN, STUN, STUN})},
-        {BLAST, new  ModificatorInfo(12, TYPE_SPRAY, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {FIREBLAST, new  ModificatorInfo(13, TYPE_SPRAY, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ENERGYBLAST, new  ModificatorInfo(14, TYPE_SPRAY, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ICEBLAST, new  ModificatorInfo(15, TYPE_SPRAY, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {STUN, new  ModificatorInfo(1, TYPE_SPRAY, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
+        {BLAST, new  ModificatorInfo(12, TYPE_PROJECTILE, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {FIREBLAST, new  ModificatorInfo(13, TYPE_PROJECTILE, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ENERGYBLAST, new  ModificatorInfo(14, TYPE_PROJECTILE, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ICEBLAST, new  ModificatorInfo(15, TYPE_PROJECTILE, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {STUN, new  ModificatorInfo(1, TYPE_LAZER, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
     };
 
     public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
@@ -152,6 +152,18 @@ public static class MagicConst
         {FIREBLAST,"FireBlastModificator" },
         {ENERGYBLAST,"EnergyBlastModificator" },
         {ICEBLAST,"IceBlastModificator" }
+    };
+
+    public static readonly Dictionary<string, ProjectileInfo> TYPE_PROJECTILE_BY_KEY = new Dictionary<string, ProjectileInfo>()
+    {
+        {MINEFIRE, new ProjectileInfo(20, 120, -9.8f, false) },
+        {MINEWATER, new ProjectileInfo(20, 120, -9.8f, false) },
+        {MINEFREEZE, new ProjectileInfo(20, 120, -9.8f, false) },
+        {MINERAZOR, new ProjectileInfo(20, 120, -9.8f, false) },
+        {MINEDARK, new ProjectileInfo(20, 120, -9.8f, false) },
+        {MINEPOISON, new ProjectileInfo(20, 120, -9.8f, false)  },
+        {MINEICE, new ProjectileInfo(20, 120, -9.8f, false)  },
+        {TAUREL, new ProjectileInfo(20, 120, -9.8f, false) }
     };
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()

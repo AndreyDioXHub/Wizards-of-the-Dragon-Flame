@@ -8,6 +8,29 @@ namespace com.czeeep.spell.modificator
 {
     public class UnModificatorModificator : SphereModificator
     {
+        public override void Init(string key, int power)
+        {
+            base.Init(key, power);
+            //MagicModel.Instance.ReturnAllSphereToInventory();
+            Transform parent = transform.parent;
+            List<GameObject> childs = new List<GameObject>();
+
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                if(parent.GetChild(i).gameObject != gameObject)
+                {
+                    childs.Add(parent.GetChild(i).gameObject);
+                }
+            }
+
+            foreach (GameObject child in childs)
+            {
+                child.GetComponent<SphereModificator>().DestroyModificator();
+            }
+
+            childs = null;
+        }
+
         public override int CheckCancel(string sphere, int power, out bool isCancel)
         {
             base.CheckCancel(sphere, power, out isCancel);

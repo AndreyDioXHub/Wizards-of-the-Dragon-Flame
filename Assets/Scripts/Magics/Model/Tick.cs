@@ -25,7 +25,7 @@ public class Tick : MonoBehaviour
         
     }
 
-    public void Init(float tickTime = 1, float tickTimeCur = 0, bool mayUpdateTick = true, bool passTick = false)
+    public void UpdateInfo(float tickTime = 1, float tickTimeCur = 0, bool mayUpdateTick = true, bool passTick = false)
     {
         _tickTime = tickTime;
         _tickTimeCur = tickTimeCur;

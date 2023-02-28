@@ -233,6 +233,7 @@ MonoBehaviour:
   _speed: 5
   _slowdown: 1
   _isStuned: 0
+  _isGhost: 0
 --- !u!114 &-3889067943508537448
 MonoBehaviour:
   m_ObjectHideFlags: 0

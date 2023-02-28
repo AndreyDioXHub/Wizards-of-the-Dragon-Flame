@@ -109,7 +109,7 @@ public class OutMagic : MonoBehaviour
                                 break;
                             case "projectile":
                                 Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
-                                Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.2f;
+                                Vector3 projPosition = playerTransform.position + playerTransform.forward * 2f;
                                 GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
                                 Projectile mzp = gop.GetComponent<Projectile>();
                                 mzp.UpdateInfo(magic.key, magic.power);

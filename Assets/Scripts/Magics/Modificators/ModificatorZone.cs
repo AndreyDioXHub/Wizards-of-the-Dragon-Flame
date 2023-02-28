@@ -26,6 +26,9 @@ namespace com.czeeep.spell.biom {
         int increaseValue = 0;
         int decreaseValue = 0;
 
+        [SerializeField]
+        private bool _destroyAfterColliding = false;
+
 
         public Bioms ZoneBiom { get => biomType; }
 
@@ -58,6 +61,11 @@ namespace com.czeeep.spell.biom {
             _tick.UpdateTick();
             _other = other;
             AddModificator();
+
+            if (_destroyAfterColliding)
+            {
+                DestroyZone();
+            }
         }
         private void OnTriggerExit(Collider other) {
             _other = null;

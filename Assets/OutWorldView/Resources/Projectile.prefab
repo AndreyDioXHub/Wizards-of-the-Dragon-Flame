@@ -55,9 +55,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5266909777529532619, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: _destroyAfterColliding
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8171101962976550524, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8171101962976550524, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8171101962976550524, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8171101962976550524, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -95,19 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnTickPassed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1821868363024022412}
-        m_TargetAssemblyTypeName: Projectile, Assembly-CSharp
-        m_MethodName: DestroyProjectile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _tickTime: 10
   _tickTimeCur: 0
   _mayUpdateTick: 1
@@ -124,13 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d745cf02dbfe04c97cd5bc0f2a017c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _tick: {fileID: -7487898598482801994}
   _zone: {fileID: 1582238950249380077}
-  _elementFromFunction: 
-  _powerFromFunction: 0
-  _element: 
-  _power: 0
-  _init: 0
+  _info:
+    speed: 50
+    timeToDestroy: 10
+    gravity: -9.8
+    destroyAfterGrounding: 1
 --- !u!114 &4480605368243875017
 MonoBehaviour:
   m_ObjectHideFlags: 0
