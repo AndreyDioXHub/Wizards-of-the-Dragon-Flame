@@ -124,7 +124,7 @@ public class OutMagic : MonoBehaviour
                             case "mine":
                                 if(_isMine) {
                                     Vector3 minepos = PlayerNetwork.LocalPlayerInstance.transform.position + PlayerNetwork.LocalPlayerInstance.transform.forward * 3f;
-                                    PhotonNetwork.Instantiate("Mine", minepos, Quaternion.identity);
+                                    PhotonNetwork.InstantiateRoomObject("Mine", minepos, Quaternion.identity);
                                 }
                                 
                                 break;
