@@ -43,6 +43,8 @@ namespace com.czeeep.network {
             if (_config == null) {
                 Debug.Log("Create config: <b>Later load it from settings</b>");
                 _config = new SphereConfig();
+            } else {
+                _config.Init();
             }
             photonView = PhotonView.Get(this);
         }
@@ -162,7 +164,7 @@ namespace com.czeeep.network {
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Количество сфер в группе")]
-            public int MaxSpheresInGroup = 20;
+            int MaxSpheresInGroup = 0;
             [Tooltip("Общее начальное количество сфер на игру")]
             public int MaxSpheresTotal = 160;
 
@@ -174,9 +176,14 @@ namespace com.czeeep.network {
 
             public SphereConfig() {
                 Instance = this;
+                Init();
+            }
+
+            public void Init() {
                 //Prepare array of base elements
                 CollectBaseSphereArray();
                 MaxSpheresInGroup = MaxSpheresTotal / baseSpheres.Count;
+                Debug.Log($"MaxSpheresInGroup = {MaxSpheresInGroup}");
             }
             #region PRIVATE METHODS
 

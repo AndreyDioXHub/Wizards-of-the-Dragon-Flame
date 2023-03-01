@@ -88,7 +88,7 @@ public class SphereWorld : MonoBehaviour
                     }
                     if(hit.collider is TerrainCollider) {
                         Vector3 pos = transform.position;
-                        Debug.Log($"Exist collider point height = {hit.point}, current Y: {transform.position.y}");
+                        //Debug.Log($"Exist collider point height = {hit.point}, current Y: {transform.position.y}");
                         pos.y = hit.point.y + adjustHeight;
                         transform.position = pos;
                     }
@@ -138,7 +138,7 @@ public class SphereWorld : MonoBehaviour
             default:
                 break;
         }
-        Debug.Log($"Set color for sphere: {element.ToString()} as {ColorUtility.ToHtmlStringRGB(_image.color)}");
+        //Debug.Log($"Set color for sphere: {element.ToString()} as {ColorUtility.ToHtmlStringRGB(_image.color)}");
     }
     internal byte[] GetHashData() {
         byte[] bmask = BitSphere.ConvertSphere6((int)_element, _count, transform.position);
