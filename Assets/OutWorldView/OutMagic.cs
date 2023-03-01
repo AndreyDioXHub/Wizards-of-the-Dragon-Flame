@@ -122,6 +122,8 @@ public class OutMagic : MonoBehaviour
                                 }
                                 break;
                             case "mine":
+                                Vector3 minepos = PlayerNetwork.LocalPlayerInstance.transform.position + PlayerNetwork.LocalPlayerInstance.transform.forward*3f;
+                                PhotonNetwork.Instantiate("Mine", minepos, Quaternion.identity);
                                 break;
                             default:
                                 break;
