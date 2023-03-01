@@ -14,9 +14,15 @@ public class MineDemo : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Player" && pview.IsMine) {
+        if(other.tag == "Player") {
+            pview.RPC("CallMyDestroy", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void CallMyDestroy() {
+        if (pview.IsMine) {
             PhotonNetwork.Destroy(gameObject);
-            
         }
     }
 }
