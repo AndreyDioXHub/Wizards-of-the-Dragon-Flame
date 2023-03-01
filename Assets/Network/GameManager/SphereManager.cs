@@ -24,7 +24,7 @@ namespace com.czeeep.network {
         [SerializeField]
         GameObject spherePrefab;
 
-        List<GameObject> _spheres = new List<GameObject>();
+        Dictionary<int, GameObject> _spheresDict = new Dictionary<int, GameObject>();
 
         [SerializeField]
         SphereConfig _config;
@@ -72,33 +72,24 @@ namespace com.czeeep.network {
 
 
         [PunRPC]
-        protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType = 0, int indx = -1) {
+        protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType, int indx) {
             GameObject _sphere = Instantiate(spherePrefab, null);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
-            _spheres.Add(_sphere);
+            //_spheres.Add(_sphere);
+            if(_spheresDict.ContainsKey(indx)) {
+                Debug.LogWarning($"SphereManager.CreateSphere: Key {indx} already exist in sphere dictionary!<b> It will not be updated!</b>");
+            } else {
+                _spheresDict.Add(indx, _sphere);
+            }
             var sworld = _sphere.GetComponent<SphereWorld>();
-            sworld.Init((SpheresElements)elementType, _config.DefaultAmount, _spheres.Count-1);
+            sworld.Init((SpheresElements)elementType, _config.DefaultAmount, indx);
             sworld.GetBiomUnderSphere();
             return sworld;
         }
 
-        //TODO Will remove
-        /*public void SyncSpheres() {
-            if (PhotonNetwork.IsMasterClient) {
-                Debug.Log("Start sync");
-                for (int i = 0; i < _spheres.Count; i++) {
-                    var item = _spheres[i];
-                    if(item != null) {
-                        var _sphere = item.GetComponent<SphereWorld>();
-                        photonView.RPC(CreateSphereAction, RpcTarget.Others, item.transform.position, item.transform.rotation, _sphere.GetElementType(), i);
-                    }
-                }
-            }
-        }/**/
-
         internal void WillDestroyed(int m_index) {
-            //Debug.Log($"SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}");
+            Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
 
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
@@ -111,9 +102,10 @@ namespace com.czeeep.network {
 
         [PunRPC]
         public void RemovedExtenral(int m_index, int caller) {
-            //Debug.Log($"SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}");
+            Debug.Log($"<color=red>SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}</color>");
 
             #region Only MASTER client actions
+            //Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
             if (PhotonNetwork.IsMasterClient) {
                 //Exist in hash?
                 string hashkey = SPHERE_PREFIX + m_index.ToString();
@@ -124,7 +116,8 @@ namespace com.czeeep.network {
                     BitSphere _bs = BitSphere.ConvertToSphere(_bsbyte);
                     _bs.sphereID = (ushort)caller;
                     //Удалить сферу из общего списка
-                    PhotonNetwork.CurrentRoom.CustomProperties.Remove(hashkey);
+                    hashtable[hashkey] = null;
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
                     //Destroy GO - отдельный RPC для всех?
                     photonView.RPC(REMOVE_SPHERE_FROM_WORLD, RpcTarget.All,  m_index, _bs.GetBytes8());
                 }
@@ -139,24 +132,23 @@ namespace com.czeeep.network {
         /// <param name="m_index"></param>
         [PunRPC]
         public void RemoveSphereFromWorld(int m_index, byte[] updated) {
-            //Debug.Log($"SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}");
-            //Удалить всех вместе GO со сферой
-            if (m_index > -1 && m_index < _spheres.Count) {
-                GameObject _go = _spheres[m_index];
-                if (_go != null) {
-                    //Debug.Log($"SphereManager: <b>Exist. Try destroy sphere</b> . {m_index}");
-                    _go.GetComponent<SphereWorld>().SilentDestroy = true;
-                    Destroy(_go);
+            Debug.Log($"<color=red>SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}</color>");
+            if(_spheresDict.ContainsKey(m_index)) {
+                GameObject sgo;
+                if(_spheresDict.TryGetValue(m_index, out sgo)) {
+                    _spheresDict.Remove(m_index);
+                    Destroy(sgo);
+
                 }
             } else {
-                Debug.LogWarning($"Sphere {m_index} not exist.");
+                Debug.LogWarning($"Sphere {m_index} <b>not found in dictionary.</b>");
             }
             //Add removed to his owner player
             BitSphere _bs = BitSphere.ConvertToSphere(updated);
             if(PhotonNetwork.LocalPlayer.ActorNumber == (int)_bs.sphereID) {
                // Debug.Log($"SphereManager: <b>byte count: </b> {updated.Length}");
                 if(_bs.sphereType == 0) {
-                    Debug.Log($"SphereManager: <b>Add empty sphere to user {_bs.sphereID}</b>. Sphere index: {m_index}, type: {_bs.sphereType}, amount: {_bs.amount}");
+                    Debug.Log($"SphereManager: <b>Try add empty sphere to user {_bs.sphereID}</b>. Sphere index: {m_index}, type: {_bs.sphereType}, amount: {_bs.amount}");
                 }
                 MagicModel.Instance.AddSphere(((SpheresElements)_bs.GetIntSphereType()).ToString(), _bs.amount);
             }
