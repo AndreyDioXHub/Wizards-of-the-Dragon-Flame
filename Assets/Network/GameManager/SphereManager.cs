@@ -29,6 +29,15 @@ namespace com.czeeep.network {
         [SerializeField]
         SphereConfig _config;
 
+        Transform spheresRoot { get { 
+                if (_spheresRoot == null) {
+                    GameObject go = new GameObject("spheres pool");
+                    _spheresRoot = go.transform;
+                }
+                return _spheresRoot;
+                } }
+        Transform _spheresRoot = null;
+
         #endregion
 
         #region Public Fields
@@ -43,6 +52,8 @@ namespace com.czeeep.network {
             if (_config == null) {
                 Debug.Log("Create config: <b>Later load it from settings</b>");
                 _config = new SphereConfig();
+            } else {
+                _config.Init();
             }
             photonView = PhotonView.Get(this);
         }
@@ -73,7 +84,7 @@ namespace com.czeeep.network {
 
         [PunRPC]
         protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType, int indx) {
-            GameObject _sphere = Instantiate(spherePrefab, null);
+            GameObject _sphere = Instantiate(spherePrefab, spheresRoot);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
             //_spheres.Add(_sphere);
@@ -89,7 +100,7 @@ namespace com.czeeep.network {
         }
 
         internal void WillDestroyed(int m_index) {
-            Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
 
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
@@ -102,7 +113,7 @@ namespace com.czeeep.network {
 
         [PunRPC]
         public void RemovedExtenral(int m_index, int caller) {
-            Debug.Log($"<color=red>SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}</color>");
 
             #region Only MASTER client actions
             //Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
@@ -132,7 +143,7 @@ namespace com.czeeep.network {
         /// <param name="m_index"></param>
         [PunRPC]
         public void RemoveSphereFromWorld(int m_index, byte[] updated) {
-            Debug.Log($"<color=red>SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}</color>");
             if(_spheresDict.ContainsKey(m_index)) {
                 GameObject sgo;
                 if(_spheresDict.TryGetValue(m_index, out sgo)) {
@@ -146,7 +157,7 @@ namespace com.czeeep.network {
             //Add removed to his owner player
             BitSphere _bs = BitSphere.ConvertToSphere(updated);
             if(PhotonNetwork.LocalPlayer.ActorNumber == (int)_bs.sphereID) {
-               // Debug.Log($"SphereManager: <b>byte count: </b> {updated.Length}");
+                Debug.Log($"SphereManager: <b>ADD {_bs.amount} {(SpheresElements)_bs.GetIntSphereType()} FOR ME: </b> {m_index}");
                 if(_bs.sphereType == 0) {
                     Debug.Log($"SphereManager: <b>Try add empty sphere to user {_bs.sphereID}</b>. Sphere index: {m_index}, type: {_bs.sphereType}, amount: {_bs.amount}");
                 }
@@ -162,18 +173,26 @@ namespace com.czeeep.network {
             [Tooltip("Зона распределения сфер")]
             public Rect rect;
             [Tooltip("Количество сфер в группе")]
-            public int MaxSpheresInGroup = 20;
+            int MaxSpheresInGroup = 0;
             [Tooltip("Общее начальное количество сфер на игру")]
             public int MaxSpheresTotal = 160;
+
+            public static SphereConfig Instance;
 
             List<SpheresElements> baseSpheres;
 
             public int DefaultAmount { get; internal set; } = 5;
 
             public SphereConfig() {
+                Instance = this;
+                Init();
+            }
+
+            public void Init() {
                 //Prepare array of base elements
                 CollectBaseSphereArray();
                 MaxSpheresInGroup = MaxSpheresTotal / baseSpheres.Count;
+                Debug.Log($"MaxSpheresInGroup = {MaxSpheresInGroup}");
             }
             #region PRIVATE METHODS
 
@@ -204,7 +223,9 @@ namespace com.czeeep.network {
             /// </summary>
             /// <returns>Vector3, где по Y стоит статическая высота</returns>
             public static Vector3 GenerateRandomPosition() {
-                Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
+                int xmax = Instance == null ? 100 : (int)Instance.rect.width;
+                int ymax = Instance == null ? 100 : (int)Instance.rect.height;
+                Vector3 pos = new Vector3(UnityEngine.Random.Range(0,xmax), 1.4f, UnityEngine.Random.Range(0, ymax));
                 //Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
