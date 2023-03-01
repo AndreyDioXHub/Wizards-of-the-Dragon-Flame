@@ -84,8 +84,17 @@ namespace com.czeeep.spell.biom {
             {
                 if (_other.tag == "Player") 
                 {
-                    _dirToPlayer = _other.transform.position - _centerZone.position;
-                    _dirToPlayer = _dirToPlayer.normalized;
+                    if (_centerZone != null)
+                    {
+                        _dirToPlayer = _other.transform.position - _centerZone.position;
+                        _dirToPlayer = _dirToPlayer.normalized;
+
+                    }
+                    else
+                    {
+                        _dirToPlayer = Vector3.forward;
+                    }
+
                     //Debug.Log("UpdateTick AddModificator ");
                     MagicModel.Instance.AddModificator(_element, _power, _dirToPlayer);
                 }
