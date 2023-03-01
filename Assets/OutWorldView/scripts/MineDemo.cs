@@ -12,7 +12,7 @@ public class MineDemo : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Player") {
+        if(other.tag == "Player" && PhotonNetwork.IsMasterClient) {
             //PhotonNetwork.GetPhotonView()
             PhotonNetwork.Destroy(gameObject);
         }
