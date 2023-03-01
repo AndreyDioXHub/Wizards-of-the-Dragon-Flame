@@ -56,45 +56,40 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        _time += Time.deltaTime;
+        _nexttime = _time + Time.deltaTime;
+
+        _position = _origin + _info.speed * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
+        _nextPosition = _origin + _info.speed * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
+        _bulletDirection = (_nextPosition - _position).normalized;
+        _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
+
+        _bulletDirection = (_nextPosition - _position).normalized;
+        _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
+
+        if (Physics.Raycast(_position, _bulletDirection, out RaycastHit hit, _bulletDeltaPath))
+        {
+            if (hit.collider.tag.Equals("Ground"))
+            {
+                Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
+                _isGrounded = true;
+            }
+            else
+            {
+                Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.red);
+            }
+        }
+        else
+        {
+            Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
+        }
+
         if (photonView.IsMine)
         {
             if (!_isGrounded)
             {
-                _time += Time.deltaTime;
-                _nexttime = _time + Time.deltaTime;
-
-                _position = _origin + _info.speed * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
-                _nextPosition = _origin + _info.speed * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
-                _bulletDirection = (_nextPosition - _position).normalized;
-                _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
-
                 transform.position = _position;
-
-                _bulletDirection = (_nextPosition - _position).normalized;
-                _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
-
-                if (Physics.Raycast(_position, _bulletDirection, out RaycastHit hit, _bulletDeltaPath))
-                {
-                    if (hit.collider.tag.Equals("Ground"))
-                    {
-                        Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
-                        _isGrounded = true;
-                    }
-                    else
-                    {
-                        Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.red);
-                    }
-                }
-                else
-                {
-                    Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
-                }
             }
-            
-
-            /*
-            float t = Time.deltaTime;
-            transform.position = transform.position + transform.forward * _speed * t + Vector3.up * _gravity * _gravity * t / 2;*/
 
             if (!string.IsNullOrEmpty(_elementFromFunction) && _initFromFunction)
             {
@@ -115,7 +110,6 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
                 _init = false;
             }
         }
-        
 
         if (_info.destroyAfterGrounding && _isGrounded)
         {
@@ -153,10 +147,9 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-
     public void DestroyProjectile()
     {
-        PhotonNetwork.Destroy(photonView);
+        Destroy(gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -166,12 +159,14 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(_element);
             stream.SendNext(_power);
             stream.SendNext(_init);
+            //stream.SendNext(_isGrounded);
         }
         else
         {
             this._element = (string)stream.ReceiveNext();
             this._power = (int)stream.ReceiveNext();
             this._init = (bool)stream.ReceiveNext();
+            //this._isGrounded = (bool)stream.ReceiveNext();
         }
     }
 }

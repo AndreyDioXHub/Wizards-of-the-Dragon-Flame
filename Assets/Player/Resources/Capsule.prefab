@@ -325,6 +325,7 @@ MonoBehaviour:
   _sprayPrefab: {fileID: 265121886947002224, guid: d1aad5d0562a8d04992e158b7cc95202, type: 3}
   _projectilePrefab: {fileID: 6134885336624414677, guid: 5a8c9795214002b46ab537b3431aa0b5, type: 3}
   _selfMagicPrefab: {fileID: 5912864232251750305, guid: 187f465f0bd0578479df48360c7d1753, type: 3}
+  _isMine: 0
 --- !u!114 &6738917798563588107
 MonoBehaviour:
   m_ObjectHideFlags: 0

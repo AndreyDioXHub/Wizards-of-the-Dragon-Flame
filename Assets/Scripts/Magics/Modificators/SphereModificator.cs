@@ -183,7 +183,7 @@ namespace com.czeeep.spell.modificator
     public class ModificatorInfo
     {
         public int tir;
-        public string type;
+        //public string type;
         public string key;
         public float time;
         public int maxPower;
@@ -212,7 +212,7 @@ namespace com.czeeep.spell.modificator
                 }*/
 
                 this.tir = info.tir;
-                this.type = info.type;
+                //this.type = info.type;
                 this.key = key;
                 this.time = info.time;
                 this.maxPower = info.maxPower;
@@ -233,12 +233,12 @@ namespace com.czeeep.spell.modificator
             }
         }
 
-        public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
+        public ModificatorInfo(int tir, string key, float time, int maxPower,
             float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
             List<string> additionalEffects, List<string> hidingSpheres)
         {
             this.tir = tir;
-            this.type = type;
+           // this.type = type;
             this.key = key;
             this.time = time;
             this.power = 1;
@@ -259,12 +259,12 @@ namespace com.czeeep.spell.modificator
             this.additionalEffects = additionalEffects;
             this.hidingSpheres = hidingSpheres;
         }
-        public ModificatorInfo(int tir, string type, string key, float time, int maxPower,
+        public ModificatorInfo(int tir, string key, float time, int maxPower,
             float damageFull, float multiplierHitPoint, float multiplierShieldPoint, float slowdown,
             List<string> additionalEffects)
         {
             this.tir = tir;
-            this.type = type;
+            //this.type = type;
             this.key = key;
             this.time = time;
             this.power = 1;

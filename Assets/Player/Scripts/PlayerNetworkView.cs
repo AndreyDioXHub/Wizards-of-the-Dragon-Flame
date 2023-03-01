@@ -59,16 +59,7 @@ namespace com.czeeep.network.player
             {
                 _mySpheresMagicModificators = CreateSpheresMagicModificatorsString();
 
-                if (!_mySpheresMagicModificators.Equals(_mySpheresMagicModificatorsPrev))
-                {
-                    _transferMagicItems = DeserializeMagicString();
-
-                    OnMagicChanged?.Invoke(_transferMagicItems.magics, photonView.IsMine);
-                    OnModificatorChanged?.Invoke(_transferMagicItems.modificators);
-                    OnSphereChanged?.Invoke(_transferMagicItems.spheres);
-
-                    _mySpheresMagicModificatorsPrev = _mySpheresMagicModificators;
-                }
+                
 
                 //Destroy(_character);
             }
@@ -76,7 +67,17 @@ namespace com.czeeep.network.player
             {
                 return;
             }*/
-            
+
+            if (!_mySpheresMagicModificators.Equals(_mySpheresMagicModificatorsPrev))
+            {
+                _transferMagicItems = DeserializeMagicString();
+
+                OnMagicChanged?.Invoke(_transferMagicItems.magics, photonView.IsMine);
+                OnModificatorChanged?.Invoke(_transferMagicItems.modificators);
+                OnSphereChanged?.Invoke(_transferMagicItems.spheres);
+
+                _mySpheresMagicModificatorsPrev = _mySpheresMagicModificators;
+            }
 
             //_random = Random.Range(-1000, 1000);
 

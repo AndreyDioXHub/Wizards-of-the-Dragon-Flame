@@ -269,7 +269,6 @@ MonoBehaviour:
   _centerZone: {fileID: 0}
   _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 2
-  _element: 
   _power: 1
   _other: {fileID: 0}
   _destroyAfterColliding: 0
@@ -1364,7 +1363,6 @@ MonoBehaviour:
   _centerZone: {fileID: 0}
   _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 1
-  _element: 
   _power: 1
   _other: {fileID: 0}
   _destroyAfterColliding: 0
@@ -4246,7 +4244,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: e - shield
+  m_text: 3 - shield
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4585,7 +4583,6 @@ MonoBehaviour:
   _centerZone: {fileID: 0}
   _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 4
-  _element: 
   _power: 1
   _other: {fileID: 0}
   _destroyAfterColliding: 0
@@ -4725,7 +4722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'q - water '
+  m_text: '1 - water '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5762,7 +5759,6 @@ MonoBehaviour:
   _centerZone: {fileID: 0}
   _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 64
-  _element: 
   _power: 1
   _other: {fileID: 0}
   _destroyAfterColliding: 0
@@ -6390,7 +6386,6 @@ MonoBehaviour:
   _centerZone: {fileID: 0}
   _dirToPlayer: {x: 0, y: 0, z: 0}
   biomType: 16
-  _element: 
   _power: 1
   _other: {fileID: 0}
   _destroyAfterColliding: 0
@@ -6530,7 +6525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: r - freze
+  m_text: 4 - freze
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7246,7 +7241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'w -life '
+  m_text: '2 -life '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

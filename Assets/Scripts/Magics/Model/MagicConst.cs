@@ -11,6 +11,7 @@ public static class MagicConst
     public static readonly string TYPE_SPRAY = "spray";
     public static readonly string TYPE_LAZER = "lazer";
     public static readonly string TYPE_PROJECTILE = "projectile";
+    public static readonly string TYPE_MINE = "mine";
 
     public static readonly string LIFE = "life";
     public static readonly string FIRE = "fire";
@@ -64,48 +65,48 @@ public static class MagicConst
     //List<string> additionalEffects, type, List<string> meltCastSequences
     public static readonly Dictionary<string, ModificatorInfo> MAGICS_MODIFICATOR_BY_KEY = new Dictionary<string, ModificatorInfo>()
     {
-        {LIFE, new  ModificatorInfo(1, TYPE_LAZER, LIFE, 5f, 5, -50f, 1, 0, 0, new List<string>(), new List<string>(){DARK})},
-        {FIRE, new  ModificatorInfo(1, TYPE_SPRAY, FIRE, 5f, 5, 50f, 1, 1, 0, new List<string>(), new List<string>(){FREEZE, WATER})},
-        {WATER, new  ModificatorInfo(1, TYPE_SPRAY, WATER, 20f, 5, 0f, 0, 0, 1, new List<string>(), new List<string>(){FIRE, STEAM, RAZOR})},
-        {EARTH, new  ModificatorInfo(1, TYPE_PROJECTILE, EARTH, 1f, 5, 50f, 1, 1, 0, new List<string>(){STUN})},
-        {FREEZE, new  ModificatorInfo(1, TYPE_SPRAY, FREEZE, 10f, 5, 50f, 1, 0, 1, new List<string>(), new List<string>(){ FIRE, WATER})},
-        {RAZOR, new  ModificatorInfo(1, TYPE_LAZER, RAZOR, 5f, 5, 50f, 1, 2, 0, new List<string>(), new List<string>(){WATER})},
-        {DARK, new  ModificatorInfo(1, TYPE_LAZER, DARK, 10f, 5, 50f, 1, 0, 1, new List<string>(), new List<string>(){LIFE, WATER })},
-        {SHIELD, new  ModificatorInfo(1, TYPE_LAZER, SHIELD, 5f, 5, -50f, 0, 1, 0, new List<string>())},
-        {STEAM, new  ModificatorInfo(2, TYPE_SPRAY, STEAM, 20f, 5, 0f, 0, 0, 2, new List<string>(), new List<string>(){FIRE, WATER, RAZOR})},
-        {POISON, new  ModificatorInfo(2, TYPE_SPRAY, POISON, 10f, 5, 60f, 1, 0, 2, new List<string>(), new List<string>(){LIFE, WATER})},
-        {ICE, new  ModificatorInfo(2, TYPE_PROJECTILE, ICE, 1f, 5, 60f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
-        {FIREBALL1, new  ModificatorInfo(2, TYPE_PROJECTILE, FIREBALL1, 1f, 5, 60f, 1, 1, 0, new List<string>(){FIRE, STUN})},
-        {DARKBALL, new  ModificatorInfo(2, TYPE_PROJECTILE, DARKBALL, 1f, 5, 60f, 2, 1, 0, new List<string>(){DARK, STUN})},
-        {SPEEDUP, new  ModificatorInfo(2, TYPE_LAZER, SPEEDUP, 20f, 5, -60f, 1, 0, -2, new List<string>())},
-        {MINEFIRE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFIRE, 1f, 1, 60f, 1, 1, 0, new List<string>(){FIRE, FORCE1, STUN})},
-        {MINEWATER, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEWATER, 1f, 1, 60f, 1, 1, 1, new List<string>(){WATER, FORCE1, STUN})},
-        {MINEFREEZE, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEFREEZE, 1f, 1, 60f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, STUN})},
-        {MINERAZOR, new  ModificatorInfo(2, TYPE_PROJECTILE, MINERAZOR, 1f, 1, 60f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, STUN, UNARMOR})},
-        {MINEDARK, new  ModificatorInfo(2, TYPE_PROJECTILE, MINEDARK, 1f, 1, 60f, 2, 1, 0, new List<string>(){DARK, FORCE1, STUN})},
-        {FORCE1, new  ModificatorInfo(3, TYPE_LAZER, FORCE1, 1f, 25, 0f, 0, 0, 0, new List<string>())},
-        {ICICLE1, new  ModificatorInfo(3, TYPE_PROJECTILE, ICICLE1, 1f, 5, 72f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
-        {FIREBALL2, new  ModificatorInfo(3, TYPE_PROJECTILE, FIREBALL2, 1f, 5, 72f, 1, 1, 0, new List<string>(){FIRE, STUN})},
-        {DARKFIREBALL, new  ModificatorInfo(3, TYPE_PROJECTILE, DARKFIREBALL, 1f, 5, 72f, 2, 1, 0, new List<string>(){DARK, FIRE, STUN})},
-        {MINEPOISON, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEPOISON, 1f, 1, 72f, 2, 1, 0, new List<string>(){POISON, FORCE1, STUN})},
-        {MINEICE, new  ModificatorInfo(3, TYPE_PROJECTILE, MINEICE, 1f, 1, 72f, 2, 1, 0, new List<string>(){ICE, FORCE1, STUN})},
-        {UNARMOR, new  ModificatorInfo(3, TYPE_LAZER, UNARMOR, 1f, 1, 0f, 0, 0, 0, new List<string>())},
-        {FIREBALL3, new  ModificatorInfo(4, TYPE_PROJECTILE, FIREBALL3, 1f, 5, 90f, 1, 1, 0, new List<string>(){FIRE, FIRE, STUN})},
-        {TAUREL, new  ModificatorInfo(4, TYPE_PROJECTILE, TAUREL, 1f, 5, 90f, 1, 2, 0, new List<string>(){RAZOR, RAZOR, UNARMOR})},
-        {GHOSTING, new  ModificatorInfo(5, TYPE_LAZER, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
-        {UNMODIFICATOR, new  ModificatorInfo(5, TYPE_LAZER, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
-        {FIREBALL4, new  ModificatorInfo(5, TYPE_PROJECTILE, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
-        {FORCE2, new  ModificatorInfo(5, TYPE_LAZER, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
-        {ICICLE2, new  ModificatorInfo(5, TYPE_PROJECTILE, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
-        {ICICLE3, new  ModificatorInfo(7, TYPE_PROJECTILE, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
-        {TORNADO, new  ModificatorInfo(8, TYPE_LAZER, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
-        {REVIVAL, new  ModificatorInfo(10, TYPE_PROJECTILE, REVIVAL, 1f, 5, 0f, 0, 0, 0, new List<string>())},
-        {METEOR, new  ModificatorInfo(10, TYPE_PROJECTILE, METEOR, 5f, 1, 280f, 1, 1, 0, new List<string>(){FIRE, FIRE, FIRE, FIRE, FIRE, STUN, STUN, STUN})},
-        {BLAST, new  ModificatorInfo(12, TYPE_PROJECTILE, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {FIREBLAST, new  ModificatorInfo(13, TYPE_PROJECTILE, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ENERGYBLAST, new  ModificatorInfo(14, TYPE_PROJECTILE, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ICEBLAST, new  ModificatorInfo(15, TYPE_PROJECTILE, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {STUN, new  ModificatorInfo(1, TYPE_LAZER, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
+        {LIFE, new  ModificatorInfo(1, LIFE, 5f, 5, -50f, 1, 0, 0, new List<string>(), new List<string>(){DARK})},
+        {FIRE, new  ModificatorInfo(1, FIRE, 5f, 5, 50f, 1, 1, 0, new List<string>(), new List<string>(){FREEZE, WATER})},
+        {WATER, new  ModificatorInfo(1, WATER, 20f, 5, 0f, 0, 0, 1, new List<string>(), new List<string>(){FIRE, STEAM, RAZOR})},
+        {EARTH, new  ModificatorInfo(1, EARTH, 1f, 5, 50f, 1, 1, 0, new List<string>(){STUN})},
+        {FREEZE, new  ModificatorInfo(1, FREEZE, 10f, 5, 50f, 1, 0, 1, new List<string>(), new List<string>(){ FIRE, WATER})},
+        {RAZOR, new  ModificatorInfo(1, RAZOR, 5f, 5, 50f, 1, 2, 0, new List<string>(), new List<string>(){WATER})},
+        {DARK, new  ModificatorInfo(1, DARK, 10f, 5, 50f, 1, 0, 1, new List<string>(), new List<string>(){LIFE, WATER })},
+        {SHIELD, new  ModificatorInfo(1, SHIELD, 5f, 5, -50f, 0, 1, 0, new List<string>())},
+        {STEAM, new  ModificatorInfo(2, STEAM, 20f, 5, 0f, 0, 0, 2, new List<string>(), new List<string>(){FIRE, WATER, RAZOR})},
+        {POISON, new  ModificatorInfo(2, POISON, 10f, 5, 60f, 1, 0, 2, new List<string>(), new List<string>(){LIFE, WATER})},
+        {ICE, new  ModificatorInfo(2, ICE, 1f, 5, 60f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
+        {FIREBALL1, new  ModificatorInfo(2, FIREBALL1, 1f, 5, 60f, 1, 1, 0, new List<string>(){FIRE, STUN})},
+        {DARKBALL, new  ModificatorInfo(2, DARKBALL, 1f, 5, 60f, 2, 1, 0, new List<string>(){DARK, STUN})},
+        {SPEEDUP, new  ModificatorInfo(2, SPEEDUP, 20f, 5, -60f, 1, 0, -2, new List<string>())},
+        {MINEFIRE, new  ModificatorInfo(2, MINEFIRE, 1f, 1, 60f, 1, 1, 0, new List<string>(){FIRE, FORCE1, STUN})},
+        {MINEWATER, new  ModificatorInfo(2, MINEWATER, 1f, 1, 60f, 1, 1, 1, new List<string>(){WATER, FORCE1, STUN})},
+        {MINEFREEZE, new  ModificatorInfo(2, MINEFREEZE, 1f, 1, 60f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, STUN})},
+        {MINERAZOR, new  ModificatorInfo(2, MINERAZOR, 1f, 1, 60f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, STUN, UNARMOR})},
+        {MINEDARK, new  ModificatorInfo(2, MINEDARK, 1f, 1, 60f, 2, 1, 0, new List<string>(){DARK, FORCE1, STUN})},
+        {FORCE1, new  ModificatorInfo(3, FORCE1, 1f, 25, 0f, 0, 0, 0, new List<string>())},
+        {ICICLE1, new  ModificatorInfo(3, ICICLE1, 1f, 5, 72f, 2, 1, 0, new List<string>(){FREEZE, STUN})},
+        {FIREBALL2, new  ModificatorInfo(3, FIREBALL2, 1f, 5, 72f, 1, 1, 0, new List<string>(){FIRE, STUN})},
+        {DARKFIREBALL, new  ModificatorInfo(3, DARKFIREBALL, 1f, 5, 72f, 2, 1, 0, new List<string>(){DARK, FIRE, STUN})},
+        {MINEPOISON, new  ModificatorInfo(3, MINEPOISON, 1f, 1, 72f, 2, 1, 0, new List<string>(){POISON, FORCE1, STUN})},
+        {MINEICE, new  ModificatorInfo(3, MINEICE, 1f, 1, 72f, 2, 1, 0, new List<string>(){ICE, FORCE1, STUN})},
+        {UNARMOR, new  ModificatorInfo(3, UNARMOR, 1f, 1, 0f, 0, 0, 0, new List<string>())},
+        {FIREBALL3, new  ModificatorInfo(4, FIREBALL3, 1f, 5, 90f, 1, 1, 0, new List<string>(){FIRE, FIRE, STUN})},
+        {TAUREL, new  ModificatorInfo(4, TAUREL, 1f, 5, 90f, 1, 2, 0, new List<string>(){RAZOR, RAZOR, UNARMOR})},
+        {GHOSTING, new  ModificatorInfo(5, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
+        {UNMODIFICATOR, new  ModificatorInfo(5, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
+        {FIREBALL4, new  ModificatorInfo(5, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
+        {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
+        {ICICLE2, new  ModificatorInfo(5, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
+        {ICICLE3, new  ModificatorInfo(7, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
+        {TORNADO, new  ModificatorInfo(8, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
+        {REVIVAL, new  ModificatorInfo(10, REVIVAL, 1f, 5, 0f, 0, 0, 0, new List<string>())},
+        {METEOR, new  ModificatorInfo(10, METEOR, 5f, 1, 280f, 1, 1, 0, new List<string>(){FIRE, FIRE, FIRE, FIRE, FIRE, STUN, STUN, STUN})},
+        {BLAST, new  ModificatorInfo(12, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {FIREBLAST, new  ModificatorInfo(13, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ENERGYBLAST, new  ModificatorInfo(14, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {ICEBLAST, new  ModificatorInfo(15, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
+        {STUN, new  ModificatorInfo(1, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
     };
 
     public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
@@ -186,17 +187,17 @@ public static class MagicConst
         {FIREBALL1,TYPE_PROJECTILE },
         {DARKBALL,TYPE_PROJECTILE },
         {SPEEDUP,TYPE_LAZER },
-        {MINEFIRE,TYPE_PROJECTILE },
-        {MINEWATER,TYPE_PROJECTILE },
-        {MINEFREEZE,TYPE_PROJECTILE },
-        {MINERAZOR,TYPE_PROJECTILE },
-        {MINEDARK,TYPE_PROJECTILE },
+        {MINEFIRE,TYPE_MINE},
+        {MINEWATER,TYPE_MINE },
+        {MINEFREEZE,TYPE_MINE },
+        {MINERAZOR,TYPE_MINE },
+        {MINEDARK,TYPE_MINE },
         {FORCE1,TYPE_LAZER },
         {ICICLE1,TYPE_PROJECTILE },
         {FIREBALL2,TYPE_PROJECTILE },
         {DARKFIREBALL,TYPE_PROJECTILE },
-        {MINEPOISON,TYPE_PROJECTILE },
-        {MINEICE,TYPE_PROJECTILE },
+        {MINEPOISON,TYPE_MINE },
+        {MINEICE,TYPE_MINE },
         {UNARMOR,TYPE_LAZER },
         {FIREBALL3,TYPE_PROJECTILE },
         {TAUREL,TYPE_PROJECTILE },
@@ -209,17 +210,18 @@ public static class MagicConst
         {TORNADO,TYPE_LAZER },
         {REVIVAL,TYPE_PROJECTILE },
         {METEOR,TYPE_PROJECTILE },
-        {BLAST,TYPE_SPRAY },
-        {FIREBLAST,TYPE_SPRAY },
-        {ENERGYBLAST,TYPE_SPRAY },
-        {ICEBLAST,TYPE_SPRAY }
+        {BLAST,TYPE_PROJECTILE },
+        {FIREBLAST,TYPE_PROJECTILE },
+        {ENERGYBLAST,TYPE_PROJECTILE },
+        {ICEBLAST,TYPE_PROJECTILE }
     };
 
     public static readonly Dictionary<int, string> TYPE_MAGIC = new Dictionary<int, string>()
     {
         {0b_0001, TYPE_SPRAY },
         {0b_0011, TYPE_LAZER },
-        {0b_0111, TYPE_PROJECTILE }
+        {0b_0111, TYPE_PROJECTILE },
+        {0b_1111, TYPE_MINE }
     };
 
     public static readonly Dictionary<string, string> MAGICS_BY_KEY = new Dictionary<string, string>()

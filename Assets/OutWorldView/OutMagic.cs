@@ -21,6 +21,8 @@ public class OutMagic : MonoBehaviour
     private GameObject _projectilePrefab;
     [SerializeField]
     private GameObject _selfMagicPrefab;
+    [SerializeField]
+    private bool _isMine;
 
     private Dictionary<string, ModificatorZone> _activeMagics = new Dictionary<string, ModificatorZone>();
 
@@ -50,7 +52,9 @@ public class OutMagic : MonoBehaviour
     public void Init(List<MagicInfo> magics, bool ismine)
     {
         _magics = magics;
-        if(_magics.Count == 0)
+        _isMine = ismine;
+
+        if (_magics.Count == 0)
         {
             StopShoot();
         }
@@ -108,11 +112,16 @@ public class OutMagic : MonoBehaviour
                                 _activeMagics.Add(magic.key, mzs);
                                 break;
                             case "projectile":
-                                Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
-                                Vector3 projPosition = playerTransform.position + playerTransform.forward * 2f;
-                                GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
-                                Projectile mzp = gop.GetComponent<Projectile>();
-                                mzp.UpdateInfo(magic.key, magic.power);
+                                if (_isMine)
+                                {
+                                    Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
+                                    Vector3 projPosition = playerTransform.position + playerTransform.forward * 2f;
+                                    GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
+                                    Projectile mzp = gop.GetComponent<Projectile>();
+                                    mzp.UpdateInfo(magic.key, magic.power);
+                                }
+                                break;
+                            case "mine":
                                 break;
                             default:
                                 break;
@@ -172,6 +181,9 @@ public class OutMagic : MonoBehaviour
                     break;
                 case "projectile":
                     result = (result | 0b_0111);
+                    break;
+                case "mine":
+                    result = (result | 0b_1111);
                     break;
                 default:
                     break;

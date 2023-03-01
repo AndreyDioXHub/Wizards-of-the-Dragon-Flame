@@ -61,6 +61,7 @@ namespace com.czeeep.network.player
         private Vector3 _transformposition;
         private Vector3 _targetDirection;
         private Vector3 _targetDirectionNormalize;
+        private Vector3 _moveForwardVector;
         //private Vector3 _pointA;
         //private Vector3 _pointB;
         private float _dist;
@@ -174,9 +175,23 @@ namespace com.czeeep.network.player
 
             _targetDirectionNormalize = _targetDirection.normalized;
 
+
+            _moveForwardVector = Vector3.zero;
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                _moveForwardVector = transform.forward;
+            }
+
+            /*
+            if (Input.GetKey(KeyCode.S))
+            {
+                _moveForwardVector = -transform.forward;
+            }*/
+            
             if (_move)
             {
-                _character.Move(_info.Speed * _targetDirectionNormalize * Time.deltaTime);
+                _character.Move(_info.Speed * (_moveForwardVector) * Time.deltaTime);
 
                 if (_dist > _positionTrashHold)
                 {
@@ -213,22 +228,22 @@ namespace com.czeeep.network.player
 
             if (!Input.GetMouseButtonDown(1))
             {
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     //StaffModel.Instance.ShootStop();
                     MagicModel.Instance.AddSpheretoActive(SpheresElements.water.ToString());
                 }
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     //StaffModel.Instance.ShootStop();
                     MagicModel.Instance.AddSpheretoActive(SpheresElements.life.ToString());
                 }
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
                     //StaffModel.Instance.ShootStop();
                     MagicModel.Instance.AddSpheretoActive(SpheresElements.shield.ToString());
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     //StaffModel.Instance.ShootStop();
                     MagicModel.Instance.AddSpheretoActive(SpheresElements.freeze.ToString());

@@ -127,7 +127,7 @@ MonoBehaviour:
   _tick: {fileID: -7487898598482801994}
   _zone: {fileID: 1582238950249380077}
   _info:
-    speed: 50
+    speed: 30
     timeToDestroy: 10
     gravity: -9.8
     destroyAfterGrounding: 1
