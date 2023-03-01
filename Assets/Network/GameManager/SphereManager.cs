@@ -166,11 +166,14 @@ namespace com.czeeep.network {
             [Tooltip("Общее начальное количество сфер на игру")]
             public int MaxSpheresTotal = 160;
 
+            public static SphereConfig Instance;
+
             List<SpheresElements> baseSpheres;
 
             public int DefaultAmount { get; internal set; } = 5;
 
             public SphereConfig() {
+                Instance = this;
                 //Prepare array of base elements
                 CollectBaseSphereArray();
                 MaxSpheresInGroup = MaxSpheresTotal / baseSpheres.Count;
@@ -204,7 +207,9 @@ namespace com.czeeep.network {
             /// </summary>
             /// <returns>Vector3, где по Y стоит статическая высота</returns>
             public static Vector3 GenerateRandomPosition() {
-                Vector3 pos = new Vector3(UnityEngine.Random.Range(0,100), 1.4f, UnityEngine.Random.Range(0, 100));
+                int xmax = Instance == null ? 100 : (int)Instance.rect.width;
+                int ymax = Instance == null ? 100 : (int)Instance.rect.height;
+                Vector3 pos = new Vector3(UnityEngine.Random.Range(0,xmax), 1.4f, UnityEngine.Random.Range(0, ymax));
                 //Debug.Log($"x: {pos.x}, z: {pos.z}");
                 return pos;
             }
