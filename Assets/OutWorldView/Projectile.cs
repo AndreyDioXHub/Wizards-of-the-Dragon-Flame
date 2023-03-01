@@ -156,7 +156,7 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     public void DestroyProjectile()
     {
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(photonView);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
