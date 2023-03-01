@@ -26,7 +26,7 @@ namespace com.czeeep.spell.modificator
 
             if (_character != null)
             {
-                _character.Move((-_fromHitWhereDirection) * _speed * (1f + 1f/_info.power) * Time.deltaTime);
+                _character.Move((_fromHitWhereDirection) * _speed * (1f + 1f/_info.power) * Time.deltaTime);
             }
         }
 
