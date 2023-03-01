@@ -29,6 +29,15 @@ namespace com.czeeep.network {
         [SerializeField]
         SphereConfig _config;
 
+        Transform spheresRoot { get { 
+                if (_spheresRoot == null) {
+                    GameObject go = new GameObject("spheres pool");
+                    _spheresRoot = go.transform;
+                }
+                return _spheresRoot;
+                } }
+        Transform _spheresRoot = null;
+
         #endregion
 
         #region Public Fields
@@ -75,7 +84,7 @@ namespace com.czeeep.network {
 
         [PunRPC]
         protected SphereWorld CreateSphere(Vector3 pos, Quaternion rotation, int elementType, int indx) {
-            GameObject _sphere = Instantiate(spherePrefab, null);
+            GameObject _sphere = Instantiate(spherePrefab, spheresRoot);
             _sphere.transform.position = pos;
             _sphere.transform.rotation = rotation;
             //_spheres.Add(_sphere);
@@ -91,7 +100,7 @@ namespace com.czeeep.network {
         }
 
         internal void WillDestroyed(int m_index) {
-            Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
 
             int caller = PhotonNetwork.LocalPlayer.ActorNumber;
             if(PhotonNetwork.IsConnected) {
@@ -104,7 +113,7 @@ namespace com.czeeep.network {
 
         [PunRPC]
         public void RemovedExtenral(int m_index, int caller) {
-            Debug.Log($"<color=red>SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>RemovedExtenral</b> called. Sphere index: {m_index}, Caller id: {caller}</color>");
 
             #region Only MASTER client actions
             //Debug.Log($"<color=red>SphereManager: <b>WillDestroyed</b> called. Sphere index: {m_index}</color>");
@@ -134,7 +143,7 @@ namespace com.czeeep.network {
         /// <param name="m_index"></param>
         [PunRPC]
         public void RemoveSphereFromWorld(int m_index, byte[] updated) {
-            Debug.Log($"<color=red>SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}</color>");
+            //Debug.Log($"<color=red>SphereManager: <b>RemoveSphereFromWorld</b> called. Sphere index: {m_index}</color>");
             if(_spheresDict.ContainsKey(m_index)) {
                 GameObject sgo;
                 if(_spheresDict.TryGetValue(m_index, out sgo)) {
@@ -148,7 +157,7 @@ namespace com.czeeep.network {
             //Add removed to his owner player
             BitSphere _bs = BitSphere.ConvertToSphere(updated);
             if(PhotonNetwork.LocalPlayer.ActorNumber == (int)_bs.sphereID) {
-               // Debug.Log($"SphereManager: <b>byte count: </b> {updated.Length}");
+                Debug.Log($"SphereManager: <b>ADD {_bs.amount} {(SpheresElements)_bs.GetIntSphereType()} FOR ME: </b> {m_index}");
                 if(_bs.sphereType == 0) {
                     Debug.Log($"SphereManager: <b>Try add empty sphere to user {_bs.sphereID}</b>. Sphere index: {m_index}, type: {_bs.sphereType}, amount: {_bs.amount}");
                 }

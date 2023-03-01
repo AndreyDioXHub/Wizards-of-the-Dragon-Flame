@@ -77,7 +77,7 @@ namespace com.czeeep.network {
         public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged) {
             base.OnRoomPropertiesUpdate(propertiesThatChanged);
             //Update spheres elements
-            Debug.Log("<b>Room properties updated</b>");
+            //Debug.Log("<b>Room properties updated</b>");
             //PhotonNetwork.CurrentRoom.SetCustomProperties()
         }
 
