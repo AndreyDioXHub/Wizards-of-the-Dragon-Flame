@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class MineDemo : MonoBehaviour
 {
+
+    PhotonView pview;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pview = PhotonView.Get(gameObject);
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Player" && PhotonNetwork.IsMasterClient) {
-            //PhotonNetwork.GetPhotonView()
+        if(other.tag == "Player" && pview.IsMine) {
             PhotonNetwork.Destroy(gameObject);
+            
         }
     }
 }
