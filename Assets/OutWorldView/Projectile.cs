@@ -8,11 +8,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField]
-    private Tick _tick;
-    [SerializeField]
     private ModificatorZone _zone;
     [SerializeField]
     private ProjectileInfo _info = new ProjectileInfo();
+
+    private PhotonView _pview;
     /*[SerializeField]
     private float _speed = 20;*/
     /*[SerializeField]
@@ -41,12 +41,14 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     private float _bulletDeltaPath = 0;
 
     private bool _isGrounded;
-    //private bool _destroyAfterGrounding = true;
+    private bool _destroyAfterGrounding = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        _pview = PhotonView.Get(gameObject);
+
         if (photonView.IsMine)
         {
             _origin = transform.position;
@@ -59,8 +61,8 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         _time += Time.deltaTime;
         _nexttime = _time + Time.deltaTime;
 
-        _position = _origin + _info.speed * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
-        _nextPosition = _origin + _info.speed * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
+        _position = _origin + _info.length * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
+        _nextPosition = _origin + _info.length * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
         _bulletDirection = (_nextPosition - _position).normalized;
         _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
 
@@ -72,7 +74,13 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
             if (hit.collider.tag.Equals("Ground"))
             {
                 Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
+
                 _isGrounded = true;
+
+                if (_destroyAfterGrounding)
+                {
+                    CallDestroyProjectile();
+                }
             }
             else
             {
@@ -110,13 +118,6 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
                 _init = false;
             }
         }
-
-        if (_info.destroyAfterGrounding && _isGrounded)
-        {
-            DestroyProjectile();
-        }
-        
-
     }
 
     public void Init() 
@@ -126,8 +127,7 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
             _info = value;
         }
 
-        _info.speed = _info.speed / _power;
-        _tick.UpdateInfo(_info.timeToDestroy);
+        _info.length = _info.length / _power;
 
         _zone.UpdateInfo(_element, _power);
     }
@@ -141,15 +141,17 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
         //_tick.UpdateInfo(_timeToDestroy);
 
-        if (_destroyAfterTimeEnd)
-        {
-            _tick.OnTickPassed.AddListener(DestroyProjectile);
-        }
     }
 
+    public void CallDestroyProjectile()
+    {
+        _pview.RPC("DestroyProjectile", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void DestroyProjectile()
     {
-        Destroy(gameObject);
+        _zone.DestroyZone();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -174,24 +176,21 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 [Serializable]
 public class ProjectileInfo
 {
-    public float speed;
+    public float length;
     public float timeToDestroy;
     public float gravity;
-    public bool destroyAfterGrounding;
 
     public ProjectileInfo()
     {
-        this.speed = 50f;
+        this.length = 50f;
         this.timeToDestroy = 10f;
         this.gravity = -9.8f;
-        this.destroyAfterGrounding = true;
     }
 
-    public ProjectileInfo(float speed, float timeToDestroy, float gravity, bool destroyAfterGrounding)
+    public ProjectileInfo(float length, float timeToDestroy, float gravity)
     {
-        this.speed = speed;
+        this.length = length;
         this.timeToDestroy = timeToDestroy;
         this.gravity = gravity;
-        this.destroyAfterGrounding = destroyAfterGrounding;
     }
 }

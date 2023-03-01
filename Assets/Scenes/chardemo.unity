@@ -3143,6 +3143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForceLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: _element
+      value: force1
+      objectReference: {fileID: 0}
     - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
       propertyPath: m_RootOrder
       value: 14

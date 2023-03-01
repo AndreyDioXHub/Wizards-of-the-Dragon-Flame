@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3791706573347126314}
+  - component: {fileID: 1575186335273919042}
+  - component: {fileID: 8798036833314812795}
   m_Layer: 3
   m_Name: Laser
   m_TagString: Untagged
@@ -32,6 +34,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1575186335273919042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703004426172594163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc31883ad2927941afe774278d95198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parts:
+  - {fileID: 4529957828898229774}
+  _tick: {fileID: 8798036833314812795}
+  _zoneCenter: {fileID: 0}
+  _dirToPlayer: {x: 0, y: 0, z: 0}
+  biomType: 0
+  _element: 
+  _power: 1
+  _player: {fileID: 0}
+  _destroyAfterColliding: 0
+--- !u!114 &8798036833314812795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703004426172594163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTickPassed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1575186335273919042}
+        m_TargetAssemblyTypeName: com.czeeep.spell.biom.ModificatorZone, Assembly-CSharp
+        m_MethodName: AddModificator
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _tickTime: 1
+  _tickTimeCur: 0
+  _mayUpdateTick: 1
+  _passTick: 1
 --- !u!1 &9161914397631199941
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,8 +99,7 @@ GameObject:
   - component: {fileID: 5380871729297322353}
   - component: {fileID: 399654161698121219}
   - component: {fileID: 7259140663408932929}
-  - component: {fileID: 5266909777529532619}
-  - component: {fileID: 8900010919748196679}
+  - component: {fileID: 4529957828898229774}
   m_Layer: 3
   m_Name: Zone
   m_TagString: Untagged
@@ -131,7 +185,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5266909777529532619
+--- !u!114 &4529957828898229774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,44 +194,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9161914397631199941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc31883ad2927941afe774278d95198, type: 3}
+  m_Script: {fileID: 11500000, guid: d6f050c5b0b3cf046a775b63f78e6c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tick: {fileID: 8900010919748196679}
-  _centerZone: {fileID: 3791706573347126314}
-  _dirToPlayer: {x: 0, y: 0, z: 0}
-  biomType: 0
-  _power: 1
-  _other: {fileID: 0}
-  _destroyAfterColliding: 0
---- !u!114 &8900010919748196679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9161914397631199941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnTickPassed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5266909777529532619}
-        m_TargetAssemblyTypeName: ModificatorZone, Assembly-CSharp
-        m_MethodName: AddModificator
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _tickTime: 1
-  _tickTimeCur: 0
-  _mayUpdateTick: 1
-  _passTick: 1
+  _zone: {fileID: 1575186335273919042}
+  _player: {fileID: 0}

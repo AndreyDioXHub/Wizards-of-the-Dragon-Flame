@@ -3,10 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace com.czeeep.spell.biom 
 {
-    public class ModificatorZone : MonoBehaviour {
+    public class ModificatorZone : MonoBehaviour
+    {
+        public UnityEvent OnPlayerColliding = new UnityEvent();
 
         public static readonly string Tag = "biom";     //tag name in editor
         public static readonly int MIN_VALUE = 1;
@@ -106,7 +109,8 @@ namespace com.czeeep.spell.biom
             {
                 _tick.UpdateTick();
 
-                AddModificator();
+                //AddModificator();
+                OnPlayerColliding?.Invoke();
 
                 if (_destroyAfterColliding)
                 {
@@ -131,7 +135,7 @@ namespace com.czeeep.spell.biom
         }
 
 
-
+        /*
         private void OnTriggerEnter(Collider other) 
         {
 
@@ -154,7 +158,7 @@ namespace com.czeeep.spell.biom
         private void OnTriggerExit(Collider other) 
         {
             _player = null;
-        }
+        }*/
 
         public void AddModificator() 
         {

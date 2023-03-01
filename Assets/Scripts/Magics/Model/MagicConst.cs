@@ -157,18 +157,10 @@ public static class MagicConst
 
     public static readonly Dictionary<string, ProjectileInfo> TYPE_PROJECTILE_BY_KEY = new Dictionary<string, ProjectileInfo>()
     {
-        {MINEFIRE, new ProjectileInfo(20, 120, -9.8f, false) },
-        {MINEWATER, new ProjectileInfo(20, 120, -9.8f, false) },
-        {MINEFREEZE, new ProjectileInfo(20, 120, -9.8f, false) },
-        {MINERAZOR, new ProjectileInfo(20, 120, -9.8f, false) },
-        {MINEDARK, new ProjectileInfo(20, 120, -9.8f, false) },
-        {MINEPOISON, new ProjectileInfo(20, 120, -9.8f, false)  },
-        {MINEICE, new ProjectileInfo(20, 120, -9.8f, false)  },
-        {TAUREL, new ProjectileInfo(20, 120, -9.8f, false) },
-        {BLAST, new ProjectileInfo(20, 5, 0, false) },
-        {FIREBLAST, new ProjectileInfo(20, 5, 0, false) },
-        {ENERGYBLAST, new ProjectileInfo(20, 5, 0, false) },
-        {ICEBLAST, new ProjectileInfo(20, 5, 0, false) }
+        {BLAST, new ProjectileInfo(20, 5, 0) },
+        {FIREBLAST, new ProjectileInfo(20, 5, 0) },
+        {ENERGYBLAST, new ProjectileInfo(20, 5, 0) },
+        {ICEBLAST, new ProjectileInfo(20, 5, 0) }
     };
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()

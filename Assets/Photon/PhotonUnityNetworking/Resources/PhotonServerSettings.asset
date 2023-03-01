@@ -43,6 +43,8 @@ MonoBehaviour:
   - MasterUpdateSpheres
   - RemovedExtenral
   - RemoveSphereFromWorld
+  - CallMyDestroy
+  - DestroyProjectile
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

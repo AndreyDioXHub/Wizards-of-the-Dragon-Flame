@@ -11,6 +11,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Projectile
       objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: _destroyAfterColliding
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1821868363024022412}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallDestroyProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Projectile, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+      propertyPath: OnPlayerColliding.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3791706573347126314, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -77,12 +109,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
---- !u!114 &1582238950249380077 stripped
+--- !u!114 &5277867851360135780 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5266909777529532619, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1575186335273919042, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
   m_PrefabInstance: {fileID: 6693175297632323622}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6134885336624414677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acc31883ad2927941afe774278d95198, type: 3}
@@ -93,25 +125,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 703004426172594163, guid: f32e79c9f4b503c4fa637988633518b2, type: 3}
   m_PrefabInstance: {fileID: 6693175297632323622}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-7487898598482801994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134885336624414677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783150ca16d94b746833173d525121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnTickPassed:
-    m_PersistentCalls:
-      m_Calls: []
-  _tickTime: 10
-  _tickTimeCur: 0
-  _mayUpdateTick: 1
-  _passTick: 0
 --- !u!114 &1821868363024022412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,13 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d745cf02dbfe04c97cd5bc0f2a017c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tick: {fileID: -7487898598482801994}
-  _zone: {fileID: 1582238950249380077}
+  _zone: {fileID: 5277867851360135780}
   _info:
-    speed: 30
+    length: 50
     timeToDestroy: 10
     gravity: -9.8
-    destroyAfterGrounding: 1
 --- !u!114 &4480605368243875017
 MonoBehaviour:
   m_ObjectHideFlags: 0
