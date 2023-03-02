@@ -11,6 +11,10 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     private ModificatorZone _zone;
     [SerializeField]
     private ProjectileInfo _info = new ProjectileInfo();
+    [SerializeField]
+    private AnimationCurve _speedFallByCount;
+    [SerializeField]
+    private float _maxCount = 5f; 
 
     private PhotonView _pview;
     /*[SerializeField]
@@ -22,12 +26,19 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     private string _elementFromFunction;
     private int _powerFromFunction;
+    private int _speedPowerFromFunction;
     private string _element;
     private int _power;
 
+    [SerializeField]
+    private int _speedPower;
+    [SerializeField]
+    private float _vilosity = 0;
+    [SerializeField]
+    private Vector3 _gravityVilosity = Vector3.zero;
+
     private bool _initFromFunction = false;
     private bool _init = false;
-    private bool _destroyAfterTimeEnd = true;
     private float _time = 0;
     private float _nexttime = 0;
 
@@ -35,10 +46,6 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     private Vector3 _origin;
 
     private Vector3 _position;
-    private Vector3 _nextPosition;
-
-    private Vector3 _bulletDirection;
-    private float _bulletDeltaPath = 0;
 
     private bool _isGrounded;
 
@@ -63,20 +70,18 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         _time += Time.deltaTime;
         _nexttime = _time + Time.deltaTime;
 
-        _position = _origin + _info.speed * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
-        _nextPosition = _origin + _info.speed * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
-        _bulletDirection = (_nextPosition - _position).normalized;
-        _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
+        _position = _info.speed * transform.forward * Time.deltaTime;
 
-        _bulletDirection = (_nextPosition - _position).normalized;
-        _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
+        _gravityVilosity.y += _info.gravity * Time.deltaTime * Time.deltaTime;
 
-        if (Physics.Raycast(_position, _bulletDirection, out RaycastHit hit, _bulletDeltaPath))
+        _position += _gravityVilosity;
+
+        _info.speed -= _vilosity * Time.deltaTime;
+
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 0.5f))
         {
             if (hit.collider.tag.Equals("Ground"))
             {
-                Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
-
                 _isGrounded = true;
 
                 if (_destroyAfterGrounding)
@@ -84,21 +89,13 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
                     CallDestroyProjectile();
                 }
             }
-            else
-            {
-                Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.red);
-            }
-        }
-        else
-        {
-            Debug.DrawRay(_position, _bulletDirection * _bulletDeltaPath, Color.white);
         }
 
         if (photonView.IsMine)
         {
             if (!_isGrounded)
             {
-                transform.position = _position;
+                transform.position += _position;
             }
 
             if (!string.IsNullOrEmpty(_elementFromFunction) && _initFromFunction)
@@ -106,6 +103,8 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
                 Debug.Log("!string.IsNullOrEmpty(_elementFromFunction)");
                 _element = _elementFromFunction;
                 _power = _powerFromFunction;
+                _speedPower = _speedPowerFromFunction;
+
                 Init();
                 _initFromFunction = false;
                 _init = true;
@@ -129,21 +128,18 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         {
             _info = value;
         }*/
+        _info.speed = _info.speed * _speedFallByCount.Evaluate(( _maxCount - _speedPowerFromFunction) / _maxCount);
 
-        _info.speed = _info.speed / _power;
-
+        _vilosity = _info.speed / _info.timeToDestroy;
         _zone.UpdateInfo(_element, _power);
     }
 
-    public void UpdateInfo(string element, int power) 
+    public void UpdateInfo(string element, int power, int speedPower) 
     {
         _elementFromFunction = element;
         _powerFromFunction = power;
+        _speedPowerFromFunction = speedPower;
         _initFromFunction = true;
-        //_speed = _speed / power;
-
-        //_tick.UpdateInfo(_timeToDestroy);
-
     }
 
     public void CallDestroyProjectile()
@@ -163,6 +159,7 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         {
             stream.SendNext(_element);
             stream.SendNext(_power);
+            stream.SendNext(_speedPower);
             stream.SendNext(_init);
             //stream.SendNext(_isGrounded);
         }
@@ -170,6 +167,7 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         {
             this._element = (string)stream.ReceiveNext();
             this._power = (int)stream.ReceiveNext();
+            this._speedPower = (int)stream.ReceiveNext();
             this._init = (bool)stream.ReceiveNext();
             //this._isGrounded = (bool)stream.ReceiveNext();
         }

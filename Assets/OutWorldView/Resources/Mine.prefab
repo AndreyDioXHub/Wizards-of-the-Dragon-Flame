@@ -121,6 +121,34 @@ MonoBehaviour:
     speed: 0
     timeToDestroy: 0
     gravity: -9.8
+  _speedFallByCount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxCount: 5
+  _speedPower: 0
+  _vilosity: 0
+  _gravityVilosity: {x: 0, y: 0, z: 0}
   _destroyAfterGrounding: 0
 --- !u!114 &8560861268381030815
 MonoBehaviour:

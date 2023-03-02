@@ -87,6 +87,15 @@ public class OutMagic : MonoBehaviour
             }
         }
 
+        int speedPower = 0;
+
+        if (allMagicType.Equals(MagicConst.TYPE_PROJECTILE))
+        {
+            foreach (var magic in _magics)
+            {
+                speedPower = speedPower > magic.power ? speedPower : magic.power;
+            }
+        }
 
         
         foreach (var magic in _magics)
@@ -122,7 +131,7 @@ public class OutMagic : MonoBehaviour
                                     Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.1f;
                                     GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
                                     Projectile mzp = gop.GetComponent<Projectile>();
-                                    mzp.UpdateInfo(magic.key, magic.power);
+                                    mzp.UpdateInfo(magic.key, magic.power, speedPower);
                                 }
                                 break;
                             case "mine":
@@ -136,7 +145,7 @@ public class OutMagic : MonoBehaviour
                                     Vector3 minePosition = mineTransform.position + mineTransform.forward * 3f;
                                     GameObject gom = PhotonNetwork.Instantiate(_minePrefab.name, minePosition, mineTransform.rotation);
                                     Projectile mzm = gom.GetComponent<Projectile>();
-                                    mzm.UpdateInfo(magic.key, magic.power);
+                                    mzm.UpdateInfo(magic.key, magic.power, speedPower);
                                 }
                                 break;
                             case "blast":
@@ -146,7 +155,7 @@ public class OutMagic : MonoBehaviour
                                     Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.1f;
                                     GameObject gop = PhotonNetwork.Instantiate(_blastPrefab.name, projPosition, playerTransform.rotation);
                                     Projectile mzp = gop.GetComponent<Projectile>();
-                                    mzp.UpdateInfo(magic.key, magic.power);
+                                    mzp.UpdateInfo(magic.key, magic.power, speedPower);
                                 }
                                 break;
                             default:
