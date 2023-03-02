@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _zone: {fileID: 5277867851360135780}
   _info:
-    speed: 8
+    speed: 12
     timeToDestroy: 5
     gravity: 0
   _speedFallByCount:
