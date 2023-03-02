@@ -34,6 +34,7 @@ public static class MagicConst
     public static readonly string COSTLIFEDARK = "costLifeDark";
     public static readonly string DAMAGEEXPLOSION = "damageExplosion";
     public static readonly string DARKBALL = "darkball";
+    public static readonly string MINELIFE = "minelife";
     public static readonly string MINEFIRE = "minefire";
     public static readonly string MINEWATER = "minewater";
     public static readonly string MINEFREEZE = "minefreeze";
@@ -80,6 +81,7 @@ public static class MagicConst
         {FIREBALL1, new  ModificatorInfo(2, FIREBALL1, 1f, 5, 60f, 1, 1, 0, new List<string>(){FIRE, STUN})},
         {DARKBALL, new  ModificatorInfo(2, DARKBALL, 1f, 5, 60f, 2, 1, 0, new List<string>(){DARK, STUN})},
         {SPEEDUP, new  ModificatorInfo(2, SPEEDUP, 20f, 5, -60f, 1, 0, -2, new List<string>())},
+        {MINELIFE, new  ModificatorInfo(2, MINELIFE, 1f, 1, -60f, 1, 0, 0, new List<string>(){LIFE, FORCE1, STUN})},
         {MINEFIRE, new  ModificatorInfo(2, MINEFIRE, 1f, 1, 60f, 1, 1, 0, new List<string>(){FIRE, FORCE1, STUN})},
         {MINEWATER, new  ModificatorInfo(2, MINEWATER, 1f, 1, 60f, 1, 1, 1, new List<string>(){WATER, FORCE1, STUN})},
         {MINEFREEZE, new  ModificatorInfo(2, MINEFREEZE, 1f, 1, 60f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, STUN})},
@@ -127,6 +129,7 @@ public static class MagicConst
         {FIREBALL1,"FireBall1Modificator" },
         {DARKBALL,"DarkBallModificator" },
         {SPEEDUP,"SpeedUpModificator" },
+        {MINELIFE,"MineLifeModificator" },
         {MINEFIRE,"MineFireModificator" },
         {MINEWATER,"MineWaterModificator" },
         {MINEFREEZE,"MineFreezeModificator" },
@@ -183,6 +186,7 @@ public static class MagicConst
         {DARKBALL,TYPE_PROJECTILE },
         {SPEEDUP,TYPE_LAZER },
         {MINEFIRE,TYPE_MINE},
+        {MINELIFE,TYPE_MINE},
         {MINEWATER,TYPE_MINE },
         {MINEFREEZE,TYPE_MINE },
         {MINERAZOR,TYPE_MINE },
@@ -236,6 +240,7 @@ public static class MagicConst
         {FIREBALL1,"Magic" },
         {DARKBALL,"Magic" },
         {SPEEDUP,"Magic" },
+        {MINELIFE,"Magic" },
         {MINEFIRE,"Magic" },
         {MINEWATER,"Magic" },
         {MINEFREEZE,"Magic" },
@@ -281,6 +286,7 @@ public static class MagicConst
         {FIREBALL1, new List<string>(){EARTH, FIRE}},
         {DARKBALL, new List<string>(){EARTH, DARK}},
         {SPEEDUP, new List<string>(){LIFE, RAZOR}},
+        {MINELIFE, new List<string>(){SHIELD, LIFE}},
         {MINEFIRE, new List<string>(){SHIELD, FIRE}},
         {MINEWATER, new List<string>(){SHIELD, WATER}},
         {MINEFREEZE, new List<string>(){SHIELD, FREEZE}},
@@ -323,6 +329,7 @@ public static class MagicConst
         {65, new MetaSphere(COSTLIFEDARK, MetaSphereType.cost)},
         {68, new MetaSphere(POISON, MetaSphereType.element)},
         {72, new MetaSphere(DARKBALL, MetaSphereType.element)},
+        {129, new MetaSphere(MINELIFE, MetaSphereType.element)},
         {130, new MetaSphere(MINEFIRE, MetaSphereType.element)},
         {132, new MetaSphere(MINEWATER, MetaSphereType.element)},
         {144, new MetaSphere(MINEFREEZE, MetaSphereType.element)},
