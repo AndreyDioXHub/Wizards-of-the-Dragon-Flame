@@ -12,6 +12,7 @@ public static class MagicConst
     public static readonly string TYPE_LAZER = "lazer";
     public static readonly string TYPE_PROJECTILE = "projectile";
     public static readonly string TYPE_MINE = "mine";
+    public static readonly string TYPE_BLAST = "blast";
 
     public static readonly string LIFE = "life";
     public static readonly string FIRE = "fire";
@@ -96,7 +97,7 @@ public static class MagicConst
         {GHOSTING, new  ModificatorInfo(5, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
         {UNMODIFICATOR, new  ModificatorInfo(5, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
         {FIREBALL4, new  ModificatorInfo(5, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
-        {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
+        {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>())},
         {ICICLE2, new  ModificatorInfo(5, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
         {ICICLE3, new  ModificatorInfo(7, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
         {TORNADO, new  ModificatorInfo(8, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},
@@ -155,6 +156,7 @@ public static class MagicConst
         {ICEBLAST,"IceBlastModificator" }
     };
 
+    /*
     public static readonly Dictionary<string, ProjectileInfo> TYPE_PROJECTILE_BY_KEY = new Dictionary<string, ProjectileInfo>()
     {
         {BLAST, new ProjectileInfo(20, 5, 0) },
@@ -162,6 +164,7 @@ public static class MagicConst
         {ENERGYBLAST, new ProjectileInfo(20, 5, 0) },
         {ICEBLAST, new ProjectileInfo(20, 5, 0) }
     };
+    */
 
     public static readonly Dictionary<string, string> TYPE_MAGIC_BY_KEY = new Dictionary<string, string>()
     {
@@ -202,18 +205,19 @@ public static class MagicConst
         {TORNADO,TYPE_LAZER },
         {REVIVAL,TYPE_PROJECTILE },
         {METEOR,TYPE_PROJECTILE },
-        {BLAST,TYPE_PROJECTILE },
-        {FIREBLAST,TYPE_PROJECTILE },
-        {ENERGYBLAST,TYPE_PROJECTILE },
-        {ICEBLAST,TYPE_PROJECTILE }
+        {BLAST,TYPE_BLAST },
+        {FIREBLAST,TYPE_BLAST },
+        {ENERGYBLAST,TYPE_BLAST },
+        {ICEBLAST,TYPE_BLAST }
     };
 
     public static readonly Dictionary<int, string> TYPE_MAGIC = new Dictionary<int, string>()
     {
-        {0b_0001, TYPE_SPRAY },
-        {0b_0011, TYPE_LAZER },
-        {0b_0111, TYPE_PROJECTILE },
-        {0b_1111, TYPE_MINE }
+        {0b_00001, TYPE_SPRAY },
+        {0b_00011, TYPE_LAZER },
+        {0b_00111, TYPE_PROJECTILE },
+        {0b_01111, TYPE_MINE },
+        {0b_11111, TYPE_BLAST }
     };
 
     public static readonly Dictionary<string, string> MAGICS_BY_KEY = new Dictionary<string, string>()
@@ -333,6 +337,7 @@ public static class MagicConst
         {1028, new MetaSphere(ICICLE1, MetaSphereType.element)},
         {1152, new MetaSphere(MINEICE, MetaSphereType.element)},
         {2050, new MetaSphere(FIREBALL2, MetaSphereType.element)},
+        {2080, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
         {2112, new MetaSphere(DARKFIREBALL, MetaSphereType.element)},
         {4098, new MetaSphere(DARKFIREBALL, MetaSphereType.element)},
         {16416, new MetaSphere(UNARMOR, MetaSphereType.element)},
@@ -341,8 +346,11 @@ public static class MagicConst
         {98304, new MetaSphere(GHOSTING, MetaSphereType.element)},
         {132096, new MetaSphere(ICICLE2, MetaSphereType.element)},
         {262146, new MetaSphere(FIREBALL3, MetaSphereType.element)},
+        {262176, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
         {524320, new MetaSphere(TAUREL, MetaSphereType.element)},
         {1048578, new MetaSphere(FIREBALL4, MetaSphereType.element)},
+        {1048608, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
+        {4194336, new MetaSphere(COSTEARTHRAZOR, MetaSphereType.cost)},
         {8454144, new MetaSphere(TORNADO, MetaSphereType.element)},
         {10485760, new MetaSphere(REVIVAL, MetaSphereType.element)},
         {12582912, new MetaSphere(METEOR, MetaSphereType.element)},

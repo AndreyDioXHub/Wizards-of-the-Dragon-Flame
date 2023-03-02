@@ -41,6 +41,8 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
     private float _bulletDeltaPath = 0;
 
     private bool _isGrounded;
+
+    [SerializeField]
     private bool _destroyAfterGrounding = true;
 
 
@@ -61,8 +63,8 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         _time += Time.deltaTime;
         _nexttime = _time + Time.deltaTime;
 
-        _position = _origin + _info.length * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
-        _nextPosition = _origin + _info.length * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
+        _position = _origin + _info.speed * transform.forward * _time + Vector3.up * _info.gravity * _time * _time / 2f;
+        _nextPosition = _origin + _info.speed * transform.forward * _nexttime + Vector3.up * _info.gravity * _nexttime * _nexttime / 2f;
         _bulletDirection = (_nextPosition - _position).normalized;
         _bulletDeltaPath = Vector3.Distance(_nextPosition, _position);
 
@@ -122,12 +124,13 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Init() 
     {
+        /*
         if (MagicConst.TYPE_PROJECTILE_BY_KEY.TryGetValue(_element, out ProjectileInfo value))
         {
             _info = value;
-        }
+        }*/
 
-        _info.length = _info.length / _power;
+        _info.speed = _info.speed / _power;
 
         _zone.UpdateInfo(_element, _power);
     }
@@ -176,20 +179,20 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
 [Serializable]
 public class ProjectileInfo
 {
-    public float length;
+    public float speed;
     public float timeToDestroy;
     public float gravity;
 
     public ProjectileInfo()
     {
-        this.length = 50f;
+        this.speed = 50f;
         this.timeToDestroy = 10f;
         this.gravity = -9.8f;
     }
 
-    public ProjectileInfo(float length, float timeToDestroy, float gravity)
+    public ProjectileInfo(float speed, float timeToDestroy, float gravity)
     {
-        this.length = length;
+        this.speed = speed;
         this.timeToDestroy = timeToDestroy;
         this.gravity = gravity;
     }

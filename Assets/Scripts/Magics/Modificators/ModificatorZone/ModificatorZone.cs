@@ -22,7 +22,7 @@ namespace com.czeeep.spell.biom
         private Tick _tick;
 
         [SerializeField]
-        private Transform _zoneCenter;
+        protected Transform _zoneCenter;
        /* [SerializeField]
         private Transform _zoneEnd;*/
 
@@ -39,13 +39,11 @@ namespace com.czeeep.spell.biom
         private int _power = 1;
 
         [SerializeField]
-        private Collider _player;
+        protected Collider _player;
 
         int increaseValue = 0;
         int decreaseValue = 0;
 
-        [SerializeField]
-        private bool _destroyAfterColliding = false;
 
 
         public Bioms ZoneBiom { get => biomType; }
@@ -111,11 +109,6 @@ namespace com.czeeep.spell.biom
 
                 //AddModificator();
                 OnPlayerColliding?.Invoke();
-
-                if (_destroyAfterColliding)
-                {
-                    DestroyZone();
-                }
             }
         }
         
@@ -166,8 +159,9 @@ namespace com.czeeep.spell.biom
             {
                 if (_zoneCenter != null)
                 {
-                    _dirToPlayer = _player.transform.position - _zoneCenter.position;
-                    _dirToPlayer = _dirToPlayer.normalized;
+                    _dirToPlayer = DirToPlayer();// transform.forward;
+                    //_player.transform.position - _zoneCenter.position;
+                    //_dirToPlayer = _dirToPlayer.normalized;
 
                 }
                 else
@@ -178,6 +172,12 @@ namespace com.czeeep.spell.biom
                 //Debug.Log("UpdateTick AddModificator ");
                 MagicModel.Instance.AddModificator(_element, _power, _dirToPlayer);
             }
+        }
+
+        public virtual Vector3 DirToPlayer()
+        {
+            Vector3 dir = transform.forward;
+            return dir;
         }
 
         public int GetSphereCountByType(SpheresElements spheretype, int count) {

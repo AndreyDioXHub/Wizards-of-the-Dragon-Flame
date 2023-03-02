@@ -57,7 +57,7 @@ namespace com.czeeep.spell.modificator
 
             foreach(var addMod in _info.additionalEffects)
             {
-                MagicModel.Instance.AddModificator(addMod, _info.power, PlayerNetwork.LocalPlayerInstance.transform.forward);
+                MagicModel.Instance.AddModificator(addMod, _info.power, _fromHitWhereDirection);
             }
 
             DoDamage();

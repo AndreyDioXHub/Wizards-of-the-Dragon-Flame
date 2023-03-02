@@ -14,7 +14,7 @@ namespace com.czeeep.spell.modificator
 
             int incomingPowerleft = 0;
 
-            if (sphere == SpheresElements.water.ToString())
+            if (sphere.Equals(SpheresElements.water.ToString()))
             {
                 incomingPowerleft = 0;
                 isCancel = true;
@@ -23,6 +23,18 @@ namespace com.czeeep.spell.modificator
                 _timeActionCur = 0;
                 //AddPower(1);
                 //Debug.Log($"do razor damage {power}");
+            }
+            else if(sphere.Equals(SpheresElements.earth.ToString()))
+            {
+                incomingPowerleft = (power - _info.power) <= 0 ? 0 : power - _info.power;
+
+                _info.power -= power;
+                isCancel = true;
+
+                if (_info.power <= 0)
+                {
+                    DestroyModificator();
+                }
             }
 
             return incomingPowerleft;

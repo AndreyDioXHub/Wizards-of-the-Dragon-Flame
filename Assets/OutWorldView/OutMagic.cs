@@ -20,6 +20,10 @@ public class OutMagic : MonoBehaviour
     [SerializeField]
     private GameObject _projectilePrefab;
     [SerializeField]
+    private GameObject _minePrefab;
+    [SerializeField]
+    private GameObject _blastPrefab;
+    [SerializeField]
     private GameObject _selfMagicPrefab;
     [SerializeField]
     private bool _isMine;
@@ -115,18 +119,35 @@ public class OutMagic : MonoBehaviour
                                 if (_isMine)
                                 {
                                     Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
-                                    Vector3 projPosition = playerTransform.position + playerTransform.forward * 2f;
+                                    Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.1f;
                                     GameObject gop = PhotonNetwork.Instantiate(_projectilePrefab.name, projPosition, playerTransform.rotation);
                                     Projectile mzp = gop.GetComponent<Projectile>();
                                     mzp.UpdateInfo(magic.key, magic.power);
                                 }
                                 break;
                             case "mine":
-                                if(_isMine) {
-                                    Vector3 minepos = PlayerNetwork.LocalPlayerInstance.transform.position + PlayerNetwork.LocalPlayerInstance.transform.forward * 3f;
-                                    PhotonNetwork.Instantiate("Mine", minepos, Quaternion.identity);
+                                if(_isMine) 
+                                {
+                                    /*Vector3 minepos = PlayerNetwork.LocalPlayerInstance.transform.position + PlayerNetwork.LocalPlayerInstance.transform.forward * 3f;
+                                    PhotonNetwork.Instantiate(_minePrefab.name, minepos, Quaternion.identity); 
+                                    */
+
+                                    Transform mineTransform = PlayerNetwork.LocalPlayerInstance.transform;
+                                    Vector3 minePosition = mineTransform.position + mineTransform.forward * 3f;
+                                    GameObject gom = PhotonNetwork.Instantiate(_minePrefab.name, minePosition, mineTransform.rotation);
+                                    Projectile mzm = gom.GetComponent<Projectile>();
+                                    mzm.UpdateInfo(magic.key, magic.power);
                                 }
-                                
+                                break;
+                            case "blast":
+                                if (_isMine)
+                                {
+                                    Transform playerTransform = PlayerNetwork.LocalPlayerInstance.transform;
+                                    Vector3 projPosition = playerTransform.position + playerTransform.forward * 1.1f;
+                                    GameObject gop = PhotonNetwork.Instantiate(_blastPrefab.name, projPosition, playerTransform.rotation);
+                                    Projectile mzp = gop.GetComponent<Projectile>();
+                                    mzp.UpdateInfo(magic.key, magic.power);
+                                }
                                 break;
                             default:
                                 break;
@@ -172,23 +193,26 @@ public class OutMagic : MonoBehaviour
     public string MagicType()
     {
         //string result = "";
-        int result = 0b_0001;
+        int result = 0b_00001;
 
         foreach (var magic in _magics)
         {
             switch (MagicConst.TYPE_MAGIC_BY_KEY[magic.key])
             {
                 case "spray":
-                    result = (result | 0b_0001);
+                    result = (result | 0b_00001);
                     break;
                 case "lazer":
-                    result = (result | 0b_0011);
+                    result = (result | 0b_00011);
                     break;
                 case "projectile":
-                    result = (result | 0b_0111);
+                    result = (result | 0b_00111);
                     break;
                 case "mine":
-                    result = (result | 0b_1111);
+                    result = (result | 0b_01111);
+                    break;
+                case "blast":
+                    result = (result | 0b_11111);
                     break;
                 default:
                     break;
