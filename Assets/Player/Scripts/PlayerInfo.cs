@@ -9,6 +9,7 @@ public class PlayerInfo : MonoBehaviour
     public UnityEvent OnPlayerKnockout;
     public float MouseSensitivity { get => _mouseSensitivity; }
     public float Speed { get => _speed * _slowdown; }
+    public float Acceleration { get => _acceleration; }
     public bool IsStuned { get => _isStuned; }
     public float HitPointFill { get => (float)_hitPoint / (float)_hitPointMax; }
     public float ShieldPointFill { get => (float)_shieldPoint / (float)_shieldPointMax; }
@@ -35,7 +36,9 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private float _mouseSensitivity = 1f;
     [SerializeField]
-    private float _speed = 5;
+    private float _speed = 10;
+    [SerializeField]
+    private float _acceleration = 5;
     [SerializeField]
     private float _slowdown = 1;
     [SerializeField]

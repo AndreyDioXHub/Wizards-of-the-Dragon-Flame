@@ -225,12 +225,13 @@ MonoBehaviour:
   _hitPointMax: 500
   _shieldPointMax: 500
   _mouseSensitivityMax: 100
-  _speedMax: 5
+  _speedMax: 10
   _slowdownMax: 1
   _hitPoint: 500
   _shieldPoint: 0
   _mouseSensitivity: 100
-  _speed: 5
+  _speed: 7
+  _acceleration: 3
   _slowdown: 1
   _isStuned: 0
   _isGhost: 0
@@ -257,6 +258,9 @@ MonoBehaviour:
     m_Bits: 55
   _interactableDistance: 2
   _isGrounded: 0
+  _maxSpeed: 0
+  _forwardVelocity: 0
+  _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &4172693832694840922
 MonoBehaviour:
   m_ObjectHideFlags: 0

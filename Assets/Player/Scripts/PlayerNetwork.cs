@@ -62,12 +62,20 @@ namespace com.czeeep.network.player
         private Vector3 _targetDirection;
         private Vector3 _targetDirectionNormalize;
         private Vector3 _moveForwardVector;
+
+        [SerializeField]
+        private float _maxSpeed;
+        [SerializeField]
+        private float _forwardVelocity;
+        [SerializeField]
+        private Vector3 _velocity;
+
         //private Vector3 _pointA;
         //private Vector3 _pointB;
         private float _dist;
         //private float _deltaAngle;
         //private float _rotationKeel;
-        private float _gravity = 0;
+        private Vector3 _gravity = Vector3.zero;
         //private float _gravityDamage = 0;
 
         [Tooltip("The current health of our player")]
@@ -140,12 +148,12 @@ namespace com.czeeep.network.player
 
             if (_isGrounded)
             {
-                _gravity = 0;
+                _gravity = Vector3.zero;
             }
             else
             {
-                _gravity = -9.8f;
-                _character.Move(transform.up * _gravity * Time.deltaTime);
+                _gravity.y += -9.8f * Time.deltaTime;
+                _character.Move(_gravity * Time.deltaTime);
             }
 
             if (_info.IsStuned)
@@ -176,11 +184,17 @@ namespace com.czeeep.network.player
             _targetDirectionNormalize = _targetDirection.normalized;
 
 
-            _moveForwardVector = Vector3.zero;
+            _moveForwardVector = transform.forward;
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetMouseButton(1) )
             {
-                _moveForwardVector = transform.forward;
+                _forwardVelocity += _info.Acceleration * Time.deltaTime;
+                _forwardVelocity = Math.Min(_forwardVelocity, _info.Speed);
+            }
+            else
+            {
+                _forwardVelocity -= _info.Acceleration * Time.deltaTime;
+                _forwardVelocity = Math.Max(_forwardVelocity, 0);
             }
 
             /*
@@ -188,10 +202,15 @@ namespace com.czeeep.network.player
             {
                 _moveForwardVector = -transform.forward;
             }*/
-            
+
+
+
+            _velocity = _moveForwardVector * _forwardVelocity;
+
+
             if (_move)
             {
-                _character.Move(_info.Speed * (_moveForwardVector) * Time.deltaTime);
+                _character.Move(_velocity * Time.deltaTime);
 
                 if (_dist > _positionTrashHold)
                 {
@@ -210,12 +229,12 @@ namespace com.czeeep.network.player
                 StaffModel.Instance.Shoot(CastDirection.forward);
             }
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetKey(KeyCode.Tab))
             {
                 StaffModel.Instance.Shoot(CastDirection.self);
             }
 
-            if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Tab))
             {
                 StaffModel.Instance.ShootStop();
             }
