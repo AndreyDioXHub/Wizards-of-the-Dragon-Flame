@@ -119,7 +119,7 @@ MonoBehaviour:
   _zone: {fileID: 2100524266032289144}
   _info:
     speed: 0
-    timeToDestroy: 0
+    timeToDestroy: 1
     gravity: -9.8
   _speedFallByCount:
     serializedVersion: 2

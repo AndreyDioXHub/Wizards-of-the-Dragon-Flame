@@ -30,6 +30,15 @@ namespace com.czeeep.network.player
         private Transform _modelBackPackModificator;
         [SerializeField]
         private Transform _modelBackPackSphere;
+
+
+        [SerializeField]
+        private Vector3 _forward;
+        [SerializeField]
+        private List<Vector3> _forwards = new List<Vector3>();
+        [SerializeField]
+        private int _forwardIndex = 0;
+
         /*[SerializeField]
         private Staff _staff;*/
 
@@ -111,6 +120,11 @@ namespace com.czeeep.network.player
                 StaffModel.Instance.Init(this);
                 MagicModel.Instance.Init(this);
                 _info.SetHPView(HitPointView.Instance);
+
+                for(int i=0; i< _forwards.Count - 1; i++)
+                {
+                    _forwards[i] = transform.forward;
+                }
             }
             else
             {
@@ -143,6 +157,29 @@ namespace com.czeeep.network.player
                 return;
             }
 
+            _forwards[_forwardIndex] = transform.forward;
+            _forwardIndex++;
+
+            if(_forwardIndex > _forwards.Count - 1)
+            {
+                _forwardIndex = 0;
+            }
+
+            int weight = 0;
+            int weightTotal = 0;
+            foreach (var f in _forwards)
+            {
+
+                weight++;
+                weightTotal += weight;
+
+                _forward += f * weight;
+                Debug.DrawLine(transform.position, transform.position + f, Color.green);
+            }
+
+            _forward = _forward / weightTotal;
+
+            Debug.DrawLine(transform.position, transform.position + _forward, Color.red);
 
             _isGrounded = _character.isGrounded;
 
@@ -184,7 +221,7 @@ namespace com.czeeep.network.player
             _targetDirectionNormalize = _targetDirection.normalized;
 
 
-            _moveForwardVector = transform.forward;
+            _moveForwardVector = _forward;// transform.forward;
 
             if (Input.GetMouseButton(1) )
             {

@@ -395,7 +395,7 @@ namespace com.czeeep.spell.magicmodel
 
                 if (sm.Info.key.Equals(key))
                 {
-                    sm.AddPower(power);
+                    sm.AddPower(power, direction);
                     needNew = false;
                     break;
                 }

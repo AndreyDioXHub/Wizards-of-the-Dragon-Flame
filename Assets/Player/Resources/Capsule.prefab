@@ -231,7 +231,7 @@ MonoBehaviour:
   _shieldPoint: 0
   _mouseSensitivity: 100
   _speed: 7
-  _acceleration: 3
+  _acceleration: 16
   _slowdown: 1
   _isStuned: 0
   _isGhost: 0
@@ -252,6 +252,34 @@ MonoBehaviour:
   _modelBackPackMagic: {fileID: 2367527461362738189}
   _modelBackPackModificator: {fileID: 5136918549990471324}
   _modelBackPackSphere: {fileID: 6506874533805948202}
+  _forward: {x: 0, y: 0, z: 0}
+  _forwards:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  _forwardIndex: 0
   _point: {fileID: 389773199915887062}
   _ignoreLayers:
     serializedVersion: 2

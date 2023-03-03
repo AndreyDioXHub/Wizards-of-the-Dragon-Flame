@@ -89,7 +89,7 @@ namespace com.czeeep.spell.modificator
             return incomingPowerleft;
         }
 
-        public virtual void AddPower(int power)
+        public virtual void AddPower(int power, Vector3 fromHitWhereDirection)
         {
 
             _timeActionCur = 0;
