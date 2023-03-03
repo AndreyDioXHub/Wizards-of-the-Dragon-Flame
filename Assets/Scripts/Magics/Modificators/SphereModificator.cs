@@ -176,7 +176,8 @@ namespace com.czeeep.spell.modificator
 
         public virtual void DestroyModificator()
         {
-            DoSlowDown();
+            DoSlowDown(); 
+            _playerInfo.SpeedFraud(_info.key, 1);
             Destroy(_element.gameObject);
             Destroy(gameObject);
         }

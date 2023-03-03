@@ -157,6 +157,7 @@ namespace com.czeeep.network.player
                 return;
             }
 
+
             _forwards[_forwardIndex] = transform.forward;
             _forwardIndex++;
 
@@ -181,6 +182,7 @@ namespace com.czeeep.network.player
 
             Debug.DrawLine(transform.position, transform.position + _forward, Color.red);
 
+
             _isGrounded = _character.isGrounded;
 
             if (_isGrounded)
@@ -190,8 +192,12 @@ namespace com.czeeep.network.player
             else
             {
                 _gravity.y += -9.8f * Time.deltaTime;
+
                 _character.Move(_gravity * Time.deltaTime);
+                //_character.Move(_gravity * Time.deltaTime);
             }
+
+            _character.Move(_info.ResultForceDirection * Time.deltaTime);
 
             if (_info.IsStuned)
             {
@@ -247,7 +253,7 @@ namespace com.czeeep.network.player
 
             if (_move)
             {
-                _character.Move((_velocity+_info.ResultForceDirection) * Time.deltaTime);
+                _character.Move((_velocity) * Time.deltaTime);
 
                 if (_dist > _positionTrashHold)
                 {

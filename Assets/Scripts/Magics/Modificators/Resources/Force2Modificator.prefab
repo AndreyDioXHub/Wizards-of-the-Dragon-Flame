@@ -63,12 +63,6 @@ MonoBehaviour:
   _filling: 0
   _fromHitWhereDirection: {x: 0, y: 0, z: 0}
   _element: {fileID: 0}
-  _character: {fileID: 0}
-  _speed: 50
+  _speed: 30
   _timeToDestroy: 2
-  _env:
-    serializedVersion: 2
-    m_Bits: 64
   _vilosity: 0
-  _resultDirection: {x: 0, y: 0, z: 0}
-  _directions: []
