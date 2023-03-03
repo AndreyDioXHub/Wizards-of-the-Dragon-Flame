@@ -97,7 +97,7 @@ public static class MagicConst
         {FIREBALL3, new  ModificatorInfo(4, FIREBALL3, 1f, 5, 90f, 1, 1, 0, new List<string>(){FIRE, FIRE, STUN})},
         {TAUREL, new  ModificatorInfo(4, TAUREL, 1f, 5, 90f, 1, 2, 0, new List<string>(){RAZOR, RAZOR, UNARMOR})},
         {GHOSTING, new  ModificatorInfo(5, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
-        {UNMODIFICATOR, new  ModificatorInfo(5, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
+        {UNMODIFICATOR, new  ModificatorInfo(5, UNMODIFICATOR, 3f, 1, -110f, 1, 1, -10, new List<string>(){})},
         {FIREBALL4, new  ModificatorInfo(5, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
         {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 25, 0f, 0, 0, 0, new List<string>())},
         {ICICLE2, new  ModificatorInfo(5, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},

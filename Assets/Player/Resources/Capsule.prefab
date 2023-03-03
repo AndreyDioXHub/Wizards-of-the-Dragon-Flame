@@ -235,6 +235,11 @@ MonoBehaviour:
   _slowdown: 1
   _isStuned: 0
   _isGhost: 0
+  _directions: []
+  _resultForceDirection: {x: 0, y: 0, z: 0}
+  _forceRayCastMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &-3889067943508537448
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -247,7 +247,7 @@ namespace com.czeeep.network.player
 
             if (_move)
             {
-                _character.Move(_velocity * Time.deltaTime);
+                _character.Move((_velocity+_info.ResultForceDirection) * Time.deltaTime);
 
                 if (_dist > _positionTrashHold)
                 {

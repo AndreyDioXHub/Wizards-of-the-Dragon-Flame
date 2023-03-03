@@ -1,4 +1,5 @@
 using com.czeeep.spell.staffmodel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,9 @@ public class PlayerInfo : MonoBehaviour
 {
     public UnityEvent OnPlayerKnockout;
     public float MouseSensitivity { get => _mouseSensitivity; }
+    public Vector3 ResultForceDirection { get => _resultForceDirection; }
     public float Speed { get => _speed * _slowdown; }
-    public float Acceleration { get => _acceleration; }
+    public float Acceleration { get => _acceleration * _slowdown; }
     public bool IsStuned { get => _isStuned; }
     public float HitPointFill { get => (float)_hitPoint / (float)_hitPointMax; }
     public float ShieldPointFill { get => (float)_shieldPoint / (float)_shieldPointMax; }
@@ -45,7 +47,13 @@ public class PlayerInfo : MonoBehaviour
     private bool _isStuned = false;
     [SerializeField]
     private bool _isGhost = false;
-    //сделать мув поинт с замедлом вращения
+
+    [SerializeField]
+    private List<DirectionAndSpeed> _directions = new List<DirectionAndSpeed>();
+    [SerializeField]
+    private Vector3 _resultForceDirection;
+    [SerializeField]
+    private LayerMask _forceRayCastMask;
 
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
     {
@@ -113,6 +121,11 @@ public class PlayerInfo : MonoBehaviour
         {
             StaffModel.Instance.ShootStop();
         }*/
+    }
+
+    public void AddForceVector(DirectionAndSpeed direction)
+    {
+        _directions.Add(direction);
     }
 
     public void SetHPView(HitPointView hpView)
@@ -248,6 +261,67 @@ public class PlayerInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _resultForceDirection = Vector3.zero;
+
+        float weight = 0;
+        float weightTotal = 0;
+
+        foreach (var d in _directions)
+        {
+            weight++;
+            weightTotal += weight;
+
+            _resultForceDirection += d.direction * d.speed;// * weight;
+        }
+
+        foreach (var d in _directions)
+        {
+            d.speed -= d.vilosity * Time.deltaTime;
+            d.speed = Mathf.Max(d.speed, 0);
+        }
+
+        Debug.DrawLine(transform.position, transform.position + _resultForceDirection.normalized, Color.blue);
+
+        if (Physics.Raycast(transform.position, _resultForceDirection.normalized, out RaycastHit hit, 1, _forceRayCastMask))
+        {
+            Debug.Log($"swap {_directions.Count} ");
+
+            foreach (var d in _directions)
+            {
+                Debug.Log($"swap {d.direction} ");
+                d.direction = -1f * d.direction / 2f;
+                Debug.Log($"swap {d.direction} ");
+            }
+        }
+
+        List<DirectionAndSpeed> directionsForRemove = new List<DirectionAndSpeed>();
+
+
+        for(int i=0; i< _directions.Count; i++)
+        {
+            if (_directions[i].speed == 0)
+            {
+                directionsForRemove.Add(_directions[i]);
+            }
+        }
+
+        foreach(DirectionAndSpeed d in directionsForRemove)
+        {
+            _directions.Remove(d);
+        }
+    }
+}
+
+[Serializable]
+public class DirectionAndSpeed
+{
+    public Vector3 direction;
+    public float speed;
+    public float vilosity;
+    public DirectionAndSpeed(Vector3 direction, float speed, float vilosity)
+    {
+        this.direction = direction;
+        this.speed = speed;
+        this.vilosity = vilosity;
     }
 }

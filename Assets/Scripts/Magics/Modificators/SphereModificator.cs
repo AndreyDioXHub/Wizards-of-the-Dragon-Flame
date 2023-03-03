@@ -151,7 +151,10 @@ namespace com.czeeep.spell.modificator
             if(_info.slowdown != 0)
             {
 
-                float slowdown = 1 - _info.slowdown * (float)((_info.power) * (_info.power) / (float)(_info.maxPower * _info.maxPower));
+                float powerSquar = (float)(_info.power - 1 + _filling) * (_info.power - 1 + _filling);
+                float powerMaxSquar = (float)(_info.maxPower * _info.maxPower);
+
+                float slowdown = 1 - _info.slowdown * powerSquar / powerMaxSquar;
 
                 slowdown = slowdown < 0.1f ? 0.1f : slowdown;
 
