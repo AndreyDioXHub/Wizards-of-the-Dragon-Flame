@@ -99,7 +99,7 @@ public static class MagicConst
         {GHOSTING, new  ModificatorInfo(5, GHOSTING, 1f, 5, 0f, 0, 0, 1, new List<string>(){UNARMOR})},
         {UNMODIFICATOR, new  ModificatorInfo(5, UNMODIFICATOR, 1f, 1, -110f, 1, 1, -10, new List<string>(){})},
         {FIREBALL4, new  ModificatorInfo(5, FIREBALL4, 2f, 5, 110f, 1, 1, 0, new List<string>(){FIRE, FIRE,FIRE,FIRE, STUN, STUN})},
-        {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 5, 0f, 0, 0, 0, new List<string>())},
+        {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 25, 0f, 0, 0, 0, new List<string>())},
         {ICICLE2, new  ModificatorInfo(5, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
         {ICICLE3, new  ModificatorInfo(7, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
         {TORNADO, new  ModificatorInfo(8, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1})},

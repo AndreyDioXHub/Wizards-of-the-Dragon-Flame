@@ -64,4 +64,6 @@ MonoBehaviour:
   _fromHitWhereDirection: {x: 0, y: 0, z: 0}
   _element: {fileID: 0}
   _character: {fileID: 0}
-  _speed: 50
+  _speed: 200
+  _timeToDestroy: 1
+  _vilosity: 0
