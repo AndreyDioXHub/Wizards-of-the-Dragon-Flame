@@ -66,5 +66,9 @@ MonoBehaviour:
   _character: {fileID: 0}
   _speed: 50
   _timeToDestroy: 2
+  _env:
+    serializedVersion: 2
+    m_Bits: 64
   _vilosity: 0
   _resultDirection: {x: 0, y: 0, z: 0}
+  _directions: []

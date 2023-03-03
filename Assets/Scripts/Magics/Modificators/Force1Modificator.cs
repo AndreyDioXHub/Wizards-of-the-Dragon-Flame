@@ -11,10 +11,13 @@ namespace com.czeeep.spell.modificator
     {
         [SerializeField]
         private CharacterController _character;
+
         [SerializeField]
         private float _speed = 10f;
         [SerializeField]
         private float _timeToDestroy = 1;
+        [SerializeField]
+        private LayerMask _env;
 
         [SerializeField]
         private float _vilosity = 0;
@@ -35,6 +38,7 @@ namespace com.czeeep.spell.modificator
             {
                 _directions.Add(new DirectionAndSpeed(fromHitWhereDirection, _speed, _vilosity));
             }
+
         }
 
         public override void DoSlowDown()
@@ -43,28 +47,29 @@ namespace com.czeeep.spell.modificator
 
             if (_character != null)
             {
-                _resultDirection = Vector3.zero;
 
-                /*int weight = 1;
 
-                for(int i=0; i< _directions.Count - 1; i++)
+                /*
+                if (_characterVilosity > _thresholdTurn && _swaped)
                 {
-                    weight +=i;
-                    _resultDirection += _directions[i].direction * _directions[i].speed; // * weight;
+                    Debug.Log("unswap");
+                    _swaped = false;
                 }*/
 
-                int weight = 0;
-                int weightTotal = 0;
+                _resultDirection = Vector3.zero;
+
+                float weight = 0;
+                float weightTotal = 0;
 
                 foreach (var d in _directions)
                 {
-                    weight++;
+                    weight ++;
                     weightTotal += weight;
 
-                    _resultDirection += d.direction * d.speed * (d.speed / _speed);
+                    _resultDirection += d.direction * d.speed * weight;
                 }
 
-                _resultDirection = _resultDirection/(_directions.Count);
+                _resultDirection = _resultDirection / (weightTotal);
 
                 _character.Move(_resultDirection * Time.deltaTime);
 
@@ -72,6 +77,20 @@ namespace com.czeeep.spell.modificator
                 {
                     d.speed -= d.vilosity * Time.deltaTime;
                     d.speed = Mathf.Max(d.speed, 0);
+                }
+
+                Debug.DrawLine(transform.position, transform.position + _resultDirection.normalized, Color.blue);
+
+                if (Physics.Raycast(transform.position, _resultDirection.normalized, out RaycastHit hit, 1, _env))
+                {
+                    Debug.Log($"swap {_directions.Count} ");
+
+                    foreach (var d in _directions)
+                    {
+                        Debug.Log($"swap {d.direction} ");
+                        d.direction = -1f * d.direction / 2f;
+                        Debug.Log($"swap {d.direction} ");
+                    }
                 }
             }
         }
