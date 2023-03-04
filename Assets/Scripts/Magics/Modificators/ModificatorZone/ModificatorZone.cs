@@ -16,7 +16,7 @@ namespace com.czeeep.spell.biom
         public static readonly int MAX_VALUE = 10;
 
         [SerializeField]
-        private List<ModificatorZonePart> _parts = new List<ModificatorZonePart>();
+        protected List<ModificatorZonePart> _parts = new List<ModificatorZonePart>();
 
         [SerializeField]
         private Tick _tick;
@@ -60,6 +60,16 @@ namespace com.czeeep.spell.biom
 
             //Get my increase and decrease modification
             GetMyModificators();
+        }
+
+        public virtual void Start()
+        {
+
+        }
+
+        public virtual void Update()
+        {
+
         }
 
         [ContextMenu("Add New Part")]
@@ -152,6 +162,7 @@ namespace com.czeeep.spell.biom
         {
             _player = null;
         }*/
+
 
         public void AddModificator() 
         {

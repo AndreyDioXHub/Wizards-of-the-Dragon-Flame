@@ -7,6 +7,7 @@ using UnityEngine;
 
 public static class MagicConst
 {
+    public static readonly string MY_LAZER_MASK = "MyLaser";
     public static readonly string ERROR_KEY = "error key";
     public static readonly string TYPE_SPRAY = "spray";
     public static readonly string TYPE_LAZER = "lazer";

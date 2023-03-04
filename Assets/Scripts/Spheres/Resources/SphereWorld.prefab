@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3949965127855374614}
   - component: {fileID: 3949965127855374612}
   - component: {fileID: 3949965127855374615}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'sphere '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 3949965128032651947}
   - component: {fileID: 3949965128032651946}
   - component: {fileID: 3949965128032651957}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SphereWorld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,3 +241,6 @@ MonoBehaviour:
   _element: 4
   _count: 5
   _image: {fileID: 3949965127855374612}
+  startHeight: 120
+  rayDistance: 500
+  adjustHeight: 1.4
