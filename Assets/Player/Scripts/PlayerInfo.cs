@@ -54,6 +54,8 @@ public class PlayerInfo : MonoBehaviour
     private Vector3 _resultForceDirection;
     [SerializeField]
     private LayerMask _forceRayCastMask;
+    [SerializeField]
+    private AnimationCurve _bounceMultiplierCurve;
 
     private Dictionary<string, float> _slowdownDictionary = new Dictionary<string, float>()
     {
@@ -282,15 +284,20 @@ public class PlayerInfo : MonoBehaviour
 
         Debug.DrawLine(transform.position, transform.position + _resultForceDirection.normalized, Color.blue);
 
-        if (Physics.Raycast(transform.position, _resultForceDirection.normalized, out RaycastHit hit, 1, _forceRayCastMask))
+        if (Physics.Raycast(transform.position, _resultForceDirection.normalized, out RaycastHit hit, 1.2f, _forceRayCastMask))
         {
-            Debug.Log($"swap {_directions.Count} ");
+            Debug.DrawLine(transform.position, hit.point, Color.red, 5f);
+
+            Vector3 reflect = Vector3.Reflect(_resultForceDirection.normalized, hit.normal);
+
+            Debug.DrawLine(hit.point, hit.point + reflect, Color.green, 5f);
+
+            float bounceMultiplier = _bounceMultiplierCurve.Evaluate(Vector3.Dot(_resultForceDirection.normalized, transform.forward));
 
             foreach (var d in _directions)
             {
-                Debug.Log($"swap {d.direction} ");
-                d.direction = -1f * d.direction / 2f;
-                Debug.Log($"swap {d.direction} ");
+                d.direction = reflect;
+                d.speed = d.speed * bounceMultiplier;
             }
         }
 
