@@ -118,7 +118,9 @@ public class SphereWorld : MonoBehaviour
         _count = count;
         switch (element) {
             case SpheresElements.life:
-                _image.color = new Color(0, 1, 0, 1);
+                Destroy(_image.gameObject);
+                Instantiate(Resources.Load<GameObject>("LifeSphereParticles"), transform);
+                //_image.color = new Color(0, 1, 0, 1);
                 break;
             case SpheresElements.fire:
                 _image.color = new Color(1, 0.33f, 0, 1);
@@ -138,7 +140,9 @@ public class SphereWorld : MonoBehaviour
                 _image.color = new Color(0, 1, 1, 1);
                 break;
             case SpheresElements.dark:
-                _image.color = new Color(0, 0, 0, 1);
+                Destroy(_image.gameObject);
+                Instantiate(Resources.Load<GameObject>("DarkSphereParticles"), transform);
+                //_image.color = new Color(0, 0, 0, 1);
                 break;
             case SpheresElements.shield:
                 _image.color = new Color(1, 0.9f, 0, 1);
