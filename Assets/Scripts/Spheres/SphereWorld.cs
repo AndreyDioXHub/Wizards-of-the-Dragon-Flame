@@ -53,11 +53,17 @@ public class SphereWorld : MonoBehaviour
             } else {
                 MagicModel.Instance.AddSphere(_element.ToString(), _count);
                 //Debug.Log($"SphereWorld: Added {_element}: {_count}");
+
                 Destroy(gameObject);
             }
 
+            GameObject eatEffect = Instantiate(Resources.Load<GameObject>("WorldSphereEatEffect"));
+            eatEffect.transform.position = transform.position;
+
         }
     }
+
+    
 
     void OnDestroy() {
         
