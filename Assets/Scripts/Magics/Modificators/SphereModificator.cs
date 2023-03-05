@@ -139,10 +139,15 @@ namespace com.czeeep.spell.modificator
                 _timeActionCur = 0;
                 _info.power --;
 
-                if (_info.power <= 0)
-                {
-                    DestroyModificator();
-                }
+                InfoPowerLessZero();
+            }
+        }
+
+        public virtual void InfoPowerLessZero()
+        {
+            if (_info.power <= 0)
+            {
+                DestroyModificator();
             }
         }
 

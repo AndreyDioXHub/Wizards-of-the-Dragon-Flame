@@ -350,7 +350,7 @@ namespace com.czeeep.spell.magicmodel
         [ContextMenu("Add Modificator")]
         public void AddModificator()
         {
-            AddModificator(MagicConst.FORCE1, 7, PlayerNetwork.LocalPlayerInstance.transform.forward);
+            AddModificator(MagicConst.KNOCKOUT, 1, PlayerNetwork.LocalPlayerInstance.transform.forward);
         }
 
 

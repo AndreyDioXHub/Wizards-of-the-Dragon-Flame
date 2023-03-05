@@ -1,3 +1,5 @@
+using com.czeeep.network.player;
+using com.czeeep.spell.magicmodel;
 using com.czeeep.spell.staffmodel;
 using System;
 using System.Collections;
@@ -8,11 +10,14 @@ using UnityEngine.Events;
 public class PlayerInfo : MonoBehaviour
 {
     public UnityEvent OnPlayerKnockout;
+    public UnityEvent OnPlayerDead;
     public float MouseSensitivity { get => _mouseSensitivity; }
     public Vector3 ResultForceDirection { get => _resultForceDirection; }
     public float Speed { get => _speed * _slowdown; }
     public float Acceleration { get => _acceleration * _slowdown; }
     public bool IsStuned { get => _isStuned; }
+    public bool IsKnockout { get => _isKnockout; }
+    public bool IsDeadRevival { get => _isDeadRevival; }
     public float HitPointFill { get => (float)_hitPoint / (float)_hitPointMax; }
     public float ShieldPointFill { get => (float)_shieldPoint / (float)_shieldPointMax; }
 
@@ -43,6 +48,11 @@ public class PlayerInfo : MonoBehaviour
     private float _acceleration = 5;
     [SerializeField]
     private float _slowdown = 1;
+
+    [SerializeField]
+    private bool _isKnockout = false;
+    [SerializeField]
+    private bool _isDeadRevival = false;
     [SerializeField]
     private bool _isStuned = false;
     [SerializeField]
@@ -70,6 +80,70 @@ public class PlayerInfo : MonoBehaviour
     {
         {"base", false }
     };
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        _resultForceDirection = Vector3.zero;
+
+        float weight = 0;
+        float weightTotal = 0;
+
+        foreach (var d in _directions)
+        {
+            weight++;
+            weightTotal += weight;
+
+            _resultForceDirection += d.direction * d.speed;// * weight;
+        }
+
+        foreach (var d in _directions)
+        {
+            d.speed -= d.vilosity * Time.deltaTime;
+            d.speed = Mathf.Max(d.speed, 0);
+        }
+
+        Debug.DrawLine(transform.position, transform.position + _resultForceDirection.normalized, Color.blue);
+
+        if (Physics.Raycast(transform.position, _resultForceDirection.normalized, out RaycastHit hit, 1.2f, _forceRayCastMask))
+        {
+            Debug.DrawLine(transform.position, hit.point, Color.red, 5f);
+
+            Vector3 reflect = Vector3.Reflect(_resultForceDirection.normalized, hit.normal);
+
+            Debug.DrawLine(hit.point, hit.point + reflect, Color.green, 5f);
+
+            float bounceMultiplier = _bounceMultiplierCurve.Evaluate(Vector3.Dot(_resultForceDirection.normalized, transform.forward));
+
+            foreach (var d in _directions)
+            {
+                d.direction = reflect;
+                d.speed = d.speed * bounceMultiplier;
+            }
+        }
+
+        List<DirectionAndSpeed> directionsForRemove = new List<DirectionAndSpeed>();
+
+
+        for (int i = 0; i < _directions.Count; i++)
+        {
+            if (_directions[i].speed == 0)
+            {
+                directionsForRemove.Add(_directions[i]);
+            }
+        }
+
+        foreach (DirectionAndSpeed d in directionsForRemove)
+        {
+            _directions.Remove(d);
+        }
+    }
 
     public void SetStun(string key, bool isStuned)
     {
@@ -164,19 +238,35 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
-    //must be private
     private void MakeHitPointDamage(float damage)
     {
-        _hitPoint -= damage;
-
-        if (_hitPoint > _hitPointMax)
+        if (_isDeadRevival)
         {
-            _hitPoint = _hitPointMax;
+
         }
-
-        if (_hitPoint <= 0)
+        else
         {
-            OnPlayerKnockout?.Invoke();
+            _hitPoint -= damage;
+
+            if (_hitPoint > _hitPointMax)
+            {
+                _hitPoint = _hitPointMax;
+            }
+
+            if (_hitPoint <= 0)
+            {
+                if (_isKnockout)
+                {
+                    SetDeadRevival(true);
+                    OnPlayerDead?.Invoke();
+                }
+                else
+                {
+                    _hitPoint = _hitPointMax;
+                    SetKnockout(true);
+                    OnPlayerKnockout?.Invoke();
+                }
+            }
         }
 
         if (_hpView != null)
@@ -184,6 +274,29 @@ public class PlayerInfo : MonoBehaviour
             _hpView.DrawHP(HitPointFill, ShieldPointFill);
         }
     }
+
+    public void SetKnockout(bool isKnockout)
+    {
+        _isKnockout = isKnockout;
+
+        if (isKnockout)
+        {
+            MagicModel.Instance.AddModificator(MagicConst.KNOCKOUT, 1, PlayerNetwork.LocalPlayerInstance.transform.forward);
+
+        }
+    }
+
+    public void SetDeadRevival(bool isDeadRevival)
+    {
+        _isDeadRevival = isDeadRevival;
+
+        if (isDeadRevival)
+        {
+            _hitPoint = 0;
+            MagicModel.Instance.AddModificator(MagicConst.DEADREVIVAL, 1, PlayerNetwork.LocalPlayerInstance.transform.forward);
+        }
+    }
+
 
     public void MakeDamage(float damage, float hpMultyplier = 1, float spMultyplier = 1)
     {
@@ -248,73 +361,16 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
-    public void KnockoutRevive()
+    public void Revive()
     {
-        _hitPoint = _hitPointMax;
-        _shieldPoint = _shieldPointMax;
-    }
+        _hitPoint = _hitPointMax/5;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        _resultForceDirection = Vector3.zero;
-
-        float weight = 0;
-        float weightTotal = 0;
-
-        foreach (var d in _directions)
+        _isDeadRevival = false;
+        _isKnockout = false;
+        //_shieldPoint = _shieldPointMax;
+        if (_hpView != null)
         {
-            weight++;
-            weightTotal += weight;
-
-            _resultForceDirection += d.direction * d.speed;// * weight;
-        }
-
-        foreach (var d in _directions)
-        {
-            d.speed -= d.vilosity * Time.deltaTime;
-            d.speed = Mathf.Max(d.speed, 0);
-        }
-
-        Debug.DrawLine(transform.position, transform.position + _resultForceDirection.normalized, Color.blue);
-
-        if (Physics.Raycast(transform.position, _resultForceDirection.normalized, out RaycastHit hit, 1.2f, _forceRayCastMask))
-        {
-            Debug.DrawLine(transform.position, hit.point, Color.red, 5f);
-
-            Vector3 reflect = Vector3.Reflect(_resultForceDirection.normalized, hit.normal);
-
-            Debug.DrawLine(hit.point, hit.point + reflect, Color.green, 5f);
-
-            float bounceMultiplier = _bounceMultiplierCurve.Evaluate(Vector3.Dot(_resultForceDirection.normalized, transform.forward));
-
-            foreach (var d in _directions)
-            {
-                d.direction = reflect;
-                d.speed = d.speed * bounceMultiplier;
-            }
-        }
-
-        List<DirectionAndSpeed> directionsForRemove = new List<DirectionAndSpeed>();
-
-
-        for(int i=0; i< _directions.Count; i++)
-        {
-            if (_directions[i].speed == 0)
-            {
-                directionsForRemove.Add(_directions[i]);
-            }
-        }
-
-        foreach(DirectionAndSpeed d in directionsForRemove)
-        {
-            _directions.Remove(d);
+            _hpView.DrawHP(HitPointFill, ShieldPointFill);
         }
     }
 }

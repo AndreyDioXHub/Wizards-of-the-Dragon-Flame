@@ -63,6 +63,8 @@ public static class MagicConst
     public static readonly string ENERGYBLAST = "energyblast";
     public static readonly string ICEBLAST = "iceblast";
     public static readonly string UNARMOR = "unarmor";
+    public static readonly string KNOCKOUT = "knockout";
+    public static readonly string DEADREVIVAL = "deadrevival";
 
     //tir, key, time, power, maxPower, damageFull, multiplierHitPoint, multiplierShieldPoint, slowdown, unArmor,
     //List<string> additionalEffects, type, List<string> meltCastSequences
@@ -103,14 +105,16 @@ public static class MagicConst
         {FORCE2, new  ModificatorInfo(5, FORCE2, 2f, 25, 0f, 0, 0, 0, new List<string>())},
         {ICICLE2, new  ModificatorInfo(5, ICICLE2, 1f, 5, 110f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE, STUN, STUN})},
         {ICICLE3, new  ModificatorInfo(7, ICICLE3, 2f, 5, 160f, 2, 1, 0, new List<string>(){FREEZE, FREEZE, FREEZE,  FREEZE, STUN, STUN, STUN})},
-        {TORNADO, new  ModificatorInfo(8, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE2, FORCE2, FORCE1, FORCE1, FORCE1})},
-        {REVIVAL, new  ModificatorInfo(10, REVIVAL, 1f, 5, 0f, 0, 0, 0, new List<string>())},
+        {TORNADO, new  ModificatorInfo(8, TORNADO, 5f, 5, 190f, 1, 1, 0, new List<string>(){FORCE2, FORCE1 })},
+        {REVIVAL, new  ModificatorInfo(10, REVIVAL, 1f, 1, 0f, 0, 0, 0, new List<string>())},
         {METEOR, new  ModificatorInfo(10, METEOR, 5f, 1, 280f, 1, 1, 0, new List<string>(){FIRE, FIRE, FIRE, FIRE, FIRE, STUN, STUN, STUN})},
-        {BLAST, new  ModificatorInfo(12, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {FIREBLAST, new  ModificatorInfo(13, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ENERGYBLAST, new  ModificatorInfo(14, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {ICEBLAST, new  ModificatorInfo(15, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE1, FORCE1, FORCE1, FORCE1, FORCE1, STUN, STUN, STUN})},
-        {STUN, new  ModificatorInfo(1, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())}
+        {BLAST, new  ModificatorInfo(12, BLAST, 5f, 1, 336f, 1, 1, 0, new List<string>(){FORCE2, STUN, STUN, STUN})},
+        {FIREBLAST, new  ModificatorInfo(13, FIREBLAST, 5f, 1, 400f, 1, 1, 0, new List<string>(){FIRE, FORCE2, STUN, STUN, STUN})},
+        {ENERGYBLAST, new  ModificatorInfo(14, ENERGYBLAST, 5f, 1, 480f, 1, 2, 0, new List<string>(){RAZOR, FORCE2, STUN, STUN, STUN})},
+        {ICEBLAST, new  ModificatorInfo(15, ICEBLAST, 5f, 1, 575f, 2, 1, 0, new List<string>(){FREEZE, FORCE2, STUN, STUN, STUN})},
+        {STUN, new  ModificatorInfo(1, STUN, 1f, 5, 0f, 0, 0, 0, new List<string>())},
+        {KNOCKOUT, new  ModificatorInfo(1, KNOCKOUT, 20f, 1, 0f, 0, 0, 0.3f, new List<string>())},
+        {DEADREVIVAL, new  ModificatorInfo(1, DEADREVIVAL, 20f, 1, 0, 0, 0, 0, new List<string>())}
     };
 
     public static readonly Dictionary<string, string> MODIFICATOR_BY_KEY = new Dictionary<string, string>()
@@ -127,6 +131,8 @@ public static class MagicConst
         {ICE,"IceModificator" },
         {SHIELD,"ShieldModificator" },
         {STUN,"StunModificator" },
+        {KNOCKOUT,"KnockoutModificator" },
+        {DEADREVIVAL,"DeadRevivalModificator" },
         {FIREBALL1,"FireBall1Modificator" },
         {DARKBALL,"DarkBallModificator" },
         {SPEEDUP,"SpeedUpModificator" },
@@ -208,7 +214,7 @@ public static class MagicConst
         {ICICLE2,TYPE_PROJECTILE },
         {ICICLE3,TYPE_PROJECTILE },
         {TORNADO,TYPE_LAZER },
-        {REVIVAL,TYPE_PROJECTILE },
+        {REVIVAL,TYPE_LAZER },
         {METEOR,TYPE_PROJECTILE },
         {BLAST,TYPE_BLAST },
         {FIREBLAST,TYPE_BLAST },
