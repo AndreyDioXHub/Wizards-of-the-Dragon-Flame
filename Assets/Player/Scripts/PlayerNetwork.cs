@@ -23,6 +23,8 @@ namespace com.czeeep.network.player
         [SerializeField]
         private CharacterController _character;
         [SerializeField]
+        private Collider _characterCapsule;
+        [SerializeField]
         private PlayerInfo _info;
         [SerializeField]
         private Transform _modelBackPackMagic;
@@ -125,6 +127,8 @@ namespace com.czeeep.network.player
                 {
                     _forwards[i] = transform.forward;
                 }
+
+                Destroy(_characterCapsule);
             }
             else
             {
