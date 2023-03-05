@@ -23,7 +23,7 @@ namespace com.czeeep.spell.modificator
 
                 if (_info.power <= 0)
                 {
-                    Debug.Log("Revive");
+                    //Debug.Log("Revive");
                     _playerInfo.Revive();
                     DestroyModificator();
                 }
