@@ -118,7 +118,9 @@ public class SphereWorld : MonoBehaviour
                 _image.color = new Color(1, 0.33f, 0, 1);
                 break;
             case SpheresElements.water:
-                _image.color = new Color(0.56f, 0.62f, 1, 1);
+                Destroy(_image.gameObject);
+                Instantiate(Resources.Load<GameObject>("WaterSphereParticles"), transform);
+                //_image.color = new Color(0.56f, 0.62f, 1, 1);
                 break;
             case SpheresElements.earth:
                 _image.color = new Color(0.54f, 0.38f, 0.18f, 1);

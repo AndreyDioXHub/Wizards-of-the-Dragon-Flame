@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2642601302486525056}
   - component: {fileID: 2642601302486525057}
   - component: {fileID: 2642601302486525058}
+  - component: {fileID: 886922532203017559}
   - component: {fileID: 1000369744147566931}
   - component: {fileID: 1426536023637082926}
   - component: {fileID: -3889067943508537448}
@@ -176,6 +177,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &886922532203017559
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642601302486525059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1000369744147566931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,19 +223,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnPlayerKnockout:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1426536023637082926}
-        m_TargetAssemblyTypeName: PlayerInfo, Assembly-CSharp
-        m_MethodName: KnockoutRevive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  OnPlayerDead:
+    m_PersistentCalls:
+      m_Calls: []
   _hpView: {fileID: 0}
   _hitPointMax: 500
   _shieldPointMax: 500
@@ -233,6 +239,8 @@ MonoBehaviour:
   _speed: 7
   _acceleration: 16
   _slowdown: 1
+  _isKnockout: 0
+  _isDeadRevival: 0
   _isStuned: 0
   _isGhost: 0
   _directions: []
@@ -277,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 2642601302486525058}
+  _characterCapsule: {fileID: 886922532203017559}
   _info: {fileID: 1426536023637082926}
   _modelBackPackMagic: {fileID: 2367527461362738189}
   _modelBackPackModificator: {fileID: 5136918549990471324}

@@ -72,6 +72,17 @@ namespace com.czeeep.spell.biom
 
         }
 
+        [ContextMenu("Collect Modificator Zone Part")]
+        public void CollectModificatorZonePart()
+        {
+            var parts = gameObject.GetComponentsInChildren<ModificatorZonePart>();
+
+            foreach(var p in parts)
+            {
+                _parts.Add(p);
+            }
+        }
+
         [ContextMenu("Add New Part")]
         public void AddNewPart()
         {   

@@ -17,20 +17,24 @@ namespace com.czeeep.spell.biom
         private float _laserLenghtPisechkaPercent = 1.01f;
         [SerializeField]
         private LayerMask _otherThinkMask;
+        [SerializeField]
+        private LayerMask _laserMask;
+        [SerializeField]
+        private bool _checkCros = true;
 
 
         public override void Start()
         {
             base.Start();
 
-            foreach (var part in _partAnchors)
+            /*foreach (var part in _partAnchors)
             {
                 part.gameObject.layer = LayerMask.NameToLayer(MagicConst.MY_LAZER_MASK); 
                 for(int i=0; i< part.childCount; i++)
                 {
                     part.GetChild(i).gameObject.layer = LayerMask.NameToLayer(MagicConst.MY_LAZER_MASK); 
                 }
-            }
+            }*/
         }
 
 
@@ -59,7 +63,28 @@ namespace com.czeeep.spell.biom
                 }
             }
 
+            if (_checkCros)
+            {
+                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit laserHit, _laserLenght, _laserMask))
+                {
+
+                    Debug.DrawLine(transform.position, laserHit.point, Color.green);
+                    var allPartScale = (Vector3.Distance(transform.position, laserHit.point) / _laserLenght);
+                    allPartScale = allPartScale * _laserLenght * _laserLenghtPisechkaPercent;
+
+                    foreach (var part in _partAnchors)
+                    {
+                        part.localScale = new Vector3(1, 1, allPartScale);
+                    }
+
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position, transform.position + transform.forward * _laserLenght * _laserLenghtPisechkaPercent, Color.green);
+                }
+            }
             
+
         }
 
     }

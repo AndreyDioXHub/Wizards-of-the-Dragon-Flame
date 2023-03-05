@@ -128,10 +128,12 @@ public class Projectile : MonoBehaviourPunCallbacks, IPunObservable
         {
             _info = value;
         }*/
-        _info.speed = _info.speed * _speedFallByCount.Evaluate(( _maxCount - _speedPowerFromFunction) / _maxCount);
+
+        _info.speed = _info.speed * _speedFallByCount.Evaluate((_speedPowerFromFunction - 1) / _maxCount);
 
         _vilosity = _info.speed / _info.timeToDestroy;
         _zone.UpdateInfo(_element, _power);
+        Debug.Log($"InitInit {_info.speed} {(_speedPowerFromFunction - 1) / _maxCount}");
     }
 
     public void UpdateInfo(string element, int power, int speedPower) 
