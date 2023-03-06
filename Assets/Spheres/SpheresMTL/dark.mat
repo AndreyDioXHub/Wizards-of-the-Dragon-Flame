@@ -67,18 +67,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Ambient_Intensity: 1
-    - _Cracks_Depth_Brightness: 0.2
-    - _Cracks_Depth_Intensity: 10
+    - _Ambient_Intensity: 0.462
+    - _Cracks_Depth_Brightness: 0
+    - _Cracks_Depth_Intensity: 20
     - _Cracks_Sample_Offset: -0.003
     - _Cracks_Samples: 40
     - _Cracks_Scale: 1
-    - _Cracks_Surface_Intesnity: 2.9
+    - _Cracks_Surface_Intesnity: 10
     - _Cracks_Texture_LOD: 3.54
-    - _Depth: 10
+    - _Depth: 20
     - _DepthFalloff: 15
     - _Depth_Brightness: 0.2
-    - _Depth_Falloff: 20
+    - _Depth_Falloff: 40
     - _Depth_Intensity: 1
     - _Depth_Transaprency_Noise_Scale: 0.36
     - _Depth_Transparency_Distortion_Strength: 0.0062
@@ -115,7 +115,7 @@ Material:
     - _Color_Top: {r: 1, g: 1, b: 1, a: 0}
     - _Cracks_Tint: {r: 1, g: 0.9983948, b: 0.740566, a: 0}
     - _Offcet: {r: 11.9, g: 0, b: 0, a: 0}
-    - _Offset: {r: 3.319221, g: 3.319221, b: 0, a: 0}
+    - _Offset: {r: 4.6245146, g: 4.6245146, b: 0, a: 0}
     - _Tint: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &838476239546167524
