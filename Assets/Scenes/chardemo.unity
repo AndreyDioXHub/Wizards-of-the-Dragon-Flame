@@ -400,7 +400,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 1024
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -1327,7 +1335,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 2
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -2676,7 +2692,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 16
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -5860,7 +5884,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 64
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -6090,6 +6122,7 @@ GameObject:
   - component: {fileID: 1646722137}
   - component: {fileID: 1646722136}
   - component: {fileID: 1646722138}
+  - component: {fileID: 1646722139}
   m_Layer: 0
   m_Name: MaterialAnimationManager
   m_TagString: Untagged
@@ -6104,7 +6137,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646722135}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b4ba8eaa13fed745a3ac69ba41be9ba, type: 3}
   m_Name: 
@@ -6146,6 +6179,7 @@ MonoBehaviour:
   _particleMTL:
   - {fileID: 2100000, guid: 526739bb0fb95284ca55bd821ef722a0, type: 2}
   - {fileID: 2100000, guid: 8eb17499fce5c7440b25afa6fdfbfd0b, type: 2}
+  - {fileID: 2100000, guid: b6aff19f251f9c443aa70bae64039303, type: 2}
 --- !u!4 &1646722137
 Transform:
   m_ObjectHideFlags: 0
@@ -6168,7 +6202,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646722135}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b4ba8eaa13fed745a3ac69ba41be9ba, type: 3}
   m_Name: 
@@ -6208,7 +6242,30 @@ MonoBehaviour:
   _timeCur: 0
   _index: 0
   _particleMTL:
-  - {fileID: 2100000, guid: b6aff19f251f9c443aa70bae64039303, type: 2}
+  - {fileID: 2100000, guid: caded4844062fc34eb3d8f96d7dd88ed, type: 2}
+--- !u!114 &1646722139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646722135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bf0ffa1f50b384e83c2ab5a56d7a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _iceMTLs:
+  - {fileID: 2100000, guid: ef6396f9446934c409be18b34181615d, type: 2}
+  - {fileID: 2100000, guid: a920ea32186c4b2449dc731846d99579, type: 2}
+  - {fileID: 2100000, guid: d126f4e89b945eb4d87d945196dd9083, type: 2}
+  - {fileID: 2100000, guid: d01e8f273614be54491f9e74ad6730a7, type: 2}
+  - {fileID: 2100000, guid: 47833ffa03f972c408079b5b2db8c4d1, type: 2}
+  - {fileID: 2100000, guid: bdef5850c1700b6429f1e5a5b8f058b9, type: 2}
+  - {fileID: 2100000, guid: 0039a712031ff3248b2b7c1748ecd564, type: 2}
+  - {fileID: 2100000, guid: 11b1aaa92fcb4754f8f70e9c8637a61c, type: 2}
+  _offcet: {x: 0, y: 0}
+  _speed: 0.2
 --- !u!1 &1653536283
 GameObject:
   m_ObjectHideFlags: 0
@@ -6941,7 +6998,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 32
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -7917,7 +7982,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 1
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -8300,7 +8373,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _element: 8
   _count: 5
-  _image: {fileID: 0}
+  _renderer: {fileID: 0}
+  _lifeMTL: {fileID: 0}
+  _fireMTL: {fileID: 0}
+  _waterMTL: {fileID: 0}
+  _earthMTL: {fileID: 0}
+  _freezeMTL: {fileID: 0}
+  _razorMTL: {fileID: 0}
+  _darkMTL: {fileID: 0}
+  _shieldMTL: {fileID: 0}
   startHeight: 120
   rayDistance: 500
   adjustHeight: 1.4
@@ -9232,7 +9313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6060538889839741265, guid: 116283841029dae4e80f7e9afef601eb, type: 3}
       propertyPath: _config.MaxSpheresTotal
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116283841029dae4e80f7e9afef601eb, type: 3}
