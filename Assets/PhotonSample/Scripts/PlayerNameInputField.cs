@@ -9,7 +9,7 @@ namespace com.cyraxchel.pun {
 
     [RequireComponent(typeof(TMP_InputField))]
     public class PlayerNameInputField : MonoBehaviour {
-        #region Provate Constants
+        #region Private Constants
 
         const string playerNamePrefKey = "PlayerName";
 

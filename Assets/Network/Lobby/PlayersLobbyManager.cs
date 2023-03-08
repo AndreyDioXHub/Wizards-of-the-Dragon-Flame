@@ -6,7 +6,7 @@ using System;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace com.czeeep.network {
+namespace com.czeeep.network.menu {
 
     public class PlayersLobbyManager :  MonoBehaviourPunCallbacks {
         public static PlayersLobbyManager Instance;
@@ -20,15 +20,17 @@ namespace com.czeeep.network {
         private byte maxPlayersPerTeam = 4;
 
         [Tooltip("Max number players in match"), SerializeField]
-        private byte maxPlayersPerMathc = 30;
+        private byte maxPlayersPerMatch = 30;
         #endregion
 
         #region Private fields
 
-        string gameVersion = "1";
+        string gameVersion = "1.1";
         bool isConnecting = false;
+        ConnectionStatus status = ConnectionStatus.none;
         IConnection _playerConnection;
-
+        bool onlyJoin = false;
+        
         #endregion
 
         #region MONOBEHAVIOUR CALLBACKS
@@ -40,7 +42,7 @@ namespace com.czeeep.network {
 
 
         void Start() {
-            roomName = GenerateRoomName(6);
+            //roomName = GenerateRoomName(6);
         }
 
         #endregion
@@ -52,11 +54,15 @@ namespace com.czeeep.network {
             if(isConnecting && _playerConnection !=null) {
                 _playerConnection.ConnectedToPun();
             }
+            if(status == ConnectionStatus.friendroom) {
+                ConnectToFriendRoom(roomName, onlyJoin);
+            }
         }
 
         public override void OnDisconnected(DisconnectCause cause) {
             base.OnDisconnected(cause);
             isConnecting = false;
+            status = ConnectionStatus.none;
             
         }
 
@@ -73,7 +79,10 @@ namespace com.czeeep.network {
         public override void OnJoinedRoom() {
             base.OnJoinedRoom();
             //TODO
-
+            if(_playerConnection != null && status == ConnectionStatus.friendroom) {
+                _playerConnection.ConnectedToFriendRoom(roomName);
+            }
+            status = ConnectionStatus.none;     //Clear connections status
         }
 
 
@@ -88,11 +97,24 @@ namespace com.czeeep.network {
             } 
         }
 
-        public void ConnectToFriendRoom(string _roomName = "") {
-            if(string.IsNullOrEmpty(_roomName) ) {
-                //Create room
+        public void ConnectToFriendRoom(string _roomName = "", bool dontcreate = false) {
+            roomName = _roomName;
+            onlyJoin = dontcreate;
+            if (PhotonNetwork.IsConnected) {
+                RoomOptions ropt = new RoomOptions() {
+                    MaxPlayers = maxPlayersPerTeam,
+                    PublishUserId = true
+                };
+                if(dontcreate) {
+                    PhotonNetwork.JoinRoom(_roomName);
+                } else {
+                    PhotonNetwork.JoinOrCreateRoom(_roomName, ropt, TypedLobby.Default);
+                }
+                
+                
             } else {
-                //Try connect to room
+                status = ConnectionStatus.friendroom;
+                ConnectToMaster();
             }
         }
 
@@ -113,7 +135,6 @@ namespace com.czeeep.network {
         }
 
 
-
         #endregion
 
         #region PUBLIC STATIC
@@ -128,5 +149,11 @@ namespace com.czeeep.network {
 
         #endregion
 
+    }
+
+    public enum ConnectionStatus {
+        none,
+        friendroom,
+        battleroom
     }
 }

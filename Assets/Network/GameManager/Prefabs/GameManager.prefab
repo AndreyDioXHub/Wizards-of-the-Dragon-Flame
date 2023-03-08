@@ -70,7 +70,6 @@ MonoBehaviour:
       y: 0
       width: 1000
       height: 1000
-    MaxSpheresInGroup: 200
     MaxSpheresTotal: 9600
 --- !u!114 &5197955819643881968
 MonoBehaviour:

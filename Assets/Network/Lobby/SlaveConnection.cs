@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.czeeep.network {
+namespace com.czeeep.network.menu {
     public class SlaveConnection : MonoBehaviour, IConnection {
+
+        #region Private Fields
+        string roomName = string.Empty;
+        #endregion
 
         #region IConnection
         public void ConnectedToButtleRoom() {
@@ -32,6 +36,23 @@ namespace com.czeeep.network {
         // Update is called once per frame
         void Update() {
 
+        }
+
+        private void OnEnable() {
+            PlayersLobbyManager.Instance.RegisterUserConnection(this);
+        }
+        private void OnDisable() {
+            PlayersLobbyManager.Instance.UnregisterUserConnection(this);
+        }
+
+        public void ReadRoomName(string _roomname) {
+            roomName = _roomname;
+        }
+
+        public void ConnectToFriendRoom() {
+            if(!string.IsNullOrEmpty(roomName)) {
+                PlayersLobbyManager.Instance.ConnectToFriendRoom(roomName);
+            }
         }
     }
 }
