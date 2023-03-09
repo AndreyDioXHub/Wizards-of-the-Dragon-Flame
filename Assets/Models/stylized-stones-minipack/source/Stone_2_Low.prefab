@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 4398993413578510957}
   - component: {fileID: 2608626084221386975}
   - component: {fileID: 3136767791452004126}
+  - component: {fileID: 2935704256415627527}
   m_Layer: 0
   m_Name: Stone_2_Low
   m_TagString: Untagged
@@ -135,3 +136,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2935704256415627527
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186869180126778199}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5832982, y: 0.5770607, z: 0.4282973}
+  m_Center: {x: 0.019254878, y: -0.02700915, z: 0.00821037}
